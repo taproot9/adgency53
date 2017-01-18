@@ -11,6 +11,20 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/home', function () {
+    return view('index');
+});
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index');
+
+
+
+
