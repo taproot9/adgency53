@@ -6,9 +6,8 @@
 
 @section('nav')
 
-
     <li class="active"><a href="{{url('/')}}">Home</a></li>
-    <li><a href="adspace.html">AdSpaces</a></li>
+    <li><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
     <li><a href="about-us.html">About Us</a></li>
     <!--<li><a href="services.html">Services</a></li>-->
     <li><a href="portfolio.html">Portfolio</a></li>
@@ -38,8 +37,8 @@
 
                 @if(Auth::user()->role_id == 3)
 
-                    <li><a href="#">MyPost</a></li>
-                    <li><a href="#">Add Post</a></li>
+                    <li><a href="#">My Post</a></li>
+                    <li><a href="{{url('/owner/create_posts')}}">Add Post</a></li>
                     <li><a href="#">Subscription</a></li>
                     <li><a href="#">General</a></li>
 

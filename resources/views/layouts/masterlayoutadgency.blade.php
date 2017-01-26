@@ -32,6 +32,117 @@
         .hover-item:hover {
             background-color: inherit;
         }
+
+
+
+        .single-blog {
+            margin-bottom: 30px;
+            background-color: #F7F7F7;
+            padding: 25px;
+            transition: all 1s ease 0s;
+            -moz-transition: all 1s ease 0s;
+            -webkit-transition: all 1s ease 0s;
+            -o-transition: all 1s ease 0s;
+            -webkit-box-shadow: 0 2px 0 0 #ddd;
+            box-shadow: 0 2px 0 0 #ddd;
+        }
+
+        .single-blog:hover {
+            background-color: #43484E;
+            color: #fff
+        }
+
+        .single-blog:hover.single-blog h2 {
+            color: #fff
+        }
+
+        .single-blog:hover.single-blog .btn-primary {
+            background-color: #fc7700;
+            color: #fff;
+            border-color: #fff;
+            transition: all 0.9s ease 0s;
+            -moz-transition: all 0.9s ease 0s;
+            -webkit-transition: all 0.9s ease 0s;
+            -o-transition: all 0.9s ease 0s;
+        }
+
+        .single-blog img {
+            width: 100%;
+            margin-bottom: 20px
+        }
+
+        .single-blog h2 {
+            color: #43484E;
+            font-size: 24px;
+        }
+
+        .single-blog h2 {
+            margin: 0;
+            margin-bottom: 15px;
+        }
+
+        .single-blog ul {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .single-blog ul li {
+            border-right: 2px solid #999999;
+            float: left;
+            line-height: 10px;
+            list-style: none;
+            margin-right: 10px;
+            padding-right: 10px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .single-blog ul li:last-child {
+            border: none;
+        }
+
+        .single-blog .btn-primary {
+            text-transform: uppercase;
+            border: 1px solid #fc7700;
+            color: #686868;
+            background-color: rgba(255, 255, 255, 0);
+            border-color: #fc7700;
+        }
+
+        .single-blog:hover.single-blog .btn-primary:hover {
+            background-color: #fc7700;
+            color: #fff;
+        }
+
+
+        .search_box input {
+            background: #F0F0E9;
+            border: medium none;
+            color: #B2B2B2;
+            font-family: 'roboto';
+            font-size: 12px;
+            font-weight: 300;
+            height: 35px;
+            outline: medium none;
+            padding-left: 10px;
+            width: 155px;
+            background-image: url({{asset('adgencystyles/images/home/searchicon.png')}});
+
+            background-repeat: no-repeat;
+            background-position: 130px;
+        }
+
+
+        .mainmenu ul li a:hover, .mainmenu ul li a.active,  .shop-menu ul li a.active{
+            background:none;
+            color:#c52d2f;
+        }
+
+        .picPost{
+            height: 210px;
+            width: 320px;
+        }
+
     </style>
 
 </head><!--/head-->

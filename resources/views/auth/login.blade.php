@@ -7,7 +7,7 @@
 @section('nav')
 
     <li><a href="{{url('/')}}">Home</a></li>
-    <li><a href="adspace.html">AdSpaces</a></li>
+    <li><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
     <li><a href="about-us.html">About Us</a></li>
     <!--<li><a href="services.html">Services</a></li>-->
     <li><a href="portfolio.html">Portfolio</a></li>

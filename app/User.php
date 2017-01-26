@@ -40,4 +40,16 @@ class User extends Authenticatable
         return false;
     }
 
+    public function can_post() {
+        $role = $this->role;
+        if($role == 'owner') {
+            return true;
+        }
+        return false;
+    }
+
+    public function ad_spaces(){
+        return $this->hasMany('App\Adspace', 'owner_id');
+    }
+
 }
