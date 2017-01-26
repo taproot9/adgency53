@@ -121,8 +121,8 @@
         </div>
 
         {{--{{$ad_spaces->links()}}--}}
-        {!! $posts->links('admin/posts/pagination') !!}
-        {!! $ad_spaces->links('layout/pagination') !!}
+        {{--{!! $posts->links('admin/posts/pagination') !!}--}}
+        {!! $ad_spaces->links('layouts/pagination') !!}
 
     </div>
 
