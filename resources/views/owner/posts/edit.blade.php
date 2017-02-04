@@ -56,16 +56,18 @@
 
         <h1 style="color: black">Create Post</h1>
 
-        {!! Form::open(['method'=>'POST', 'action'=>'OwnersPostsController@store','files' => true]) !!}
+        <div>
+            <img id ="showimages" class="img-responsive img-rounded" src="{{$ad_space->photo_name ? $ad_space->photo_name : 'http://placehold.it/400x400'}}" alt="">
+        </div>
+
+        {!! Form::model($ad_space,['method'=>'PATCH', 'action'=>['OwnersPostsController@update_post', $ad_space->id],'files' => true]) !!}
 
         {{csrf_field()}}
-
-        <img src="http://placehold.it/100x100" id ="showimages" style="max-width:200px;max-height:200px"/>
 
         {{--upload a billoard--}}
         <div class="form-group">
             {!! Form::label('photo_name', 'Upload Billboard:') !!}
-            {!! Form::file('photo_name', ['id'=>'inputimages']) !!}
+            {!! Form::file('photo_name',['id'=>'inputimages'] ) !!}
         </div>
 
         {{--select a type--}}
@@ -100,11 +102,10 @@
 
         {{--submit--}}
         <div class="form-group">
-            {!! Form::submit('Create Post', ['class'=>'btn btn-primary']) !!}
+            {!! Form::submit('Update Post', ['class'=>'btn btn-primary']) !!}
         </div>
 
 
         {!! Form::close() !!}
     </div>
 @endsection
-

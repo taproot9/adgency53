@@ -24,7 +24,10 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('adgencystyles/images/ico/apple-touch-icon-72-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{asset('adgencystyles/images/ico/apple-touch-icon-57-precomposed.png')}}">
 
+
     <style type="text/css">
+
+
         .hover-item {
             background-color: gold;
         }
@@ -141,6 +144,11 @@
         .picPost{
             height: 210px;
             width: 320px;
+        }
+
+        .single-blog a.btn.btn-primary:hover
+        {
+            background-color: #c52d2f!important;
         }
 
     </style>
@@ -286,11 +294,27 @@
     </div>
 </footer><!--/#footer-->
 
+@yield('jss')
+
 <script src="{{asset('adgencystyles/js/jquery.js')}}"></script>
 <script src="{{asset('adgencystyles/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('adgencystyles/js/jquery.prettyPhoto.js')}}"></script>
 <script src="{{asset('adgencystyles/js/jquery.isotope.min.js')}}"></script>
 <script src="{{asset('adgencystyles/js/main.js')}}"></script>
 <script src="{{asset('adgencystyles/js/wow.min.js')}}"></script>
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#showimages').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#inputimages").change(function () {
+        readURL(this);
+    });
+</script>
 </body>
 </html>

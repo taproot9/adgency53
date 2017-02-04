@@ -1,8 +1,11 @@
+
+
 @extends('layouts.masterlayoutadgency')
 
 @section('title')
-    AdSpaces
+    MY AdSpaces
 @endsection
+
 
 
 @section('nav')
@@ -70,6 +73,10 @@
 
     <div class="container" style="padding-top: 70px; padding-bottom: 70px">
 
+        @if(session('deleted_post'))
+            <p class="bg-danger">{{session('deleted_post')}}</p>
+        @endif
+
         <div class="row">
             <div class="col-sm-9">
                 <ul class="mainmenu nav navbar-nav pull-left">
@@ -98,10 +105,11 @@
 
 
         <div class="row">
-            @foreach($ad_spaces as $ad_space)
+            @foreach($user as $ad_space)
                 <div class="col-sm-4">
                     <div class="single-blog">
-                        <img class="picPost" src="{{$ad_space->photo_name ? $ad_space->photo_name : asset('adgencystyles/images/blog/bus.jpg')}}" alt=""/>
+
+                        <img class="picPost" src="{{$ad_space->photo_name ? asset($ad_space->photo_name) : asset('adgencystyles/images/blog/bus.jpg')}}" alt=""/>
                         <h2>Type: {{$ad_space->type}}</h2>
                         <p>Size: {{$ad_space->size}}</p>
                         <p>Location: {{$ad_space->location}}</p>
@@ -113,16 +121,19 @@
                             <li><i class="fa fa-clock-o"></i><strong> Posted On:</strong> {{ $ad_space->created_at->format('M d, Y') }}</li>
 
                         </ul>
-                        <a href="" class="btn btn-primary">Interested</a>
+                        <a href="{{route('edit_post',[$ad_space->id])}}" class="btn btn-primary">Edit</a>
+
+                        <a href="{{action('OwnersPostsController@delete', [$ad_space->id])}}" class="btn btn-primary">Delete</a>
+
                     </div>
 
                 </div>
             @endforeach
         </div>
 
-        {{--{{$ad_spaces->links()}}--}}
+        {{--{{$user->ad_spaces->links()}}--}}
 
-        {!! $ad_spaces->links('layouts/pagination') !!}
+        {!! $user->links('layouts/pagination') !!}
 
     </div>
 

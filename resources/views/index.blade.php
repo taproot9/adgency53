@@ -37,10 +37,10 @@
 
                 @if(Auth::user()->role_id == 3)
 
-                    <li><a href="#">My Post</a></li>
+                    <li><a href="{{url('/owner/my_post', Auth::user()->id )}}">My Availabe Post</a></li>
                     <li><a href="{{url('/owner/create_posts')}}">Add Post</a></li>
                     <li><a href="#">Subscription</a></li>
-                    <li><a href="#">General</a></li>
+                    <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My All Post</a></li>
 
                 @endif
                 <li>

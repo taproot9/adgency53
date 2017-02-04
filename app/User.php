@@ -18,6 +18,10 @@ class User extends Authenticatable
         'first_name', 'last_name', 'email','address', 'contact', 'role_id','password',
     ];
 
+
+
+
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -51,5 +55,6 @@ class User extends Authenticatable
     public function ad_spaces(){
         return $this->hasMany('App\Adspace', 'owner_id');
     }
+
 
 }

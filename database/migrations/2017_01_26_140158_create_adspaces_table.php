@@ -24,6 +24,7 @@ class CreateAdspacesTable extends Migration
             $table->integer('price');
             $table->integer('rent_price');
             $table->integer('status')->default(1);
+            $table->integer('reserve')->default(0);
             $table->string('posted_by');
             $table->timestamps();
         });
