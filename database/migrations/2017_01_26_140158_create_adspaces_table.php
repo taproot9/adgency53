@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAdspacesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('adspaces', function (Blueprint $table) {
@@ -29,12 +24,6 @@ class CreateAdspacesTable extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('adspaces');

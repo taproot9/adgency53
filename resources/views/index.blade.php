@@ -43,6 +43,13 @@
                     <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My All Post</a></li>
 
                 @endif
+
+                @if(Auth::user()->role_id == 2)
+                    <li><a href="{{url('/client/available_post')}}">Available Billboard</a></li>
+                    <li><a href="{{url('/client/rented')}}">Rented</a></li>
+                    {{--<li><a href="#">Reserved</a></li>--}}
+                    {{--<li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">Owned</a></li>--}}
+                @endif
                 <li>
 
                     <hr>

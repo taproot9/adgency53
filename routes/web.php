@@ -27,7 +27,8 @@ Route::get('/home', function () {
 Route::get('/ad_spaces', function (){
 //    $articles = Article::latest()->published()->get();
 //    $ad_spaces = Adspace::paginate(3);
-    $ad_spaces = Adspace::latest()->paginate(2);
+    $ad_spaces = Adspace::latest()->available()->notreserved()->paginate(2);
+//    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
     return view('test_ads', compact('ad_spaces'));
 });
 
@@ -41,6 +42,12 @@ Route::get('/owner/delete/{id}', 'OwnersPostsController@delete');
 Route::get('/owner/{id}/edit_post', 'OwnersPostsController@edit_post')->name('edit_post');
 Route::patch('/owner/{id}', 'OwnersPostsController@update_post')->name('update_post');
 Route::get('/owner/my_all_post/{id}', 'OwnersPostsController@my_all_post');
+
+
+
+//client route
+
+Route::get('/client/available_post', 'ClientController@available_post');
 
 //auth route
 Auth::routes();
