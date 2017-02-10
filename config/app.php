@@ -64,8 +64,9 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+//    'timezone' => 'UTC',
 
+    'timezone' => 'Asia/Hong_Kong',
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

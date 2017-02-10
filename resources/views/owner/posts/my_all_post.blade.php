@@ -41,11 +41,18 @@
 
                 @if(Auth::user()->role_id == 3)
 
-                    <li><a href="#">My Post</a></li>
+                    <li><a href="{{url('/owner/my_post', Auth::user()->id )}}">My Available Post</a></li>
                     <li><a href="{{url('/owner/create_posts')}}">Add Post</a></li>
                     <li><a href="#">Subscription</a></li>
-                    <li><a href="#">General</a></li>
+                    <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My All Post</a></li>
 
+                @endif
+
+                @if(Auth::user()->role_id == 2)
+                    <li><a href="{{url('/client/available_post')}}">Available Billboard</a></li>
+                    <li><a href="{{url('/client/rented')}}">Rented</a></li>
+                    {{--<li><a href="#">Reserved</a></li>--}}
+                    {{--<li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">Owned</a></li>--}}
                 @endif
                 <li>
 
@@ -109,12 +116,17 @@
                 <div class="col-sm-4">
                     <div class="single-blog">
 
-                        <img class="picPost" src="{{$ad_space->photo_name ? asset($ad_space->photo_name) : asset('adgencystyles/images/blog/bus.jpg')}}" alt=""/>
-                        <h2>Type: {{$ad_space->type}}</h2>
+                        <img class="picPost" src="{{$ad_space->photo_name ? $ad_space->photo_name : asset('adgencystyles/images/blog/bus.jpg')}}" alt=""/>
+                        <h2>Type: {{$ad_space->adspace_type}}</h2>
+                        <h3><b>For {{$ad_space->advertising_type}}</b></h3>
                         <p>Size: {{$ad_space->size}}</p>
                         <p>Location: {{$ad_space->location}}</p>
-                        <p>Price: &#8369; {{$ad_space->price}}</p>
-                        <p>Rent Price: &#8369; {{$ad_space->rent_price}}</p>
+                        @if($ad_space->advertising_type == 'sale')
+                            <p>Selling Price: &#8369; {{$ad_space->price}}</p>
+                        @endif
+                        @if($ad_space->advertising_type == 'rent')
+                            <p>Rent Price: &#8369; {{$ad_space->rent_price}}{{'/Month'}} </p>
+                        @endif
 
                         <ul class="post-meta">
                             <li><i class="fa fa-pencil-square-o"></i><strong> Posted By:</strong> {{$ad_space->posted_by}}</li>

@@ -1,7 +1,7 @@
-@extends('layouts.masterlayoutadgency', ['signupactive' => 'active'])
+@extends('layouts.masterlayoutadgency')
 
 @section('title')
-    Add Post
+    Edit Post
 @endsection
 
 @section('nav')
@@ -33,7 +33,27 @@
             </a>
 
             <ul class="dropdown-menu" role="menu">
+
+                @if(Auth::user()->role_id == 3)
+
+                    <li><a href="{{url('/owner/my_post', Auth::user()->id )}}">My Availabe Post</a></li>
+                    <li><a href="{{url('/owner/create_posts')}}">Add Post</a></li>
+                    <li><a href="#">Subscription</a></li>
+                    <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My All Post</a></li>
+
+                @endif
+
+                @if(Auth::user()->role_id == 2)
+                    <li><a href="{{url('/client/available_post')}}">Available Billboard</a></li>
+                    <li><a href="{{url('/client/rented')}}">Rented</a></li>
+                    {{--<li><a href="#">Reserved</a></li>--}}
+                    {{--<li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">Owned</a></li>--}}
+                @endif
+
                 <li>
+
+                    <hr>
+
                     <a href="{{ url('/logout') }}"
                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -64,22 +84,29 @@
 
         {{csrf_field()}}
 
+
         {{--upload a billoard--}}
         <div class="form-group">
             {!! Form::label('photo_name', 'Upload Billboard:') !!}
-            {!! Form::file('photo_name',['id'=>'inputimages'] ) !!}
+            {!! Form::file('photo_name', ['id'=>'inputimages']) !!}
+        </div>
+
+        {{--select advertising_type--}}
+        <div class="form-group">
+            {!! Form::label('advertising_type', 'Type for Operation:') !!}
+            {!! Form::select('advertising_type', ['sale' => 'for Sale', 'rent' => 'for Rent'],null, ['class'=>'form-control', 'placeholder' => 'Select...']) !!}
         </div>
 
         {{--select a type--}}
         <div class="form-group">
-            {!! Form::label('type', 'Select Type:') !!}
-            {!! Form::select('type', ['lamp' => 'Lamp', 'bus' => 'Bus'],null, ['class'=>'form-control', 'placeholder' => 'Pick a type...']) !!}
+            {!! Form::label('adspace_type', 'Select Type:') !!}
+            {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus'],null, ['class'=>'form-control', 'placeholder' => 'Select...']) !!}
         </div>
 
         {{--size--}}
         <div class="form-group">
-            {!! Form::label('size', 'Size:') !!}
-            {!! Form::text('size', null, ['class'=>'form-control']) !!}
+            {!! Form::label('size', 'Size: (meter)') !!}
+            {!! Form::text('size', null, ['class'=>'form-control', 'placeholder' => 'ex. 100 x 100']) !!}
         </div>
 
         {{--Location--}}
@@ -91,14 +118,14 @@
         {{--Price--}}
         <div class="form-group">
             {!! Form::label('price', 'Price:') !!}
-            {!! Form::text('price', null, ['class'=>'form-control']) !!}
+            {!! Form::text('price', null, ['class'=>'form-control','placeholder' => 'Peso']) !!}
         </div>
 
         {{--Rent Price--}}
-        <div class="form-group">
-            {!! Form::label('rent_price', 'Rent Price:') !!}
-            {!! Form::text('rent_price', null, ['class'=>'form-control']) !!}
-        </div>
+        {{--<div class="form-group">--}}
+        {{--{!! Form::label('rent_price', 'Rent Price:') !!}--}}
+        {{--{!! Form::text('rent_price', null, ['class'=>'form-control']) !!}--}}
+        {{--</div>--}}
 
         {{--submit--}}
         <div class="form-group">

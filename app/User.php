@@ -56,5 +56,13 @@ class User extends Authenticatable
         return $this->hasMany('App\Adspace', 'owner_id');
     }
 
+    public function client_rents(){
+         return $this->hasMany('App\Rent', 'client_id');
+    }
+
+    public function owner_rents(){
+        return $this->hasMany('App\Rent', 'owner_id');
+    }
+
 
 }

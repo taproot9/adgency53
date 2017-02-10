@@ -13,13 +13,13 @@ class CreateAdspacesTable extends Migration
             $table->increments('id');
             $table->string('photo_name')->nullable();
             $table->integer('owner_id');
-            $table->string('type');
+            $table->string('adspace_type');
             $table->string('size');
             $table->string('location');
             $table->integer('price');
-            $table->integer('rent_price');
             $table->integer('status')->default(1);
             $table->integer('reserve')->default(0);
+            $table->string('advertising_type');
             $table->string('posted_by');
             $table->timestamps();
         });

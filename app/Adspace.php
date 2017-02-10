@@ -9,7 +9,7 @@ class Adspace extends Model
 {
 
     protected $fillable = [
-        'photo_name', 'owner_id', 'type', 'size', 'location', 'price', 'rent_price', 'status', 'reserve','posted_by'
+        'photo_name', 'owner_id', 'adspace_type', 'size', 'location', 'price', 'status', 'reserve','advertising_type','posted_by'
     ];
 
     protected $uploads = "/post_owner_images/";
@@ -36,5 +36,9 @@ class Adspace extends Model
 //    public function scopePublished($query){
 //        return $query->where('published_at', '<=', Carbon::now());
 //    }
+
+    public function rents(){
+         return $this->belongsToMany('App\Rents');
+    }
 
 }

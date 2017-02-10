@@ -31,7 +31,7 @@ class OwnersPostsController extends Controller
         $input = $request->all();
         $input['owner_id'] = Auth::user()->id;
         $input['posted_by'] = Auth::user()->first_name;
-
+        $input['size'] = $request->size . ' meter';
         $user = Auth::user();
 
         if ($file = $request->file('photo_name')){
@@ -57,8 +57,8 @@ class OwnersPostsController extends Controller
     }
 
     public function my_all_post($id){
-         $user = User::findOrFail($id)->ad_spaces()->latest()->paginate(2);
-         return view('owner.posts.my_all_post', compact('user'));
+        $user = User::findOrFail($id)->ad_spaces()->latest()->paginate(2);
+        return view('owner.posts.my_all_post', compact('user'));
     }
 
 
