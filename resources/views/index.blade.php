@@ -24,6 +24,8 @@
     <!--<li><a href="blog.html">Blog</a></li> -->
     <li><a href="contact-us.html">Contact</a></li>
 
+
+
     @if(Auth::guest())
         <li><a href="{{url('/login')}}">Login</a></li>
         <li><a href="{{url('/register')}}">SignUp</a></li>
@@ -37,16 +39,19 @@
 
                 @if(Auth::user()->role_id == 3)
 
+                    <li><a href="{{url('/owner/show/profile')}}">Show Profile</a></li>
                     <li><a href="{{url('/owner/my_post', Auth::user()->id )}}">My Available Post</a></li>
                     <li><a href="{{url('/owner/create_posts')}}">Add Post</a></li>
                     <li><a href="#">Subscription</a></li>
                     <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My All Post</a></li>
+                    <li><a href="{{url('/show_all_rented')}}">Rented</a></li>
 
                 @endif
 
                 @if(Auth::user()->role_id == 2)
+                    <li><a href="{{url('/client/show/profile')}}">Show Profile</a></li>
                     <li><a href="{{url('/client/available_post')}}">Available Billboard</a></li>
-                    <li><a href="{{url('/client/rented')}}">Rented</a></li>
+                    <li><a href="{{url('/client/show_available_rent')}}">Show Available Rent</a></li>
                     {{--<li><a href="#">Reserved</a></li>--}}
                     {{--<li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">Owned</a></li>--}}
                 @endif

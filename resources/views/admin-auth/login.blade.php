@@ -58,7 +58,7 @@
                     <h2 style=" color: white; text-shadow: 2px 2px 4px #000000;">Login</h2>
                 </div>
                 <div class="panel-body">
-                    <form role="form" method="post" action="{{url('/login')}}">
+                    <form role="form" method="post" action="{{url('/admin_login')}}">
 
                         <div class="form-group">
 

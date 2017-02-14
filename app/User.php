@@ -19,7 +19,7 @@ class User extends Authenticatable
     ];
 
 
-
+    protected $fillabe = ['dates'];
 
 
     /**
@@ -31,9 +31,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $uploads = "/user_photo/";
+
+    public function getPhotoNameAttribute($photo){
+        return $this->uploads . $photo;
+    }
+
     public function role()
     {
         return $this->belongsTo('App\Role');
+    }
+
+    public function userStatus()
+    {
+        return $this->belongsTo('App\UserStatus');
     }
 
     public function isAdmin()
@@ -62,6 +73,16 @@ class User extends Authenticatable
 
     public function owner_rents(){
         return $this->hasMany('App\Rent', 'owner_id');
+    }
+
+    public function getFirstNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function getLastNameAttribute($value)
+    {
+        return ucfirst($value);
     }
 
 

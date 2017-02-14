@@ -25,6 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="{{asset('adgencystyles/images/ico/apple-touch-icon-57-precomposed.png')}}">
 
 
+
     <style type="text/css">
 
 
@@ -316,5 +317,7 @@
         readURL(this);
     });
 </script>
+
+
 </body>
 </html>
