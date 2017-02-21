@@ -22,5 +22,6 @@ class UsersTableSeeder extends Seeder
         $user->user_status_id= (int) rand (1 , 2);
         $user->password = bcrypt('secret');
         $user->save();
+
     }
 }

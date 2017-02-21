@@ -63,7 +63,7 @@
                         <!--<img class="img-responsive img-rounded"-->
                         {{--<!--src="{{$user->photo ? $user->photo->file : 'http://placehold.it/400x400'}}" alt="">-->--}}
                         <img height="200px" width="200px" class="img-responsive img-rounded"
-                             src="{{Auth::user()->photo_name}}" alt="">
+                             src="{{Auth::user()->photo_name ? Auth::user()->photo_name : 'http://placehold.it/400x400'}}" alt="">
                     </div>
 
                     <div class=" col-md-9 col-lg-9 ">

@@ -15,8 +15,8 @@ class CreateSaleDetailsTable extends Migration
     {
         Schema::create('sale_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sale_id');
-            $table->integer('adspace_id');
+            $table->integer('sale_id')->unsigned()->index()->nullable();
+            $table->integer('adspace_id')->unsigned()->index()->nullable();
             $table->timestamps();
         });
     }

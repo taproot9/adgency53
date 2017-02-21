@@ -15,8 +15,8 @@ class CreateRentDetailsTable extends Migration
     {
         Schema::create('rent_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('rent_id');
-            $table->integer('adspace_id');
+            $table->integer('rent_id')->unsigned()->index()->nullable();
+            $table->integer('adspace_id')->unsigned()->index()->nullable();
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email','address', 'contact', 'role_id','password',
+        'first_name', 'last_name', 'email','address', 'contact', 'role_id','password', 'photo_name',
     ];
 
 
@@ -65,6 +65,14 @@ class User extends Authenticatable
 
     public function ad_spaces(){
         return $this->hasMany('App\Adspace', 'owner_id');
+    }
+
+    public function client_reserves(){
+         return $this->hasMany('App\Reservation','client_id');
+    }
+
+    public function owner_reserves(){
+        return $this->hasMany('App\Reservation','owner_id');
     }
 
     public function client_rents(){

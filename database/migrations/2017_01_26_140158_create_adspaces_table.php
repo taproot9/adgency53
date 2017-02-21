@@ -12,7 +12,7 @@ class CreateAdspacesTable extends Migration
 
             $table->increments('id');
             $table->string('photo_name')->nullable();
-            $table->integer('owner_id');
+            $table->integer('owner_id')->unsigned()->index()->nullable();
             $table->string('adspace_type');
             $table->string('size');
             $table->string('location');

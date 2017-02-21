@@ -15,8 +15,8 @@ class CreateReserveDetailsTable extends Migration
     {
         Schema::create('reserve_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('reservation_id');
-            $table->integer('adspace_id');
+            $table->integer('reservation_id')->unsigned()->index()->nullable();
+            $table->integer('adspace_id')->unsigned()->index()->nullable();
             $table->timestamps();
         });
     }

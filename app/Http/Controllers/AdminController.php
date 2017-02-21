@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\Adspace;
+use App\Reservation;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,20 +73,21 @@ class AdminController extends Controller
          return view('admin.all_ad_space' , compact('ad_spaces'));
     }
 
+    public function rental(){
+        $ad_spaces = Adspace::all();
+        return view('admin.rental', compact('ad_spaces'));
+    }
 
+    public function sale(){
+        $ad_spaces = Adspace::all();
+        return view('admin.sale', compact('ad_spaces'));
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    public function reserve(){
+        $ad_spaces = Adspace::all();
+        $reservations = Reservation::where('is_seen', 1)->get();
+        return view('admin.reserve', compact('ad_spaces', 'reservations'));
+    }
 
 
 

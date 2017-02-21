@@ -16,7 +16,7 @@
 
     <!-- start: CSS -->
     <link id="bootstrap-style" href="{{asset('admin_style/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('admin_stylecss/bootstrap-responsive.min.css/')}}" rel="stylesheet">
+    <link href="{{asset('admin_style/css/bootstrap-responsive.min.css/')}}" rel="stylesheet">
     <link id="base-style" href="{{asset('admin_style/css/style.css')}}" rel="stylesheet">
     <link id="base-style-responsive" href="{{asset('admin_style/css/style-responsive.css')}}" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
@@ -355,12 +355,11 @@
 
 
                     <li><a href="subscription.html"><i class="icon-star"></i><span class="hidden-tablet"> Subscription</span></a></li>
-                    <li><a href="account.html"><i class="icon-user"></i><span class="hidden-tablet"> Account</span></a></li>
-                    <li><a href="adspace.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Adspace</span></a></li>
-                    <li><a href="payment.html"><i class="icon-money"></i><span class="hidden-tablet"> Payments</span></a></li>
-
-
-
+                    <li><a href="{{url('admin/users_account')}}"><i class="icon-user"></i><span class="hidden-tablet"> Account</span></a></li>
+                    <li><a href="{{url('admin/all_adspace')}}"><i class="icon-road"></i><span class="hidden-tablet"> Adspace</span></a></li>
+                    <li><a href="{{url('admin/rental')}}"><i class="icon-hdd"></i><span class="hidden-tablet"> Rental</span></a></li>
+                    <li><a href="{{url('admin/sale')}}"><i class="icon-th"></i><span class="hidden-tablet"> Sales</span></a></li>
+                    <li><a href="{{url('admin/reserve')}}"><i class="icon-bookmark"></i><span class="hidden-tablet"> Reservation</span></a></li>
 
                     <!--<li><a href="messages.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>-->
                     <!--<li><a href="tasks.html"><i class="icon-tasks"></i><span class="hidden-tablet"> Tasks</span></a></li>-->
@@ -410,7 +409,7 @@
 
             <div class="row-fluid">
 
-                <div class="span3 statbox purple" onTablet="span6" onDesktop="span3">
+                <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
                     <div class="boxchart">5,6,7,2,0,4,2,4,8,2,3,3,2</div>
                     <div class="number">854<i class="icon-arrow-up"></i></div>
                     <div class="title">Subscriptions</div>
@@ -418,7 +417,7 @@
                         <a href="subscription.html"> read full report</a>
                     </div>
                 </div>
-                <div class="span3 statbox green" onTablet="span6" onDesktop="span3">
+                <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
                     <div class="boxchart">1,2,3,4,0,8,2,4,5,3,1,7,5</div>
                     <div class="number">{{$users}}<i class="icon-arrow-up"></i></div>
                     <div class="title">Accounts</div>
@@ -434,16 +433,42 @@
                         <a href="{{url('admin/all_adspace')}}"> read full report</a>
                     </div>
                 </div>
-                <div class="span3 statbox yellow" onTablet="span6" onDesktop="span3">
+
+                <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
                     <div class="boxchart">7,2,2,2,1,-4,-2,4,8,,0,3,3,5</div>
-                    <div class="number">678<i class="icon-arrow-down"></i></div>
-                    <div class="title">Payments</div>
+                    <?php $adspace = App\Adspace::where('advertising_type', 'rent')->where('status', 0)->get() ?>
+                    <div class="number">{{$adspace->count()}}<i class="icon-arrow-up"></i></div>
+                    <div class="title">Rental</div>
                     <div class="footer">
-                        <a href="payment.html"> read full report</a>
+                        <a href="{{url('admin/rental')}}"> read full report</a>
                     </div>
                 </div>
 
+
             </div>
+
+            <div class="row-fluid">
+                <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
+                    <div class="boxchart">7,2,2,2,1,-4,-2,4,8,,0,3,3,5</div>
+                    <?php $adspace = App\Adspace::where('advertising_type', 'sale')->where('status', 0)->get() ?>
+                    <div class="number">{{$adspace->count()}}<i class="icon-arrow-up"></i></div>
+                    <div class="title">Sale</div>
+                    <div class="footer">
+                        <a href="{{url('admin/sale')}}"> read full report</a>
+                    </div>
+                </div>
+
+                <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
+                    <div class="boxchart">7,2,2,2,1,-4,-2,4,8,,0,3,3,5</div>
+                    <?php $reservation = App\Reservation::where('is_seen', 1)->get() ?>
+                    <div class="number">{{$reservation->count()}}<i class="icon-arrow-up"></i></div>
+                    <div class="title">Reservations</div>
+                    <div class="footer">
+                        <a href="{{url('admin/reserve')}}"> read full report</a>
+                    </div>
+                </div>
+            </div>
+
 
 
         </div><!--/.fluid-container-->

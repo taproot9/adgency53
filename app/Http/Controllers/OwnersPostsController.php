@@ -43,21 +43,20 @@ class OwnersPostsController extends Controller
         $user->ad_spaces()->create($input);
         return redirect('owner/my_post/'.Auth::user()->id);
 //        return redirect('/');
-
     }
 
 
     public function my_post($id){
 //        $ad_spaces = Adspace::latest()->paginate(2);
 
-        $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
+//        $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(9);
 
-
+        $user = User::findOrFail($id)->ad_spaces()->latest()->available()->paginate(9);
         return view('owner.posts.my_post', compact('user'));
     }
 
     public function my_all_post($id){
-        $user = User::findOrFail($id)->ad_spaces()->latest()->paginate(2);
+        $user = User::findOrFail($id)->ad_spaces()->latest()->paginate(9);
         return view('owner.posts.my_all_post', compact('user'));
     }
 

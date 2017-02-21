@@ -10,16 +10,16 @@
     <li class="active"><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
     <li><a href="about-us.html">About Us</a></li>
     <!--<li><a href="services.html">Services</a></li>-->
-    <li><a href="portfolio.html">Portfolio</a></li>
+    {{--<li><a href="portfolio.html">Portfolio</a></li>--}}
 
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
-        <ul class="dropdown-menu">
-            <li><a href="blog-item.html">Blog Single</a></li>
-            <li><a href="pricing.html">Pricing</a></li>
-            <li><a href="404.html">404</a></li>
-            <li><a href="shortcodes.html">Shortcodes</a></li>
-        </ul>
+    {{--<li class="dropdown">--}}
+        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>--}}
+        {{--<ul class="dropdown-menu">--}}
+            {{--<li><a href="blog-item.html">Blog Single</a></li>--}}
+            {{--<li><a href="pricing.html">Pricing</a></li>--}}
+            {{--<li><a href="404.html">404</a></li>--}}
+            {{--<li><a href="shortcodes.html">Shortcodes</a></li>--}}
+        {{--</ul>--}}
     </li>
     <!--<li><a href="blog.html">Blog</a></li> -->
     <li><a href="contact-us.html">Contact</a></li>
@@ -123,7 +123,7 @@
                             <li><i class="fa fa-clock-o"></i><strong> Posted On:</strong> {{ $ad_space->created_at->format('M d, Y') }}</li>
                         </ul>
                         {{--<a href="{{route('edit_rented_post',[$ad_space->id])}}" class="btn btn-primary">Update</a>--}}
-                        <a href="{{route('edit_rented_post',[$ad_space->id])}}" class="btn btn-primary">For Rent</a>
+                        <a href="{{url('/client/create_rent', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Rent</a>
 
                     </div>
 

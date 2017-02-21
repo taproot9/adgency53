@@ -74,7 +74,7 @@
 
     <div class="container" style="width: 400px; padding-top: 70px; padding-bottom: 100px">
 
-        <h1 style="color: black">Create Post</h1>
+        <h1 style="color: black">Edit Post</h1>
 
         <div>
             <img id ="showimages" class="img-responsive img-rounded" src="{{$ad_space->photo_name ? $ad_space->photo_name : 'http://placehold.it/400x400'}}" alt="">

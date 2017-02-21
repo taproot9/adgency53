@@ -17,6 +17,20 @@ class Adspace extends Model
     public function getPhotoNameAttribute($photo){
         return $this->uploads . $photo;
     }
+    public function user(){
+         return $this->belongsTo('App\User', 'owner_id');
+    }
+
+
+    //check kung nag pa reserve naba xa ana nga billboard
+    public function scopeRent($query){
+
+    }
+
+    //check kung nag pa reserve naba xa ana nga billboard
+    public function scopeSale($query){
+
+    }
 
     public function scopeLatest($query)
     {
@@ -38,7 +52,14 @@ class Adspace extends Model
 //    }
 
     public function rents(){
-         return $this->belongsToMany('App\Rents');
+         return $this->belongsToMany('App\Rent', 'adspace_rent', 'adspace_id', 'rent_id')->withPivot('rent_id','adspace_id');
     }
 
+    public function reservations(){
+        return $this->belongsToMany('App\Reservation', 'adspace_reservation', 'adspace_id','reservation_id')->withPivot('adspace_id','reservation_id');
+    }
+
+    public function sales(){
+        return $this->belongsToMany('App\Sale', 'adspace_sale', 'adspace_id', 'sale_id')->withPivot('adspace_id', 'sale_id');
+    }
 }

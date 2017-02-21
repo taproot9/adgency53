@@ -95,7 +95,7 @@
                             <tr>
                                 <td>Role:</td>
                                 @if(Auth::user()->role_id == 2)
-                                    <td>Owner</td>
+                                    <td>Client</td>
                                 @endif
 
                             </tr>

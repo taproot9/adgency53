@@ -10,16 +10,16 @@
     <li><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
     <li><a href="about-us.html">About Us</a></li>
     <!--<li><a href="services.html">Services</a></li>-->
-    <li><a href="portfolio.html">Portfolio</a></li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
-        <ul class="dropdown-menu">
-            <li><a href="blog-item.html">Blog Single</a></li>
-            <li><a href="pricing.html">Pricing</a></li>
-            <li><a href="404.html">404</a></li>
-            <li><a href="shortcodes.html">Shortcodes</a></li>
-        </ul>
-    </li>
+    {{--<li><a href="portfolio.html">Portfolio</a></li>--}}
+    {{--<li class="dropdown">--}}
+        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>--}}
+        {{--<ul class="dropdown-menu">--}}
+            {{--<li><a href="blog-item.html">Blog Single</a></li>--}}
+            {{--<li><a href="pricing.html">Pricing</a></li>--}}
+            {{--<li><a href="404.html">404</a></li>--}}
+            {{--<li><a href="shortcodes.html">Shortcodes</a></li>--}}
+        {{--</ul>--}}
+    {{--</li>--}}
     <!--<li><a href="blog.html">Blog</a></li> -->
     <li><a href="contact-us.html">Contact</a></li>
 
@@ -74,7 +74,7 @@
 
     <div class="container" style="width: 400px; padding-top: 70px; padding-bottom: 100px">
 
-        <h1 style="color: black">Create Post</h1>
+        <h1 style="color: black">Update Post</h1>
 
         <div>
             <img id ="showimages" class="img-responsive img-rounded" src="{{$ad_space->photo_name ? $ad_space->photo_name : 'http://placehold.it/400x400'}}" alt="">
@@ -100,7 +100,7 @@
         {{--select a type--}}
         <div class="form-group">
             {!! Form::label('adspace_type', 'Select Type:') !!}
-            {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus'],null, ['class'=>'form-control', 'placeholder' => 'Select...']) !!}
+            {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus', 'billboard' => 'Billboard','led' => 'LED','jeep' => 'Jeep','taxi' => 'Taxi','poster' => 'Poster'],null, ['class'=>'form-control', 'placeholder' => 'Select...']) !!}
         </div>
 
         {{--size--}}

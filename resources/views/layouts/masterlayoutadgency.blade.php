@@ -152,6 +152,26 @@
             background-color: #c52d2f!important;
         }
 
+        .single-blog button.btn.btn-primary:hover
+        {
+            background-color: #c52d2f!important;
+        }
+
+        /*.btn .badge {*/
+        /*position: relative;*/
+        /*top: -15px;*/
+        /*}*/
+        /*.badge {*/
+        /*background-color: #c52d2f;*/
+        /*border-radius: 5px;*/
+        /*color: #fff;*/
+        /*padding: 8px;*/
+        /*position: relative;*/
+        /*left: -34px;*/
+        /*top: -18px;*/
+        /*font-weight: normal;*/
+        /*}*/
+
     </style>
 
 </head><!--/head-->
@@ -168,7 +188,7 @@
                 <div class="col-sm-6 col-xs-8">
                     <div class="social">
                         <ul class="social-share">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://www.facebook.com/Adgency-272101273221324/"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                         </ul>
@@ -210,7 +230,6 @@
 </header><!--/header-->
 
 @yield('content')
-
 <section id="bottom">
     <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
         <div class="row">
@@ -316,6 +335,25 @@
     $("#inputimages").change(function () {
         readURL(this);
     });
+
+    {{--@if(Auth::user()->role_id == 3) // check if owner--}}
+
+    {{--@if($ok == "ok")--}}
+
+    {{--$('#isActive').addClass('active');--}}
+
+    {{--$('#isActive').click(function () {--}}
+        {{--$(this).removeClass('active');--}}
+{{--//            $(this).addClass('dropdown');--}}
+{{--//            $('#message_reserve').text("Hello world!");--}}
+    {{--});--}}
+
+    {{--@endif--}}
+    {{--@endif--}}
+
+
+
+
 </script>
 
 

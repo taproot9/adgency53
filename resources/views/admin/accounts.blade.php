@@ -438,10 +438,28 @@
                                     <tr>
                                         <td>{{$user->first_name}}</td>
                                         <td class="center">{{$user->created_at->diffForHumans()}}</td>
-                                        <td class="center">{{$user->role->name}}</td>
+                                        @if($user->role_id == 2)
+                                            <td class="center">Client</td>
+                                        @endif
+
+                                        @if($user->role_id == 3)
+                                            <td class="center">Owner</td>
+                                        @endif
+
                                         <td class="center">
-                                            <span class="label label-success">{{$user->userStatus->name}}</span>
+                                            {{--@if($user->user_status_id == 1)--}}
+                                            {{--<span class="label label-success">Active</span>--}}
+                                            {{--@else--}}
+                                            {{--<span class="label">Inactive</span>--}}
+                                            {{--@endif--}}
+                                            @if($user->user_status_id == 1)
+                                                <span class="label label-success">Active</span>
+                                            @else
+                                                <span class="label label-success">Inactive</span>
+                                            @endif
+
                                         </td>
+
                                         <td class="center">
                                             <a class="btn btn-success" href="#">
                                                 <i class="halflings-icon white zoom-in"></i>
