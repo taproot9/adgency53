@@ -80,11 +80,23 @@ Route::get('/home', function () {
 });
 
 Route::get('/ad_spaces', function (){
+
+    if (Auth::guest()){
+        return redirect('/login');
+    }
+
+    //rent notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
 //    $articles = Article::latest()->published()->get();
 //    $ad_spaces = Adspace::paginate(3);
     $ad_spaces = Adspace::latest()->available()->paginate(9);
 //    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
-    return view('test_ads', compact('ad_spaces'));
+    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves'));
 });
 
 
@@ -193,9 +205,19 @@ Route::get('/client/reserve_add/{owner_id}/{client_id}/{billboard_id}', 'ClientC
 
 
 Route::get('/client/show_my_all_reserve', 'ClientController@show_my_all_reserve')->name('show_my_all_reserve');
+Route::get('/client/cancel_reservation/{id}', 'ClientController@cancel_reservation')->name('cancel_reservation');
 
 
 //testing area here
+
+Route::get('/subs', function (){
+    return view('subscriptionplan');
+});
+
+
+Route::get('/test_status', function (){
+    Adspace::findOrFail(2)->update(array('status' => 1));
+});
 
 Route::get('/test_reservation_admin', function (){
 

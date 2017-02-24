@@ -24,17 +24,51 @@ class ClientController extends Controller
 
     public function available_post(){
 //        $ad_spaces = Adspace::latest()->available()->notreserved()->paginate(2);
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
         $ad_spaces = Adspace::latest()->available()->paginate(9);
-        return view('test_ads', compact('ad_spaces'));
+        return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves'));
     }
 
     public function client_show_profile(){
-        return view('client.show_profile');
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+        return view('client.show_profile',compact('rents', 'sales', 'reserves'));
     }
 
     public function client_edit_profile($id){
+
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
         $user = User::findOrFail($id);
-        return view('client.edit_account', compact('user'));
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+        return view('client.edit_account', compact('rents', 'sales', 'reserves', 'user'));
     }
 
     public function client_update_profile(Request $request, $id){
@@ -73,8 +107,17 @@ class ClientController extends Controller
     }
     public function show_available_rent(){
 //        $adspaces = Adspace::where('status', 1)->where('advertising_type', 'rent')->whereReserve(0)->paginate(2);
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
         $adspaces = Adspace::where('status', 1)->where('advertising_type', 'rent')->paginate(9);
-        return view('client.show_available_rent', compact('adspaces'));
+        return view('client.show_available_rent', compact('adspaces', 'rents', 'sales', 'reserves'));
     }
 
     public function create_rent($owner_id,$client_id,$billboard_id){
@@ -108,6 +151,19 @@ class ClientController extends Controller
     }
 
     public function show_my_all_rent(){
+
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
         $adspaces = Rent::where('client_id', Auth::user()->id)->paginate(9);
 //        $adspaces = Reservation::where('client_id', Auth::user()->id)->get();
 //
@@ -118,12 +174,23 @@ class ClientController extends Controller
 //                echo $ads->photo_name;
 //            }
 //        }
-        return view('client.show_my_all_rent', compact('adspaces'));
+        return view('client.show_my_all_rent', compact('adspaces', 'rents', 'sales', 'reserves'));
     }
 
     public function edit_my_rented_post($id){
+
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
         $ad_space = Adspace::findOrFail($id);
-        return view('client.edit_my_rented_post', compact('ad_space'));
+        return view('client.edit_my_rented_post', compact('ad_space','rents', 'sales', 'reserves'));
     }
 
     public function delete_my_rented_post($id){
@@ -135,8 +202,19 @@ class ClientController extends Controller
 //        $adspaces = Adspace::where('status', 1)->where('advertising_type', 'sale')->whereReserve(0)->paginate(2);
 //        return view('client.show_available_sales', compact('adspaces'));
 
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
         $adspaces = Adspace::where('status', 1)->where('advertising_type', 'sale')->paginate(9);
-        return view('client.show_available_sales', compact('adspaces'));
+        return view('client.show_available_sales', compact('adspaces', 'rents', 'reserves', 'sales'));
 
     }
 
@@ -163,17 +241,42 @@ class ClientController extends Controller
 
     }
     public function show_my_all_sale(){
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
         $adspaces = Sale::where('client_id', Auth::user()->id)->paginate(9);
-        return view('client.show_my_all_sale', compact('adspaces'));
+
+        return view('client.show_my_all_sale', compact('adspaces', 'rents', 'sales', 'reserves'));
     }
 
     public function edit_my_sale_post($id){
+
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
         $ad_space = Adspace::findOrFail($id);
-        return view('client.edit_my_sale_post', compact('ad_space'));
+        return view('client.edit_my_sale_post', compact('ad_space', 'rents', 'sales', 'reserves'));
     }
 
     public function delete_my_sale_post($id){
         Sale::where('billboard_id',$id)->delete();
+
         return redirect('client/show_my_all_sale');
     }
 
@@ -234,11 +337,27 @@ class ClientController extends Controller
     }
 
     public function show_my_all_reserve(){
+
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
         $adspaces = Reservation::where('client_id', Auth::user()->id)->paginate(12);
-        return view('client.show_my_all_reserve', compact('adspaces'));
+        return view('client.show_my_all_reserve', compact('adspaces', 'rents', 'sales', 'reserves'));
     }
 
-
+    public function cancel_reservation($id){
+        Reservation::where('billboard_id', $id)->where('is_seen', 1)->delete();
+        Adspace::whereId($id)->update(['status' => 1]);
+        return redirect(url('/client/available_post'));
+    }
 
 
 

@@ -60,6 +60,7 @@ class AdminController extends Controller
         }else{
             Session::flash('wrong_old_pass', 'The old password you enter is wrong!');
             return redirect(action('AdminController@editProfile', [$admin_user->id]));
+
         }
     }
 

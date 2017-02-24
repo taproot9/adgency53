@@ -5,24 +5,114 @@
 @endsection
 
 @section('nav')
-
     <li><a href="{{url('/')}}">Home</a></li>
     <li class="active"><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
     <li><a href="about-us.html">About Us</a></li>
-    <!--<li><a href="services.html">Services</a></li>-->
-    <li><a href="portfolio.html">Portfolio</a></li>
-
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down"></i></a>
-        <ul class="dropdown-menu">
-            <li><a href="blog-item.html">Blog Single</a></li>
-            <li><a href="pricing.html">Pricing</a></li>
-            <li><a href="404.html">404</a></li>
-            <li><a href="shortcodes.html">Shortcodes</a></li>
-        </ul>
-    </li>
-    <!--<li><a href="blog.html">Blog</a></li> -->
     <li><a href="contact-us.html">Contact</a></li>
+
+
+
+    @if(Auth::check())
+        <li id="isActive" class="dropdown hidden-phone">
+
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-bell " aria-hidden="true"></i>
+            </a>
+
+            <ul class="dropdown-menu notifications">
+
+                <li class="dropdown-menu-title">
+                    {{--<span>You have a notifications</span>--}}
+                    {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
+                </li>
+
+
+                {{--rents--}}
+                @if($rents == null)
+                    <li>
+                        <span class="message">No notification</span>
+                    </li>
+
+                @else
+                    @foreach($rents as $rent)
+                        @if($rent->is_seen == 0)
+                            <li>
+                                <a href="{{url('/owner/show_pending_rent_specific_billboard', [$rent->billboard_id, $rent->id, $rent->client_id])}}">
+                                    <span class="message">{{App\User::findOrFail($rent->client_id)->first_name}} Ask For Rent</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endforeach
+                @endif
+
+
+
+
+                {{--sales--}}
+                @if($sales == null)
+                    <li>
+                        <span class="message">No notification</span>
+                    </li>
+
+                @else
+                    @foreach($sales as $sale)
+                        @if($sale->is_seen == 0)
+                            <li>
+                                <a href="{{url('/owner/show_pending_sale_specific_billboard', [$sale->billboard_id, $sale->id, $sale->client_id])}}">
+                                    <span class="message">{{App\User::findOrFail($sale->client_id)->first_name}} Ask For Sale</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endforeach
+                @endif
+
+                {{--reservation--}}
+
+                @if($reserves == null)
+                    <li>
+                        <span class="message">No notification</span>
+                    </li>
+
+                @else
+                    @foreach($reserves as $reserve)
+
+                        @if($reserve->is_seen == 0)
+                            <li>
+                                <a href="{{url('/owner/show_pending_reserved_specific_billboard', [$reserve->billboard_id, $reserve->id, $reserve->client_id])}}">
+                                    <span class="message">{{App\User::findOrFail($reserve->client_id)->first_name}} Ask For Reserve</span>
+                                </a>
+                            </li>
+                        @endif
+
+                    @endforeach
+                @endif
+
+
+            </ul>
+        </li>
+
+
+        <li class="dropdown hidden-phone">
+
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                {{--<span class="badge red">--}}
+                {{--4 </span>--}}
+            </a>
+            <ul class="dropdown-menu messages">
+                <li class="dropdown-menu-title">
+
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="avatar"><img height="20px" width="20px" src="{{asset('user_photo/img2.png')}}" alt="Avatar"></span>
+                        <span class="header"><span class="from">Ryan Boter</span></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+    @endif
 
     @if(Auth::guest())
         <li><a href="{{url('/login')}}">Login</a></li>
@@ -37,20 +127,43 @@
 
                 @if(Auth::user()->role_id == 3)
 
-                    <li><a href="{{url('/owner/my_post', Auth::user()->id )}}">My Available Post</a></li>
-                    <li><a href="{{url('/owner/create_posts')}}">Add Post</a></li>
+                    <li><a href="{{url('/owner/show/profile')}}">Show Profile</a></li>
                     <li><a href="#">Subscription</a></li>
-                    <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My All Post</a></li>
+
+                    <hr>
+
+                    <li><a href="{{url('/owner/create_posts')}}">Add Post</a></li>
+                    <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My Post</a></li>
+                    <li><a href="{{url('/owner/my_post', Auth::user()->id )}}">Available Post</a></li>
+
+                    <hr>
+
+                    <li><a href="{{url('/show_all_rented')}}">For Rent</a></li>
+                    <li><a href="{{url('/owner/show_all_sale')}}">For Sale</a></li>
+
+                    <hr>
+
+                    <li><a href="{{url('/owner/show_all_rented_billboard')}}">Rented</a></li>
+                    <li><a href="{{url('/owner/show_all_sale_billboard')}}">Sold</a></li>
+                    <li><a href="{{url('/owner/show_all_reserve_billboard')}}">Reserved</a></li>
 
                 @endif
 
                 @if(Auth::user()->role_id == 2)
-                    <li><a href="{{url('/client/available_post')}}">Available Billboard</a></li>
-                    <li><a href="{{url('/client/rented')}}">Rented</a></li>
-                    {{--<li><a href="#">Reserved</a></li>--}}
-                    {{--<li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">Owned</a></li>--}}
-                @endif
+                    <li><a href="{{url('/client/show/profile')}}">Show Profile</a></li>
 
+                    <hr>
+
+                    <li><a href="{{url('/client/available_post')}}">Available Ad Spaces</a></li>
+                    <li><a href="{{url('/client/show_available_rent')}}">For Rent</a></li>
+                    <li><a href="{{url('/client/show_available_sales')}}">For Sale</a></li>
+
+                    <hr>
+
+                    <li><a href="{{url('/client/show_my_all_rent')}}">My Rental</a></li>
+                    <li><a href="{{url('/client/show_my_all_sale')}}">My Sales</a></li>
+                    <li><a href="{{url('/client/show_my_all_reserve')}}">My Reservation</a></li>
+                @endif
                 <li>
 
                     <hr>
@@ -70,7 +183,6 @@
             </ul>
         </li>
     @endif
-
 @endsection
 
 @section('content')
@@ -123,16 +235,17 @@
                             <li><i class="fa fa-pencil-square-o"></i><strong> Posted By:</strong> {{$ad_space->posted_by}}</li>
                             <li><i class="fa fa-clock-o"></i><strong> Posted On:</strong> {{ $ad_space->created_at->format('M d, Y') }}</li>
                         </ul>
-                        @if($ad_space->advertising_type == 'sale')
-                            <a href="{{url('/client/create_sale', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Buy</a>
+                        @if(Auth::user()->role_id != 3)
+                            @if($ad_space->advertising_type == 'sale')
+                                <a href="{{url('/client/create_sale', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Buy</a>
+                            @endif
+                            @if($ad_space->advertising_type == 'rent')
+                                <a href="{{url('/client/create_rent', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Rent</a>
+                            @endif
+
+                            <a href="{{url('/client/reserve', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Reserve</a>
+
                         @endif
-                        @if($ad_space->advertising_type == 'rent')
-                            <a href="{{url('/client/create_rent', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Rent</a>
-                        @endif
-
-                        <a href="{{url('/client/reserve', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Reserve</a>
-
-
 
                         {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gridSystemModal">--}}
                         {{--Reserve--}}
@@ -140,73 +253,73 @@
 
 
                         {{--<div id="gridSystemModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">--}}
-                            {{--<div class="container" style="width: 400px; padding-top: 50px">--}}
-                                {{--<div class="panel-group"--}}
-                                     {{--style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">--}}
-                                    {{--<div class="panel panel-primary">--}}
-                                        {{--<div class="panel-heading">--}}
-                                            {{--<h2 style=" color: white; text-shadow: 2px 2px 4px #000000;">Reserve</h2>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="panel-body">--}}
+                        {{--<div class="container" style="width: 400px; padding-top: 50px">--}}
+                        {{--<div class="panel-group"--}}
+                        {{--style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">--}}
+                        {{--<div class="panel panel-primary">--}}
+                        {{--<div class="panel-heading">--}}
+                        {{--<h2 style=" color: white; text-shadow: 2px 2px 4px #000000;">Reserve</h2>--}}
+                        {{--</div>--}}
+                        {{--<div class="panel-body">--}}
 
-                                            {{--{!! Form::open(['method' => 'get','action' => ['ClientController@reserve', $ad_space->user->id, Auth::user()->id,$ad_space->id]]) !!}--}}
+                        {{--{!! Form::open(['method' => 'get','action' => ['ClientController@reserve', $ad_space->user->id, Auth::user()->id,$ad_space->id]]) !!}--}}
 
-                                            {{--{{csrf_field()}}--}}
+                        {{--{{csrf_field()}}--}}
 
-                                            {{--<div class="form-group">--}}
-                                                {{--{!! Form::label('reserve_until', 'Reserve for:') !!}--}}
-                                                {{--{!! Form::text('reserve_until', null, ['class'=>'form-control']) !!}--}}
-                                                {{--{!! Form::select('reserve_until', [1 => '1 Week', 2 => '2 Weeks',3 => '3 Weeks', 4 => '1 Month'],1, ['class'=>'form-control']) !!}--}}
-                                            {{--</div>--}}
-
-
-                                            {{--<div class="form-group">--}}
-                                                {{--{!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}--}}
-                                            {{--</div>--}}
-
-                                            {{--{!! Form::close() !!}--}}
-                                            {{--<form>--}}
-                                            {{--<div class="form-group">--}}
-                                            {{--<label for="email"></label>--}}
-                                            {{--<div class="input-group">--}}
-                                            {{--<div class="input-group-addon"><i style="width: 30px" class="fa fa-envelope"--}}
-                                            {{--aria-hidden="true"></i></div>--}}
-                                            {{--<input type="email" class="form-control" id="email" placeholder="Email">--}}
-                                            {{--</div>--}}
-                                            {{--<label for="password"></label>--}}
-                                            {{--<div class="input-group">--}}
-                                            {{--<div class="input-group-addon"><i style="width: 30px" class="fa fa-lock"--}}
-                                            {{--aria-hidden="true"></i></div>--}}
-                                            {{--<input type="password" class="form-control" id="password" placeholder="Password">--}}
-                                            {{--</div>--}}
+                        {{--<div class="form-group">--}}
+                        {{--{!! Form::label('reserve_until', 'Reserve for:') !!}--}}
+                        {{--{!! Form::text('reserve_until', null, ['class'=>'form-control']) !!}--}}
+                        {{--{!! Form::select('reserve_until', [1 => '1 Week', 2 => '2 Weeks',3 => '3 Weeks', 4 => '1 Month'],1, ['class'=>'form-control']) !!}--}}
+                        {{--</div>--}}
 
 
+                        {{--<div class="form-group">--}}
+                        {{--{!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}--}}
+                        {{--</div>--}}
 
-                                            {{--</div>--}}
+                        {{--{!! Form::close() !!}--}}
+                        {{--<form>--}}
+                        {{--<div class="form-group">--}}
+                        {{--<label for="email"></label>--}}
+                        {{--<div class="input-group">--}}
+                        {{--<div class="input-group-addon"><i style="width: 30px" class="fa fa-envelope"--}}
+                        {{--aria-hidden="true"></i></div>--}}
+                        {{--<input type="email" class="form-control" id="email" placeholder="Email">--}}
+                        {{--</div>--}}
+                        {{--<label for="password"></label>--}}
+                        {{--<div class="input-group">--}}
+                        {{--<div class="input-group-addon"><i style="width: 30px" class="fa fa-lock"--}}
+                        {{--aria-hidden="true"></i></div>--}}
+                        {{--<input type="password" class="form-control" id="password" placeholder="Password">--}}
+                        {{--</div>--}}
 
-                                            {{--<div class="row">--}}
-                                            {{--<div class="col-md-6">--}}
-                                            {{--<div class="input-group pull-left">--}}
-                                            {{--<div class="checkbox">--}}
-                                            {{--<label>--}}
-                                            {{--<input type="checkbox" name="remember"> Remember Me--}}
-                                            {{--</label>--}}
-                                            {{--</div>--}}
-                                            {{--</div>--}}
-                                            {{--</div>--}}
-                                            {{--<div class="col-md-6">--}}
-                                            {{--<button type="submit" class="btn btn-primary btn-md pull-right"--}}
-                                            {{--style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">--}}
-                                            {{--Submit--}}
-                                            {{--</button>--}}
-                                            {{--</div>--}}
-                                            {{--</div>--}}
 
-                                            {{--</form>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
+
+                        {{--</div>--}}
+
+                        {{--<div class="row">--}}
+                        {{--<div class="col-md-6">--}}
+                        {{--<div class="input-group pull-left">--}}
+                        {{--<div class="checkbox">--}}
+                        {{--<label>--}}
+                        {{--<input type="checkbox" name="remember"> Remember Me--}}
+                        {{--</label>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="col-md-6">--}}
+                        {{--<button type="submit" class="btn btn-primary btn-md pull-right"--}}
+                        {{--style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">--}}
+                        {{--Submit--}}
+                        {{--</button>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
+
+                        {{--</form>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
                         {{--</div>--}}
 
 

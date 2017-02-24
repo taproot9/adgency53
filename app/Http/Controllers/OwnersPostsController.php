@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Adspace;
+use App\Rent;
+use App\Reservation;
+use App\Sale;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,13 +20,36 @@ class OwnersPostsController extends Controller
     }
 
     public function show_ads(){
+
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
         $ad_spaces = Adspace::all();
-        return view('test_ads', compact('ad_spaces'));
+        return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves'));
     }
 
     public function create()
     {
-        return view('owner.posts.create');
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+        return view('owner.posts.create', compact('rents', 'sales', 'reserves'));
     }
 
     public function store(Request $request)
@@ -51,13 +77,37 @@ class OwnersPostsController extends Controller
 
 //        $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(9);
 
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
         $user = User::findOrFail($id)->ad_spaces()->latest()->available()->paginate(9);
-        return view('owner.posts.my_post', compact('user'));
+        return view('owner.posts.my_post', compact('user', 'rents', 'sales', 'reserves'));
     }
 
     public function my_all_post($id){
+
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
         $user = User::findOrFail($id)->ad_spaces()->latest()->paginate(9);
-        return view('owner.posts.my_all_post', compact('user'));
+        return view('owner.posts.my_all_post', compact('user', 'rents', 'reserves', 'sales'));
     }
 
 
@@ -78,6 +128,18 @@ class OwnersPostsController extends Controller
 
     public function edit_post($id){
 
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //rent notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
         $ad_space = Adspace::findOrFail($id);
 
 //        $categories = Category::lists('name', 'id')->all();
@@ -85,7 +147,7 @@ class OwnersPostsController extends Controller
 
 //        return view('admin.posts.edit', compact('post', 'categories'));
 
-        return view('owner.posts.edit', compact('ad_space'));
+        return view('owner.posts.edit', compact('ad_space', 'reserves', 'sales', 'rents'));
     }
 
     public function update_post(Request $request, $id){
