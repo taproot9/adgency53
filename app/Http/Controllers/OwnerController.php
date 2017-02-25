@@ -6,7 +6,9 @@ use App\Adspace;
 use App\Rent;
 use App\Reservation;
 use App\Sale;
+use App\Subscription;
 use App\User;
+use Hamcrest\Core\SampleBaseClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -298,6 +300,66 @@ class OwnerController extends Controller
         Adspace::where('id', $ad_space)->update(['status' => 0]);
         return redirect('/');
 
+    }
+
+    public function subscribe($price){
+
+        $sub_id = 0;
+        $lastInsertId = 0;
+        if ($price == 0){
+
+            $sub_id = 1;
+
+            $d = \Carbon\Carbon::now();
+            $end_date = \Carbon\Carbon::now()->addMonth(1);
+            $subscription = Subscription::create(['plan' => 'Free Trial','price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
+            $lastInsertId = $subscription->id;
+
+        }else if ($price == 100){
+            $sub_id = 2;
+            $d = \Carbon\Carbon::now();
+            $end_date = \Carbon\Carbon::now()->addMonth(3);
+            $subscription = Subscription::create(['plan' => 'Start Up','price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
+            $lastInsertId = $subscription->id;
+        }else if ($price == 190){
+            $sub_id = 3;
+            $d = \Carbon\Carbon::now();
+            $end_date = \Carbon\Carbon::now()->addMonth(6);
+            $subscription = Subscription::create(['plan' => 'Standard','price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
+            $lastInsertId = $subscription->id;
+        }else if ($price == 270){
+            $sub_id = 4;
+            $d = \Carbon\Carbon::now();
+            $end_date = \Carbon\Carbon::now()->addYear(1);
+            $subscription = Subscription::create(['plan' => 'Premium','price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
+            $lastInsertId = $subscription->id;
+        }
+
+
+        if ($sub_id != 0){
+            $subs = Subscription::FindOrFail($lastInsertId);
+            $subs->users()->attach(Auth::user()->id);
+            $subs->save();
+
+            return redirect('/');
+        }else{
+            //dapat epa subscribe ang owner nga user
+            return view('subscriptionplan');
+        }
+
+
+
+
+
+//        $d = \Carbon\Carbon::now();
+//        $reserve = Reservation::create(['reserve_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id]);
+//        $LastInsertId = $reserve->id;
+//
+//        Adspace::where('id',$billboard_id)->update(['reserve'=>1, 'status'=>0]);
+//
+//
+//        $reserve_adspace = Reservation::findOrFail($LastInsertId);
+//        $reserve_adspace->ad_spaces()->attach($billboard_id);
     }
 
 

@@ -8,6 +8,8 @@ use App\Sale;
 use App\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 
 //public route
@@ -167,6 +169,9 @@ Route::get('/owner/adspace_sale/add_to_adspace_sale/{ad_space}/{rent_id}/{client
 Route::get('/owner/show_pending_reserved_specific_billboard/{billboard_id}/{reserve_id}/{client_id}', 'OwnerController@show_pending_reserved_specific_billboard')->name('show_pending_reserved_specific_billboard');
 Route::get('/owner/adspace_reserve/add_to_adspace_reserve/{ad_space}/{reserve_id}/{client_id}', 'OwnerController@add_to_adspace_reserve')->name('add_to_adspace_reserve');
 
+//subscription
+Route::get('/owner/subscribe/{price}', 'OwnerController@subscribe')->name('subscribe');
+
 
 
 
@@ -212,6 +217,10 @@ Route::get('/client/cancel_reservation/{id}', 'ClientController@cancel_reservati
 
 Route::get('/subs', function (){
     return view('subscriptionplan');
+});
+
+Route::get('show_form', function (){
+    return view('example_subs');
 });
 
 

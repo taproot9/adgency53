@@ -93,5 +93,9 @@ class User extends Authenticatable
         return ucfirst($value);
     }
 
+    public function subscriptions(){
+        return $this->belongsToMany('App\Subscription', 'subscribe_user', 'user_id', 'subscribe_id')->withPivot('user_id', 'subscribe_id');
+    }
+
 
 }

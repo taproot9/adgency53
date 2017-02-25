@@ -353,6 +353,18 @@
 
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function(){ //Make script DOM ready
+        $('#role').change(function() { //jQuery Change Function
+            var opval = $(this).val(); //Get value from select element
+            if(opval=="3"){ //Compare it and if true
+                $('#gridSystemModal').modal("show"); //Open Modal
+            }
+        });
+    });
+</script>
+
+
 
 </body>
 </html>

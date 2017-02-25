@@ -11,109 +11,6 @@
     <li><a href="contact-us.html">Contact</a></li>
 
 
-
-    @if(Auth::check())
-        <li id="isActive" class="dropdown hidden-phone">
-
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-bell " aria-hidden="true"></i>
-            </a>
-
-            <ul class="dropdown-menu notifications">
-
-                <li class="dropdown-menu-title">
-                    {{--<span>You have a notifications</span>--}}
-                    {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
-                </li>
-
-
-                {{--rents--}}
-                @if($rents == null)
-                    <li>
-                        <span class="message">No notification</span>
-                    </li>
-
-                @else
-                    @foreach($rents as $rent)
-                        @if($rent->is_seen == 0)
-                            <li>
-                                <a href="{{url('/owner/show_pending_rent_specific_billboard', [$rent->billboard_id, $rent->id, $rent->client_id])}}">
-                                    <span class="message">{{App\User::findOrFail($rent->client_id)->first_name}} Ask For Rent</span>
-                                </a>
-                            </li>
-                        @endif
-                    @endforeach
-                @endif
-
-
-
-
-                {{--sales--}}
-                @if($sales == null)
-                    <li>
-                        <span class="message">No notification</span>
-                    </li>
-
-                @else
-                    @foreach($sales as $sale)
-                        @if($sale->is_seen == 0)
-                            <li>
-                                <a href="{{url('/owner/show_pending_sale_specific_billboard', [$sale->billboard_id, $sale->id, $sale->client_id])}}">
-                                    <span class="message">{{App\User::findOrFail($sale->client_id)->first_name}} Ask For Sale</span>
-                                </a>
-                            </li>
-                        @endif
-                    @endforeach
-                @endif
-
-                {{--reservation--}}
-
-                @if($reserves == null)
-                    <li>
-                        <span class="message">No notification</span>
-                    </li>
-
-                @else
-                    @foreach($reserves as $reserve)
-
-                        @if($reserve->is_seen == 0)
-                            <li>
-                                <a href="{{url('/owner/show_pending_reserved_specific_billboard', [$reserve->billboard_id, $reserve->id, $reserve->client_id])}}">
-                                    <span class="message">{{App\User::findOrFail($reserve->client_id)->first_name}} Ask For Reserve</span>
-                                </a>
-                            </li>
-                        @endif
-
-                    @endforeach
-                @endif
-
-
-            </ul>
-        </li>
-
-
-        <li class="dropdown hidden-phone">
-
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                {{--<span class="badge red">--}}
-                {{--4 </span>--}}
-            </a>
-            <ul class="dropdown-menu messages">
-                <li class="dropdown-menu-title">
-
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="avatar"><img height="20px" width="20px" src="{{asset('user_photo/img2.png')}}" alt="Avatar"></span>
-                        <span class="header"><span class="from">Ryan Boter</span></span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-    @endif
-
     @if(Auth::guest())
         <li><a href="{{url('/login')}}">Login</a></li>
         <li><a href="{{url('/register')}}">SignUp</a></li>
@@ -205,7 +102,8 @@
                         <li>No Discount</li>
                         <li>24/7 Support</li>
                         <li class="plan-action">
-                            <a href="" class="btn btn-primary">Subscibe</a>
+
+                            <a href="{{url('/owner/subscribe', 100)}}" class="btn btn-primary">Subscribe</a>
                         </li>
                     </ul>
                 </div>
@@ -213,20 +111,21 @@
                 <div class="col-sm-4 plan price-two wow fadeInDown">
                     <ul>
                         <li class="heading-two">
-                            <h1>Standerd</h1>
+                            <h1>Standard</h1>
                             <span>&#8369;190/6 Months</span>
                         </li>
                         <li>6 Months Unlimited Access</li>
                         <li>10% Discount</li>
                         <li>24/7 Support</li>
                         <li class="plan-action">
-                            <a href="" class="btn btn-primary">Subscibe</a>
+
+                            <a href="{{url('/owner/subscribe', 190)}}" class="btn btn-primary">Subscribe</a>
                         </li>
                     </ul>
                 </div>
 
                 <div class="col-sm-4 plan price-three wow fadeInDown">
-                    <img src="images/ribon_one.png">
+                    <img src="{{asset('adgencystyles/images/ribon_one.png')}}">
                     <ul>
                         <li class="heading-three">
                             <h1>Premium</h1>
@@ -236,7 +135,7 @@
                         <li>30% Discount</li>
                         <li>24/7 Support</li>
                         <li class="plan-action">
-                            <a href="" class="btn btn-primary">Subscibe</a>
+                            <a href="{{url('/owner/subscribe', 270)}}" class="btn btn-primary">Subscribe</a>
                         </li>
                     </ul>
                 </div>
@@ -250,7 +149,7 @@
                         <li>1 Month Free Access</li>
                         <li>24/7 Support</li>
                         <li class="plan-action">
-                            <a href="" class="btn btn-primary">Subscibe</a>
+                            <a href="{{url('/owner/subscribe', 0)}}" class="btn btn-primary">Subscribe</a>
                         </li>
                     </ul>
                 </div>

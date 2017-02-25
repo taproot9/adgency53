@@ -239,7 +239,7 @@
                             <p>Selling Price: &#8369; {{$ad_space->price}}</p>
                         @endif
                         @if($ad_space->advertising_type == 'rent')
-                            <p>Rent Price: &#8369; {{$ad_space->rent_price}}{{'/Month'}} </p>
+                            <p>Rent Price: &#8369; {{$ad_space->price}}{{'/Month'}} </p>
                         @endif
 
                         <ul class="post-meta">
