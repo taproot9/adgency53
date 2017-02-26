@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -21,6 +22,19 @@ class Handler extends ExceptionHandler
         \Illuminate\Session\TokenMismatchException::class,
         \Illuminate\Validation\ValidationException::class,
     ];
+
+    protected function renderModelNotFoundException(ModelNotFoundException $e)
+    {
+        if (view()->exists('errors.404'))
+        {
+            return response()->view('errors.404', [], 404);
+        }
+        else
+        {
+            return (new SymfonyDisplayer(config('app.debug')))
+                ->createResponse($e);
+        }
+    }
 
     /**
      * Report or log an exception.
@@ -44,7 +58,21 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+
+        if ($this->isHttpException($exception))
+        {
+            return $this->renderHttpException($exception);
+        }
+
+        elseif ($exception instanceof ModelNotFoundException)
+        {
+            return $this->renderModelNotFoundException($exception);
+        }
+
+        else{
+            return parent::render($request, $exception);
+        }
+
     }
 
     /**

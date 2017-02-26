@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -103,7 +104,122 @@ Route::get('/ad_spaces', function (){
 
 
 //auth route
-Auth::routes();
+//Auth::routes();
+
+// Authentication Routes...
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Registration Routes...
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+//        $this->post('check_users','Auth\RegisterController@check_users')->name('check_users');
+Route::post('register', 'Auth\RegisterController@register');
+
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+
+
+Route::group(['middleware' => ['subscribe_user','is_owner']], function () {
+
+    //owners route
+    Route::get('/owner/create_posts', 'OwnersPostsController@create');
+    Route::post('/owner', 'OwnersPostsController@store');
+    Route::get('/owner/my_post/{id}', 'OwnersPostsController@my_post');
+    Route::get('/owner/delete/{id}', 'OwnersPostsController@delete');
+    Route::get('/owner/{id}/edit_post', 'OwnersPostsController@edit_post')->name('edit_post');
+    Route::patch('/owner/{id}', 'OwnersPostsController@update_post')->name('update_post');
+    Route::get('/owner/my_all_post/{id}', 'OwnersPostsController@my_all_post');
+    Route::get('/owner/show/profile', 'OwnerController@owner_show_profile')->name('owner_show_profile');
+    Route::get('/owner/{id}/edit_profile', 'OwnerController@owner_edit_profile')->name('owner_edit_profile');
+    Route::patch('/owner/update/{id}', 'OwnerController@owner_update_profile')->name('owner_update_profile');
+
+
+//show all billboard
+    Route::get('show_all_rented', 'OwnerController@show_all_rented')->name('show_all_rented');
+    Route::get('owner/show_all_sale', 'OwnerController@show_all_sale')->name('show_all_sale');
+
+
+
+//edit rented post
+    Route::get('/owner/{id}/edit_rented_post', 'OwnerController@edit_rented_post')->name('edit_rented_post');
+//edit sale post
+
+
+    Route::get('/owner/show_reserved_specific_billboard/{id}/{client_id}', 'OwnerController@show_reserved_specific_billboard')->name('show_reserved_specific_billboard');
+
+    Route::get('/owner/show_all_rented_billboard', 'OwnerController@show_all_rented_billboard')->name('show_all_rented_billboard');
+//update here
+    Route::get('/owner/show_all_sale_billboard', 'OwnerController@show_all_sale_billboard')->name('show_all_sale_billboard');
+//update here
+    Route::get('/owner/show_all_reserve_billboard', 'OwnerController@show_all_reserve_billboard')->name('show_all_reserve_billboard');
+
+
+
+    Route::get('/owner/show_pending_rent_specific_billboard/{billboard_id}/{rent_id}/{client_id}', 'OwnerController@show_pending_rent_specific_billboard')->name('show_pending_rent_specific_billboard');
+    Route::get('/owner/adspace_rent/add_to_adspace_rent/{ad_space}/{rent_id}/{client_id}', 'OwnerController@add_to_adspace_rent')->name('add_to_adspace_rent');
+
+    Route::get('/owner/show_pending_sale_specific_billboard/{billboard_id}/{rent_id}/{client_id}', 'OwnerController@show_pending_sale_specific_billboard')->name('show_pending_sale_specific_billboard');
+    Route::get('/owner/adspace_sale/add_to_adspace_sale/{ad_space}/{rent_id}/{client_id}', 'OwnerController@add_to_adspace_sale')->name('add_to_adspace_sale');
+
+    Route::get('/owner/show_pending_reserved_specific_billboard/{billboard_id}/{reserve_id}/{client_id}', 'OwnerController@show_pending_reserved_specific_billboard')->name('show_pending_reserved_specific_billboard');
+    Route::get('/owner/adspace_reserve/add_to_adspace_reserve/{ad_space}/{reserve_id}/{client_id}', 'OwnerController@add_to_adspace_reserve')->name('add_to_adspace_reserve');
+
+//subscription
+//Route::get('/owner/show_subscription', function (){
+//    return view('subscriptionplan');
+//});
+    Route::get('/owner/subscribe/{price}/{plan}/{mo}', 'OwnerController@subscribe')->name('subscribe');
+
+});
+
+
+
+
+
+//client route
+
+Route::group(['middleware' => ['is_client']], function () {
+    Route::get('/client/available_post', 'ClientController@available_post');
+    Route::get('/client/show/profile', 'ClientController@client_show_profile')->name('client_show_profile');
+    Route::get('/client/{id}/edit_profile', 'ClientController@client_edit_profile')->name('client_edit_profile');
+    Route::patch('/client/update/{id}', 'ClientController@client_update_profile')->name('client_update_profile');
+
+    Route::get('client/show_available_rent', 'ClientController@show_available_rent')->name('show_available_rent');
+    Route::get('client/create_rent/{owner_id}/{client_id}/{billboard_id}', 'ClientController@create_rent')->name('create_rent');
+    Route::get('client/show_my_all_rent', 'ClientController@show_my_all_rent')->name('show_my_all_rent');
+    Route::get('/client/edit_my_rented_post/{id}', 'ClientController@edit_my_rented_post')->name('edit_my_rented_post');
+//udpate rented here
+    Route::delete('/client/delete_my_rented_post/{id}', 'ClientController@delete_my_rented_post')->name('delete_my_rented_post');
+
+    Route::get('/client/show_available_sales', 'ClientController@show_available_sales')->name('show_available_sales');
+    Route::get('/client/create_sale/{owner_id}/{client_id}/{billboard_id}', 'ClientController@create_sale')->name('create_sale');
+    Route::get('client/show_my_all_sale', 'ClientController@show_my_all_sale')->name('show_my_all_sale');
+    Route::get('/client/edit_my_sale_post/{id}', 'ClientController@edit_my_sale_post')->name('edit_my_sale_post');
+//update sale here
+    Route::delete('/client/delete_my_sale_post/{id}', 'ClientController@delete_my_sale_post')->name('delete_my_sale_post');
+
+
+    Route::get('/client/show_available_sales', 'ClientController@show_available_sales')->name('show_available_sales');
+    Route::get('/client/create_sale/{owner_id}/{client_id}/{billboard_id}', 'ClientController@create_sale')->name('create_sale');
+    Route::get('client/show_my_all_sale', 'ClientController@show_my_all_sale')->name('show_my_all_sale');
+    Route::get('/client/edit_my_sale_post/{id}', 'ClientController@edit_my_sale_post')->name('edit_my_sale_post');
+//update reserve here
+    Route::delete('/client/delete_my_sale_post/{id}', 'ClientController@delete_my_sale_post')->name('delete_my_sale_post');
+
+    Route::get('/client/reserve/{owner_id}/{client_id}/{billboard_id}', 'ClientController@reserve')->name('reserve');
+    Route::get('/client/reserve_add/{owner_id}/{client_id}/{billboard_id}', 'ClientController@reserve_add')->name('reserve_add');
+
+
+    Route::get('/client/show_my_all_reserve', 'ClientController@show_my_all_reserve')->name('show_my_all_reserve');
+    Route::get('/client/cancel_reservation/{id}', 'ClientController@cancel_reservation')->name('cancel_reservation');
+
+
+});
 
 //admin route
 Route::get('/admin_home', 'AdminHomeController@index');
@@ -126,94 +242,47 @@ Route::get('admin/sale', 'AdminController@sale')->name('sale');
 Route::get('admin/reserve', 'AdminController@reserve')->name('reserve');
 
 
-//owners route
-Route::get('/owner/create_posts', 'OwnersPostsController@create');
-Route::post('/owner', 'OwnersPostsController@store');
-Route::get('/owner/my_post/{id}', 'OwnersPostsController@my_post');
-Route::get('/owner/delete/{id}', 'OwnersPostsController@delete');
-Route::get('/owner/{id}/edit_post', 'OwnersPostsController@edit_post')->name('edit_post');
-Route::patch('/owner/{id}', 'OwnersPostsController@update_post')->name('update_post');
-Route::get('/owner/my_all_post/{id}', 'OwnersPostsController@my_all_post');
-Route::get('/owner/show/profile', 'OwnerController@owner_show_profile')->name('owner_show_profile');
-Route::get('/owner/{id}/edit_profile', 'OwnerController@owner_edit_profile')->name('owner_edit_profile');
-Route::patch('/owner/update/{id}', 'OwnerController@owner_update_profile')->name('owner_update_profile');
-
-
-//show all billboard
-Route::get('show_all_rented', 'OwnerController@show_all_rented')->name('show_all_rented');
-Route::get('owner/show_all_sale', 'OwnerController@show_all_sale')->name('show_all_sale');
-
-
-
-//edit rented post
-Route::get('/owner/{id}/edit_rented_post', 'OwnerController@edit_rented_post')->name('edit_rented_post');
-//edit sale post
-
-
-Route::get('/owner/show_reserved_specific_billboard/{id}/{client_id}', 'OwnerController@show_reserved_specific_billboard')->name('show_reserved_specific_billboard');
-
-Route::get('/owner/show_all_rented_billboard', 'OwnerController@show_all_rented_billboard')->name('show_all_rented_billboard');
-//update here
-Route::get('/owner/show_all_sale_billboard', 'OwnerController@show_all_sale_billboard')->name('show_all_sale_billboard');
-//update here
-Route::get('/owner/show_all_reserve_billboard', 'OwnerController@show_all_reserve_billboard')->name('show_all_reserve_billboard');
-
-
-
-Route::get('/owner/show_pending_rent_specific_billboard/{billboard_id}/{rent_id}/{client_id}', 'OwnerController@show_pending_rent_specific_billboard')->name('show_pending_rent_specific_billboard');
-Route::get('/owner/adspace_rent/add_to_adspace_rent/{ad_space}/{rent_id}/{client_id}', 'OwnerController@add_to_adspace_rent')->name('add_to_adspace_rent');
-
-Route::get('/owner/show_pending_sale_specific_billboard/{billboard_id}/{rent_id}/{client_id}', 'OwnerController@show_pending_sale_specific_billboard')->name('show_pending_sale_specific_billboard');
-Route::get('/owner/adspace_sale/add_to_adspace_sale/{ad_space}/{rent_id}/{client_id}', 'OwnerController@add_to_adspace_sale')->name('add_to_adspace_sale');
-
-Route::get('/owner/show_pending_reserved_specific_billboard/{billboard_id}/{reserve_id}/{client_id}', 'OwnerController@show_pending_reserved_specific_billboard')->name('show_pending_reserved_specific_billboard');
-Route::get('/owner/adspace_reserve/add_to_adspace_reserve/{ad_space}/{reserve_id}/{client_id}', 'OwnerController@add_to_adspace_reserve')->name('add_to_adspace_reserve');
-
-//subscription
-Route::get('/owner/subscribe/{price}', 'OwnerController@subscribe')->name('subscribe');
 
 
 
 
-
-
-//client route
-Route::get('/client/available_post', 'ClientController@available_post');
-Route::get('/client/show/profile', 'ClientController@client_show_profile')->name('client_show_profile');
-Route::get('/client/{id}/edit_profile', 'ClientController@client_edit_profile')->name('client_edit_profile');
-Route::patch('/client/update/{id}', 'ClientController@client_update_profile')->name('client_update_profile');
-
-Route::get('client/show_available_rent', 'ClientController@show_available_rent')->name('show_available_rent');
-Route::get('client/create_rent/{owner_id}/{client_id}/{billboard_id}', 'ClientController@create_rent')->name('create_rent');
-Route::get('client/show_my_all_rent', 'ClientController@show_my_all_rent')->name('show_my_all_rent');
-Route::get('/client/edit_my_rented_post/{id}', 'ClientController@edit_my_rented_post')->name('edit_my_rented_post');
-//udpate rented here
-Route::delete('/client/delete_my_rented_post/{id}', 'ClientController@delete_my_rented_post')->name('delete_my_rented_post');
-
-Route::get('/client/show_available_sales', 'ClientController@show_available_sales')->name('show_available_sales');
-Route::get('/client/create_sale/{owner_id}/{client_id}/{billboard_id}', 'ClientController@create_sale')->name('create_sale');
-Route::get('client/show_my_all_sale', 'ClientController@show_my_all_sale')->name('show_my_all_sale');
-Route::get('/client/edit_my_sale_post/{id}', 'ClientController@edit_my_sale_post')->name('edit_my_sale_post');
-//update sale here
-Route::delete('/client/delete_my_sale_post/{id}', 'ClientController@delete_my_sale_post')->name('delete_my_sale_post');
-
-
-Route::get('/client/show_available_sales', 'ClientController@show_available_sales')->name('show_available_sales');
-Route::get('/client/create_sale/{owner_id}/{client_id}/{billboard_id}', 'ClientController@create_sale')->name('create_sale');
-Route::get('client/show_my_all_sale', 'ClientController@show_my_all_sale')->name('show_my_all_sale');
-Route::get('/client/edit_my_sale_post/{id}', 'ClientController@edit_my_sale_post')->name('edit_my_sale_post');
-//update reserve here
-Route::delete('/client/delete_my_sale_post/{id}', 'ClientController@delete_my_sale_post')->name('delete_my_sale_post');
-
-Route::get('/client/reserve/{owner_id}/{client_id}/{billboard_id}', 'ClientController@reserve')->name('reserve');
-Route::get('/client/reserve_add/{owner_id}/{client_id}/{billboard_id}', 'ClientController@reserve_add')->name('reserve_add');
-
-
-Route::get('/client/show_my_all_reserve', 'ClientController@show_my_all_reserve')->name('show_my_all_reserve');
-Route::get('/client/cancel_reservation/{id}', 'ClientController@cancel_reservation')->name('cancel_reservation');
 
 
 //testing area here
+
+/*
+
+Route::get('test_sb', function (){
+
+    //check kung owner ba
+    if (Auth::user()->isOwner()){
+        echo "ok".'<br>';
+    }
+
+
+    $exists = DB::table('subscribe_user')
+            ->whereUserId(Auth::user()->id)
+            ->count() > 0;
+    if ($exists){
+        echo "ok".'<br>';
+    }
+
+    $user = App\User::findOrFail(Auth::user()->id);
+
+    $isOk = true;
+    foreach ($user->subscriptions as $subscription) {
+        if ($subscription->subscribe_end_date < \Carbon\Carbon::now()){
+            $isOk = false;
+        }
+    }
+
+    if ($isOk){
+        echo "ok";
+    }
+
+});
+
+
 
 Route::get('/subs', function (){
     return view('subscriptionplan');
@@ -537,3 +606,4 @@ Route::get('/admin_update/{id}', function ($id){
 });
 
 
+*/

@@ -184,6 +184,8 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
 
+        Netshell\Paypal\PaypalServiceProvider::class,
+
     ],
 
     /*
@@ -238,6 +240,7 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Paypal' => Netshell\Paypal\Facades\Paypal::class,
 
     ],
 

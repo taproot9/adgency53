@@ -8,14 +8,38 @@ use App\Reservation;
 use App\Sale;
 use App\Subscription;
 use App\User;
-use Hamcrest\Core\SampleBaseClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Paypal;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Transaction;
 
 class OwnerController extends Controller
 {
+    private $_apiContext;
+
+    public function __construct()
+    {
+        $this->_apiContext = PayPal::ApiContext(
+            config('services.paypal.client_id'),
+            config('services.paypal.secret'));
+
+        $this->_apiContext->setConfig(array(
+            'mode' => 'sandbox',
+            'service.EndPoint' => 'https://api.sandbox.paypal.com',
+            'http.ConnectionTimeOut' => 30,
+            'log.LogEnabled' => true,
+            'log.FileName' => storage_path('logs/paypal.log'),
+            'log.LogLevel' => 'FINE'
+        ));
+
+    }
+
     public function owner_show_profile(){
 
         if (Auth::guest()){
@@ -302,64 +326,27 @@ class OwnerController extends Controller
 
     }
 
-    public function subscribe($price){
+    public function subscribe($price, $plan , $mo){
 
-        $sub_id = 0;
-        $lastInsertId = 0;
-        if ($price == 0){
+        if ($price == null){
+            return view('subscriptionplan');
+        }else{
 
-            $sub_id = 1;
-
+            //add to the subscription table
             $d = \Carbon\Carbon::now();
-            $end_date = \Carbon\Carbon::now()->addMonth(1);
-            $subscription = Subscription::create(['plan' => 'Free Trial','price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
+            $end_date = \Carbon\Carbon::now()->addMonth($mo);
+            $subscription = Subscription::create(['plan' => $plan,'price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
             $lastInsertId = $subscription->id;
 
-        }else if ($price == 100){
-            $sub_id = 2;
-            $d = \Carbon\Carbon::now();
-            $end_date = \Carbon\Carbon::now()->addMonth(3);
-            $subscription = Subscription::create(['plan' => 'Start Up','price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
-            $lastInsertId = $subscription->id;
-        }else if ($price == 190){
-            $sub_id = 3;
-            $d = \Carbon\Carbon::now();
-            $end_date = \Carbon\Carbon::now()->addMonth(6);
-            $subscription = Subscription::create(['plan' => 'Standard','price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
-            $lastInsertId = $subscription->id;
-        }else if ($price == 270){
-            $sub_id = 4;
-            $d = \Carbon\Carbon::now();
-            $end_date = \Carbon\Carbon::now()->addYear(1);
-            $subscription = Subscription::create(['plan' => 'Premium','price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
-            $lastInsertId = $subscription->id;
-        }
-
-
-        if ($sub_id != 0){
+            //add to the junction table
             $subs = Subscription::FindOrFail($lastInsertId);
             $subs->users()->attach(Auth::user()->id);
             $subs->save();
 
             return redirect('/');
-        }else{
-            //dapat epa subscribe ang owner nga user
-            return view('subscriptionplan');
+
         }
 
-
-
-
-
-//        $d = \Carbon\Carbon::now();
-//        $reserve = Reservation::create(['reserve_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id]);
-//        $LastInsertId = $reserve->id;
-//
-//        Adspace::where('id',$billboard_id)->update(['reserve'=>1, 'status'=>0]);
-//
-//
-//        $reserve_adspace = Reservation::findOrFail($LastInsertId);
-//        $reserve_adspace->ad_spaces()->attach($billboard_id);
     }
 
 

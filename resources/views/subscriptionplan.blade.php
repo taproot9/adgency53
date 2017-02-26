@@ -102,8 +102,7 @@
                         <li>No Discount</li>
                         <li>24/7 Support</li>
                         <li class="plan-action">
-
-                            <a href="{{url('/owner/subscribe', 100)}}" class="btn btn-primary">Subscribe</a>
+                            <a href="{{url('/owner/subscribe', [100, 'Start Up', 3])}}" class="btn btn-primary">Subscribe</a>
                         </li>
                     </ul>
                 </div>
@@ -118,8 +117,7 @@
                         <li>10% Discount</li>
                         <li>24/7 Support</li>
                         <li class="plan-action">
-
-                            <a href="{{url('/owner/subscribe', 190)}}" class="btn btn-primary">Subscribe</a>
+                            <a href="{{url('/owner/subscribe', [190, 'Standard', 6])}}" class="btn btn-primary">Subscribe</a>
                         </li>
                     </ul>
                 </div>
@@ -135,7 +133,7 @@
                         <li>30% Discount</li>
                         <li>24/7 Support</li>
                         <li class="plan-action">
-                            <a href="{{url('/owner/subscribe', 270)}}" class="btn btn-primary">Subscribe</a>
+                            <a href="{{url('/owner/subscribe', [270, 'Premium', 12])}}" class="btn btn-primary">Subscribe</a>
                         </li>
                     </ul>
                 </div>
@@ -149,7 +147,7 @@
                         <li>1 Month Free Access</li>
                         <li>24/7 Support</li>
                         <li class="plan-action">
-                            <a href="{{url('/owner/subscribe', 0)}}" class="btn btn-primary">Subscribe</a>
+                            <a href="{{url('/owner/subscribe', [0, 'Free Trial', 1])}}" class="btn btn-primary">Subscribe</a>
                         </li>
                     </ul>
                 </div>
