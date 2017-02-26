@@ -12,159 +12,240 @@
     <li><a href="contact-us.html">Contact</a></li>
 
 
-    <li id="isActive" class="dropdown hidden-phone">
+    @if(Auth::check())
+        <li id="isActive" class="dropdown hidden-phone">
 
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-bell " aria-hidden="true"></i>
-        </a>
+            <a id="btnCLick" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-bell " aria-hidden="true"></i>
+            </a>
 
-        <ul class="dropdown-menu notifications">
+            <ul class="dropdown-menu notifications">
 
-            <li class="dropdown-menu-title">
-                {{--<span>You have a notifications</span>--}}
-                {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
-            </li>
-
-            {{--rents--}}
-            @if($rents == null)
-                <li>
-                    <span class="message">No notification</span>
+                <li class="dropdown-menu-title">
+                    {{--<span>You have a notifications</span>--}}
+                    {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
                 </li>
 
-            @else
-                @foreach($rents as $rent)
-                    @if($rent->is_seen == 0)
-                        <li>
-                            <a href="{{url('/owner/show_pending_rent_specific_billboard', [$rent->billboard_id, $rent->id, $rent->client_id])}}">
-                                <span class="message">{{App\User::findOrFail($rent->client_id)->first_name}} Ask For Rent</span>
-                            </a>
-                        </li>
-                    @endif
-                @endforeach
-            @endif
+                <?php $is_notify_owner = false;?>
+                @if(count($rents))
+                    @foreach($rents as $rent)
+                        @if($rent->is_seen == 0)
+                            <?php $is_notify_owner = true;?>
+                        @endif
+                    @endforeach
+                @endif
+
+                {{--owner notification--}}
+
+                {{--rents--}}
+                @if(!count($rents))
+                    <li>
+                        <span class="message">No notification</span>
+                    </li>
+
+                @else
+                    @foreach($rents as $rent)
+                        @if($rent->is_seen == 0)
+                            <li>
+                                <a href="{{url('/owner/show_pending_rent_specific_billboard', [$rent->billboard_id, $rent->id, $rent->client_id])}}">
+                                    <span class="message">{{App\User::findOrFail($rent->client_id)->first_name}} Ask For Rent</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endforeach
+                @endif
 
 
 
 
-            {{--sales--}}
-            @if($sales == null)
-                <li>
-                    <span class="message">No notification</span>
+                {{--sales--}}
+                @if($sales == null)
+                    <li>
+                        <span class="message">No notification</span>
+                    </li>
+
+                @else
+                    @foreach($sales as $sale)
+                        @if($sale->is_seen == 0)
+                            <li>
+                                <a href="{{url('/owner/show_pending_sale_specific_billboard', [$sale->billboard_id, $sale->id, $sale->client_id])}}">
+                                    <span class="message">{{App\User::findOrFail($sale->client_id)->first_name}} Ask For Sale</span>
+                                </a>
+                            </li>
+                        @endif
+                    @endforeach
+                @endif
+
+                {{--reservation--}}
+
+                @if($reserves == null)
+                    <li>
+                        <span class="message">No notification</span>
+                    </li>
+
+                @else
+                    @foreach($reserves as $reserve)
+
+                        @if($reserve->is_seen == 0)
+                            <li>
+                                <a href="{{url('/owner/show_pending_reserved_specific_billboard', [$reserve->billboard_id, $reserve->id, $reserve->client_id])}}">
+                                    <span class="message">{{App\User::findOrFail($reserve->client_id)->first_name}} Ask For Reserve</span>
+                                </a>
+                            </li>
+                        @endif
+
+                    @endforeach
+                @endif
+
+
+
+                {{--client notification--}}
+
+                {{--rents--}}
+                @if($rents_client == null)
+                    <li>
+                        <span class="message">No notification</span>
+                    </li>
+
+                @else
+                    @foreach($rents_client as $rent)
+                        @if($rent->is_seen == 1)
+                            <li>
+                                {{--<a href="{{url('/owner/show_pending_rent_specific_billboard', [$rent->billboard_id, $rent->id, $rent->client_id])}}">--}}
+                                <span class="message">{{App\User::findOrFail($rent->owner_id)->first_name}} Accept Rent Request</span>
+                                {{--</a>--}}
+                            </li>
+                        @endif
+                    @endforeach
+                @endif
+
+
+
+
+                {{--sales--}}
+                @if($sales_client == null)
+                    <li>
+                        <span class="message">No notification</span>
+                    </li>
+
+                @else
+                    @foreach($sales_client as $sale)
+                        @if($sale->is_seen == 1)
+                            <li>
+                                {{--<a href="{{url('/owner/show_pending_sale_specific_billboard', [$sale->billboard_id, $sale->id, $sale->client_id])}}">--}}
+                                <span class="message">{{App\User::findOrFail($sale->owner_id)->first_name}} Accept Sales Request</span>
+                                {{--</a>--}}
+                            </li>
+                        @endif
+                    @endforeach
+                @endif
+
+                {{--reservation--}}
+
+                @if($reserves_client == null)
+                    <li>
+                        <span class="message">No notification</span>
+                    </li>
+
+                @else
+                    @foreach($reserves_client as $reserve)
+
+                        @if($reserve->is_seen == 1)
+                            <li>
+                                {{--<a href="{{url('/owner/show_pending_reserved_specific_billboard', [$reserve->billboard_id, $reserve->id, $reserve->client_id])}}">--}}
+                                <span class="message">{{App\User::findOrFail($reserve->owner_id)->first_name}} Accept Reserve Request</span>
+                                {{--</a>--}}
+                            </li>
+                        @endif
+
+                    @endforeach
+                @endif
+
+
+
+
+                {{--@if($rent == null)--}}
+                {{--<li>--}}
+                {{--<span class="message">No notification</span>--}}
+                {{--</li>--}}
+
+                {{--@else--}}
+                {{--@foreach($rents as $res)--}}
+                {{--<li>--}}
+                {{--@foreach($res->ad_spaces as $ad_space)--}}
+
+                {{--$table->integer('rent_id');--}}
+                {{--$table->integer('adspace_id');--}}
+
+                {{--<a href="{{url('/owner/show_rent_specific_billboard', [$ad_space->pivot->adspace_id, $res->client_id])}}">--}}
+                {{--<span class="message">{{App\User::findOrFail($res->client_id)->first_name}} Ask For Rent</span>--}}
+                {{--@endforeach--}}
+                {{--</a>--}}
+
+                {{--<a href="{{url('/owner/show_reserved_specific_billboard', [$ad_space->pivot->adspace_id, $res->client_id])}}">--}}
+                {{--@endforeach--}}
+                {{--<span class="message">{{App\User::findOrFail($res->client_id)->first_name}} Ask For Rent</span>--}}
+                {{--</a>--}}
+
+                {{--</li>--}}
+                {{--@endforeach--}}
+                {{--@endif--}}
+
+                {{--<li>--}}
+                {{--<a href="#">--}}
+                {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
+                {{--<span class="message">New comment</span>--}}
+                {{--<span class="time">7 min</span>--}}
+                {{--</a>--}}
+                {{--</li>--}}
+                {{--<li>--}}
+                {{--<a href="#">--}}
+                {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
+                {{--<span class="message">New comment</span>--}}
+                {{--<span class="time">8 min</span>--}}
+                {{--</a>--}}
+                {{--</li>--}}
+
+
+            </ul>
+
+        </li>
+
+
+
+        <li class="dropdown hidden-phone">
+
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                {{--<span class="badge red">--}}
+                {{--4 </span>--}}
+            </a>
+            <ul class="dropdown-menu messages">
+                <li class="dropdown-menu-title">
+                    {{--<span>You have 9 messages</span>--}}
+                    {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
                 </li>
-
-            @else
-                @foreach($sales as $sale)
-                    @if($sale->is_seen == 0)
-                        <li>
-                            <a href="{{url('/owner/show_pending_sale_specific_billboard', [$sale->billboard_id, $sale->id, $sale->client_id])}}">
-                                <span class="message">{{App\User::findOrFail($sale->client_id)->first_name}} Ask For Sale</span>
-                            </a>
-                        </li>
-                    @endif
-                @endforeach
-            @endif
-
-            {{--reservation--}}
-
-            @if($reserves == null)
                 <li>
-                    <span class="message">No notification</span>
+                    <a href="#">
+                        <span class="avatar"><img height="20px" width="20px" src="{{asset('user_photo/img2.png')}}" alt="Avatar"></span>
+                        <span class="header"><span class="from">Ryan Boter</span></span>
+                    </a>
                 </li>
+                {{--<li>--}}
+                {{--<a href="#">--}}
+                {{--<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>--}}
+                {{--<span class="header"><span class="from">Dennis Ji</span><span class="time">56 min</span></span>--}}
+                {{--<span class="message">Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore</span>--}}
+                {{--</a>--}}
+                {{--</li>--}}
 
-            @else
-                @foreach($reserves as $reserve)
+                {{--<li>--}}
+                {{--<a class="dropdown-menu-sub-footer">View all messages</a>--}}
+                {{--</li>--}}
+            </ul>
+        </li>
+    @endif
 
-                    @if($reserve->is_seen == 0)
-                        <li>
-                            <a href="{{url('/owner/show_pending_reserved_specific_billboard', [$reserve->billboard_id, $reserve->id, $reserve->client_id])}}">
-                                <span class="message">{{App\User::findOrFail($reserve->client_id)->first_name}} Ask For Reserve</span>
-                            </a>
-                        </li>
-                    @endif
-
-                @endforeach
-            @endif
-
-            {{--@if($rent == null)--}}
-            {{--<li>--}}
-            {{--<span class="message">No notification</span>--}}
-            {{--</li>--}}
-
-            {{--@else--}}
-            {{--@foreach($rents as $res)--}}
-            {{--<li>--}}
-            {{--@foreach($res->ad_spaces as $ad_space)--}}
-
-            {{--$table->integer('rent_id');--}}
-            {{--$table->integer('adspace_id');--}}
-
-            {{--<a href="{{url('/owner/show_rent_specific_billboard', [$ad_space->pivot->adspace_id, $res->client_id])}}">--}}
-            {{--<span class="message">{{App\User::findOrFail($res->client_id)->first_name}} Ask For Rent</span>--}}
-            {{--@endforeach--}}
-            {{--</a>--}}
-
-            {{--<a href="{{url('/owner/show_reserved_specific_billboard', [$ad_space->pivot->adspace_id, $res->client_id])}}">--}}
-            {{--@endforeach--}}
-            {{--<span class="message">{{App\User::findOrFail($res->client_id)->first_name}} Ask For Rent</span>--}}
-            {{--</a>--}}
-
-            {{--</li>--}}
-            {{--@endforeach--}}
-            {{--@endif--}}
-
-            {{--<li>--}}
-            {{--<a href="#">--}}
-            {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
-            {{--<span class="message">New comment</span>--}}
-            {{--<span class="time">7 min</span>--}}
-            {{--</a>--}}
-            {{--</li>--}}
-            {{--<li>--}}
-            {{--<a href="#">--}}
-            {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
-            {{--<span class="message">New comment</span>--}}
-            {{--<span class="time">8 min</span>--}}
-            {{--</a>--}}
-            {{--</li>--}}
-
-
-        </ul>
-
-    </li>
-
-
-
-    <li class="dropdown hidden-phone">
-
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-envelope" aria-hidden="true"></i>
-            {{--<span class="badge red">--}}
-            {{--4 </span>--}}
-        </a>
-        <ul class="dropdown-menu messages">
-            <li class="dropdown-menu-title">
-                {{--<span>You have 9 messages</span>--}}
-                {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
-            </li>
-            <li>
-                <a href="#">
-                    <span class="avatar"><img height="20px" width="20px" src="{{asset('user_photo/img2.png')}}" alt="Avatar"></span>
-                    <span class="header"><span class="from">Ryan Boter</span></span>
-                </a>
-            </li>
-            {{--<li>--}}
-            {{--<a href="#">--}}
-            {{--<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>--}}
-            {{--<span class="header"><span class="from">Dennis Ji</span><span class="time">56 min</span></span>--}}
-            {{--<span class="message">Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore</span>--}}
-            {{--</a>--}}
-            {{--</li>--}}
-
-            {{--<li>--}}
-            {{--<a class="dropdown-menu-sub-footer">View all messages</a>--}}
-            {{--</li>--}}
-        </ul>
-    </li>
 
 
     @if(Auth::guest())
@@ -181,7 +262,7 @@
                 @if(Auth::user()->role_id == 3)
 
                     <li><a href="{{url('/owner/show/profile')}}">Show Profile</a></li>
-                    <li><a href="#">Subscription</a></li>
+                    <li><a href="{{url('/owner/show_subscription')}}">Subscription</a></li>
 
                     <hr>
 

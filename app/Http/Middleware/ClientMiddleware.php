@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class ClientMiddleware
 {
@@ -22,7 +22,7 @@ class ClientMiddleware
             if(Auth::user()->isClient()){
                 return $next($request);
             }else{
-                return response(view('errors.404'));
+                return redirect('/');
             }
         }
         return redirect('/');

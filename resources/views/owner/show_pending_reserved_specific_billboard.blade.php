@@ -236,7 +236,7 @@
                     </ul>
                     {{--<a href="{{route('edit_rented_post',[$ad_space->id])}}" class="btn btn-primary">Update</a>--}}
                     <a href="{{url('/owner/adspace_reserve/add_to_adspace_reserve', [$ad_space, $reserve_id,$client_id])}}" class="btn btn-primary">Accept</a>
-                    <a href="{{url('/owner/reserve_pending/delete', [$ad_space, $reserve_id,$client_id])}}" class="btn btn-primary">Decline</a>
+                    <a href="{{url('/owner/reserve_pending/delete_reserve_pending', [$ad_space, $reserve_id,$client_id])}}" class="btn btn-primary">Decline</a>
 
                 </div>
             </div>

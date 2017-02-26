@@ -19,6 +19,8 @@ class CreateSalesTable extends Migration
             $table->integer('owner_id')->unsigned()->index()->nullable();
             $table->integer('client_id')->unsigned()->index()->nullable();
             $table->integer('is_seen')->default(0);
+            $table->integer('is_seen_owner')->default(0);
+            $table->integer('is_seen_client')->default(0);
             $table->integer('billboard_id')->nullable();
             $table->timestamps();
         });

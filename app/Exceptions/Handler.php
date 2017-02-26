@@ -6,6 +6,9 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Psy\Exception\ErrorException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 
 class Handler extends ExceptionHandler
 {
@@ -21,10 +24,15 @@ class Handler extends ExceptionHandler
         \Illuminate\Database\Eloquent\ModelNotFoundException::class,
         \Illuminate\Session\TokenMismatchException::class,
         \Illuminate\Validation\ValidationException::class,
+
     ];
+
+    /*
 
     protected function renderModelNotFoundException(ModelNotFoundException $e)
     {
+
+
         if (view()->exists('errors.404'))
         {
             return response()->view('errors.404', [], 404);
@@ -35,6 +43,8 @@ class Handler extends ExceptionHandler
                 ->createResponse($e);
         }
     }
+
+    */
 
     /**
      * Report or log an exception.
@@ -59,19 +69,30 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
 
+        /*
         if ($this->isHttpException($exception))
         {
             return $this->renderHttpException($exception);
         }
-
+`
         elseif ($exception instanceof ModelNotFoundException)
         {
             return $this->renderModelNotFoundException($exception);
         }
-
-        else{
-            return parent::render($request, $exception);
+*/
+//        if ( view()->exists('errors'. $exception->getStatutsCode()) ){
+//            return response()->view('errors'. $exception->getStatusCode(), [],$exception->getStatusCode());
+//        }
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response(view('errors.404'));
         }
+
+//        if ($exception) {
+//            return response(view('errors.404'));
+//        }
+
+            return parent::render($request, $exception);
+
 
     }
 
@@ -89,5 +110,21 @@ class Handler extends ExceptionHandler
         }
 
         return redirect()->guest('login');
+    }
+
+    protected function convertExceptionToResponse(Exception $e)
+    {
+        if (config('app.debug')) {
+            $whoops = new \Whoops\Run;
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+
+            return response()->make(
+                $whoops->handleException($e),
+                method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500,
+                method_exists($e, 'getHeaders') ? $e->getHeaders() : []
+            );
+        }
+
+        return parent::convertExceptionToResponse($e);
     }
 }

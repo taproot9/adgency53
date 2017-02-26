@@ -16,17 +16,29 @@ use Illuminate\Support\Facades\Response;
 //public route
 Route::get('/', function () {
 
+    //rent notification
+
     if (Auth::guest()){
-        return redirect('/login');
+        return view('index');
     }
 
-    //rent notification
+    //owner notification
     $rents = Rent::where('owner_id', Auth::user()->id)->get();
     //sale notification
     $sales = Sale::where('owner_id', Auth::user()->id)->get();
     //reserve notification
     $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
-    return view('index', compact('rents', 'sales', 'reserves'));
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+    return view('index', compact('rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
 
 
 
@@ -70,22 +82,36 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    if (Auth::guest()){
-        return redirect('/login');
-    }
+
     //rent notification
+
+    if (Auth::guest()){
+        return view('index');
+    }
+
+    //owner notification
     $rents = Rent::where('owner_id', Auth::user()->id)->get();
     //sale notification
     $sales = Sale::where('owner_id', Auth::user()->id)->get();
     //reserve notification
     $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
-    return view('index', compact('rents', 'sales', 'reserves'));
+
+
+    //clients notification
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+    return view('index', compact('rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
 });
 
 Route::get('/ad_spaces', function (){
 
     if (Auth::guest()){
-        return redirect('/login');
+        $ad_spaces = Adspace::latest()->available()->paginate(9);
+        return view('test_ads', compact('ad_spaces'));
     }
 
     //rent notification
@@ -124,58 +150,88 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
 
-Route::group(['middleware' => ['subscribe_user','is_owner']], function () {
 
-    //owners route
-    Route::get('/owner/create_posts', 'OwnersPostsController@create');
-    Route::post('/owner', 'OwnersPostsController@store');
-    Route::get('/owner/my_post/{id}', 'OwnersPostsController@my_post');
-    Route::get('/owner/delete/{id}', 'OwnersPostsController@delete');
-    Route::get('/owner/{id}/edit_post', 'OwnersPostsController@edit_post')->name('edit_post');
-    Route::patch('/owner/{id}', 'OwnersPostsController@update_post')->name('update_post');
-    Route::get('/owner/my_all_post/{id}', 'OwnersPostsController@my_all_post');
-    Route::get('/owner/show/profile', 'OwnerController@owner_show_profile')->name('owner_show_profile');
-    Route::get('/owner/{id}/edit_profile', 'OwnerController@owner_edit_profile')->name('owner_edit_profile');
-    Route::patch('/owner/update/{id}', 'OwnerController@owner_update_profile')->name('owner_update_profile');
+
+
+//owners route
+Route::get('/owner/create_posts', 'OwnersPostsController@create')->middleware('subscribe_user');
+Route::post('/owner', 'OwnersPostsController@store')->middleware('subscribe_user');
+Route::get('/owner/my_post/{id}', 'OwnersPostsController@my_post')->middleware('subscribe_user');
+Route::get('/owner/delete/{id}', 'OwnersPostsController@delete')->middleware('subscribe_user');
+Route::get('/owner/{id}/edit_post', 'OwnersPostsController@edit_post')->name('edit_post')->middleware('subscribe_user');
+Route::patch('/owner/{id}', 'OwnersPostsController@update_post')->name('update_post')->middleware('subscribe_user');
+Route::get('/owner/my_all_post/{id}', 'OwnersPostsController@my_all_post')->middleware('subscribe_user');
+Route::get('/owner/show/profile', 'OwnerController@owner_show_profile')->name('owner_show_profile')->middleware('subscribe_user');
+Route::get('/owner/{id}/edit_profile', 'OwnerController@owner_edit_profile')->name('owner_edit_profile')->middleware('subscribe_user');
+Route::patch('/owner/update/{id}', 'OwnerController@owner_update_profile')->name('owner_update_profile')->middleware('subscribe_user');
 
 
 //show all billboard
-    Route::get('show_all_rented', 'OwnerController@show_all_rented')->name('show_all_rented');
-    Route::get('owner/show_all_sale', 'OwnerController@show_all_sale')->name('show_all_sale');
+Route::get('show_all_rented', 'OwnerController@show_all_rented')->name('show_all_rented')->middleware('subscribe_user');
+Route::get('owner/show_all_sale', 'OwnerController@show_all_sale')->name('show_all_sale')->middleware('subscribe_user');
 
 
 
 //edit rented post
-    Route::get('/owner/{id}/edit_rented_post', 'OwnerController@edit_rented_post')->name('edit_rented_post');
+Route::get('/owner/{id}/edit_rented_post', 'OwnerController@edit_rented_post')->name('edit_rented_post')->middleware('subscribe_user');
 //edit sale post
 
 
-    Route::get('/owner/show_reserved_specific_billboard/{id}/{client_id}', 'OwnerController@show_reserved_specific_billboard')->name('show_reserved_specific_billboard');
+Route::get('/owner/show_reserved_specific_billboard/{id}/{client_id}', 'OwnerController@show_reserved_specific_billboard')->name('show_reserved_specific_billboard')->middleware('subscribe_user');
 
-    Route::get('/owner/show_all_rented_billboard', 'OwnerController@show_all_rented_billboard')->name('show_all_rented_billboard');
+Route::get('/owner/show_all_rented_billboard', 'OwnerController@show_all_rented_billboard')->name('show_all_rented_billboard')->middleware('subscribe_user');
 //update here
-    Route::get('/owner/show_all_sale_billboard', 'OwnerController@show_all_sale_billboard')->name('show_all_sale_billboard');
+Route::get('/owner/show_all_sale_billboard', 'OwnerController@show_all_sale_billboard')->name('show_all_sale_billboard')->middleware('subscribe_user');
 //update here
-    Route::get('/owner/show_all_reserve_billboard', 'OwnerController@show_all_reserve_billboard')->name('show_all_reserve_billboard');
+Route::get('/owner/show_all_reserve_billboard', 'OwnerController@show_all_reserve_billboard')->name('show_all_reserve_billboard')->middleware('subscribe_user');
 
 
 
-    Route::get('/owner/show_pending_rent_specific_billboard/{billboard_id}/{rent_id}/{client_id}', 'OwnerController@show_pending_rent_specific_billboard')->name('show_pending_rent_specific_billboard');
-    Route::get('/owner/adspace_rent/add_to_adspace_rent/{ad_space}/{rent_id}/{client_id}', 'OwnerController@add_to_adspace_rent')->name('add_to_adspace_rent');
+Route::get('/owner/show_pending_rent_specific_billboard/{billboard_id}/{rent_id}/{client_id}', 'OwnerController@show_pending_rent_specific_billboard')->name('show_pending_rent_specific_billboard')->middleware('subscribe_user');
+Route::get('/owner/adspace_rent/add_to_adspace_rent/{ad_space}/{rent_id}/{client_id}', 'OwnerController@add_to_adspace_rent')->name('add_to_adspace_rent')->middleware('subscribe_user');
+Route::get('/owner/rent_pending/delete_pending_rent/{ad_space}/{rent_id}/{client_id}', 'OwnerController@delete_pending_rent')->name('delete_pending_rent')->middleware('subscribe_user');
 
-    Route::get('/owner/show_pending_sale_specific_billboard/{billboard_id}/{rent_id}/{client_id}', 'OwnerController@show_pending_sale_specific_billboard')->name('show_pending_sale_specific_billboard');
-    Route::get('/owner/adspace_sale/add_to_adspace_sale/{ad_space}/{rent_id}/{client_id}', 'OwnerController@add_to_adspace_sale')->name('add_to_adspace_sale');
 
-    Route::get('/owner/show_pending_reserved_specific_billboard/{billboard_id}/{reserve_id}/{client_id}', 'OwnerController@show_pending_reserved_specific_billboard')->name('show_pending_reserved_specific_billboard');
-    Route::get('/owner/adspace_reserve/add_to_adspace_reserve/{ad_space}/{reserve_id}/{client_id}', 'OwnerController@add_to_adspace_reserve')->name('add_to_adspace_reserve');
+
+Route::get('/owner/show_pending_sale_specific_billboard/{billboard_id}/{rent_id}/{client_id}', 'OwnerController@show_pending_sale_specific_billboard')->name('show_pending_sale_specific_billboard')->middleware('subscribe_user');
+Route::get('/owner/adspace_sale/add_to_adspace_sale/{ad_space}/{rent_id}/{client_id}', 'OwnerController@add_to_adspace_sale')->name('add_to_adspace_sale')->middleware('subscribe_user');
+Route::get('/owner/sale_pending/delete_pending_sale/{ad_space}/{rent_id}/{client_id}', 'OwnerController@delete_pending_sale')->name('delete_pending_sale')->middleware('subscribe_user');
+
+
+Route::get('/owner/show_pending_reserved_specific_billboard/{billboard_id}/{reserve_id}/{client_id}', 'OwnerController@show_pending_reserved_specific_billboard')->name('show_pending_reserved_specific_billboard')->middleware('subscribe_user');
+Route::get('/owner/adspace_reserve/add_to_adspace_reserve/{ad_space}/{reserve_id}/{client_id}', 'OwnerController@add_to_adspace_reserve')->name('add_to_adspace_reserve')->middleware('subscribe_user');
+Route::get('/owner/reserve_pending/delete_reserve_pending/{ad_space}/{reserve_id}/{client_id}', 'OwnerController@delete_reserve_pending')->name('delete_reserve_pending')->middleware('subscribe_user');
+
 
 //subscription
-//Route::get('/owner/show_subscription', function (){
-//    return view('subscriptionplan');
-//});
-    Route::get('/owner/subscribe/{price}/{plan}/{mo}', 'OwnerController@subscribe')->name('subscribe');
+Route::get('/owner/show_subscription', function (){
 
+    if (Auth::guest()){
+        return view('index');
+    }
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+    return view('subscriptionplan', compact('rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
 });
+
+Route::get('/owner/subscribe/{price}/{plan}/{mo}', 'OwnerController@subscribe')->name('subscribe');
+
+
 
 
 
@@ -184,6 +240,7 @@ Route::group(['middleware' => ['subscribe_user','is_owner']], function () {
 //client route
 
 Route::group(['middleware' => ['is_client']], function () {
+
     Route::get('/client/available_post', 'ClientController@available_post');
     Route::get('/client/show/profile', 'ClientController@client_show_profile')->name('client_show_profile');
     Route::get('/client/{id}/edit_profile', 'ClientController@client_edit_profile')->name('client_edit_profile');

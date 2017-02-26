@@ -19,8 +19,6 @@ class OwnerMiddleware
         if (Auth::check()){
             if(Auth::user()->isOwner()){
                 return $next($request);
-            }else{
-               return redirect('/');
             }
 
         }

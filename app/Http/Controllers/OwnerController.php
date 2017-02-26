@@ -271,6 +271,12 @@ class OwnerController extends Controller
         return redirect('/');
     }
 
+    public function delete_pending_rent($ad_space, $rent_id, $client_id){
+         Rent::findOrFail($rent_id)->delete();
+        return redirect('/ad_spaces');
+
+    }
+
     public function show_pending_sale_specific_billboard($billboard_id,$rent_id,$client_id){
 
         if (Auth::guest()){
@@ -295,6 +301,11 @@ class OwnerController extends Controller
         $reserve_adspace->save();
         Adspace::where('id',$ad_space)->update(['status'=>0]);
         return redirect('/');
+    }
+
+    public function delete_pending_sale($ad_space, $rent_id, $client_id){
+        Sale::findOrFail($rent_id)->delete();
+        return redirect('/ad_spaces');
     }
 
     public function show_pending_reserved_specific_billboard($billboard_id,$reserve_id,$client_id){
@@ -326,11 +337,18 @@ class OwnerController extends Controller
 
     }
 
+    public function delete_reserve_pending($ad_space, $reserve_id, $client_id){
+        Reservation::findOrFail($reserve_id)->delete();
+        return redirect('/ad_spaces');
+    }
+
     public function subscribe($price, $plan , $mo){
 
         if ($price == null){
+//            return "hey";
             return view('subscriptionplan');
         }else{
+//            return "hey";
 
             //add to the subscription table
             $d = \Carbon\Carbon::now();

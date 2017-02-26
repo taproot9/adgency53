@@ -19,12 +19,9 @@ class SubscribeMiddleware
 
         if (Auth::check()){     //check if the user is login
 
-            if (Auth::user()->isClient()){
-                return redirect('/');
-            }else if(Auth::user()->isOwner() && !Auth::user()->isSubscribe()){
-                return response(view('subscriptionplan'));
-            }else{
-                return response(view('errors.404'));
+            if( Auth::user()->isOwner() && !Auth::user()->isSubscribe()){
+                return redirect('/owner/show_subscription');
+//                return response()->view('404')
             }
         }
 

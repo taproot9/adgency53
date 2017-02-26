@@ -235,17 +235,21 @@
                             <li><i class="fa fa-pencil-square-o"></i><strong> Posted By:</strong> {{$ad_space->posted_by}}</li>
                             <li><i class="fa fa-clock-o"></i><strong> Posted On:</strong> {{ $ad_space->created_at->format('M d, Y') }}</li>
                         </ul>
-                        @if(Auth::user()->role_id != 3)
-                            @if($ad_space->advertising_type == 'sale')
-                                <a href="{{url('/client/create_sale', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Buy</a>
-                            @endif
-                            @if($ad_space->advertising_type == 'rent')
-                                <a href="{{url('/client/create_rent', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Rent</a>
-                            @endif
 
-                            <a href="{{url('/client/reserve', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Reserve</a>
 
+                        @if(Auth::check())
+                            @if(Auth::user()->role_id != 3)
+                                @if($ad_space->advertising_type == 'sale')
+                                    <a href="{{url('/client/create_sale', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Buy</a>
+                                @endif
+                                @if($ad_space->advertising_type == 'rent')
+                                    <a href="{{url('/client/create_rent', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Rent</a>
+                                @endif
+                                <a href="{{url('/client/reserve', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Reserve</a>
+                            @endif
                         @endif
+
+
 
                         {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gridSystemModal">--}}
                         {{--Reserve--}}

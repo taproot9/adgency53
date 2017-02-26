@@ -54,6 +54,8 @@ class OwnersPostsController extends Controller
 
     public function store(Request $request)
     {
+
+
         $input = $request->all();
         $input['owner_id'] = Auth::user()->id;
         $input['posted_by'] = Auth::user()->first_name;

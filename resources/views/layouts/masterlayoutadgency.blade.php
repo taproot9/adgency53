@@ -336,6 +336,47 @@
         readURL(this);
     });
 
+
+    @if(Auth::check())
+        @if(Auth::user()->id == 2)
+
+            @if(count($rents))
+                $('#isActive').addClass('active');
+
+                $('#isActive').click(function () {
+                    <?php $rent_client_seen = \App\Rent::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
+                    $(this).removeClass('active');
+        //            $(this).addClass('dropdown');
+        //            $('#message_reserve').text("Hello world!");
+                });
+
+            @endif
+
+        @endif
+    @endif
+
+
+//    owner notification
+    @if(Auth::check())
+
+        @if(Auth::user()->role_id == 3)
+
+            @if(count($rents) && $is_notify_owner)
+
+                $('#isActive').addClass('active');
+
+                $('#btnCLick').click(function () {
+                    $('#isActive').removeClass('active');
+        //            $(this).addClass('dropdown');
+        //            $('#message_reserve').text("Hello world!");
+                });
+
+            @endif
+
+        @endif
+    @endif
+
+
     {{--@if(Auth::user()->role_id == 3) // check if owner--}}
 
     {{--@if($ok == "ok")--}}
@@ -343,9 +384,9 @@
     {{--$('#isActive').addClass('active');--}}
 
     {{--$('#isActive').click(function () {--}}
-        {{--$(this).removeClass('active');--}}
-{{--//            $(this).addClass('dropdown');--}}
-{{--//            $('#message_reserve').text("Hello world!");--}}
+    {{--$(this).removeClass('active');--}}
+    {{--//            $(this).addClass('dropdown');--}}
+    {{--//            $('#message_reserve').text("Hello world!");--}}
     {{--});--}}
 
     {{--@endif--}}
