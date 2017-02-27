@@ -58,252 +58,252 @@
             <!-- start: Header Menu -->
             <div class="nav-no-collapse header-nav">
                 <ul class="nav pull-right">
-                    <li class="dropdown hidden-phone">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="icon-bell"></i>
-                            <span class="badge red">
-								7 </span>
-                        </a>
-                        <ul class="dropdown-menu notifications">
-                            <li class="dropdown-menu-title">
-                                <span>You have 11 notifications</span>
-                                <a href="#refresh"><i class="icon-repeat"></i></a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="icon blue"><i class="icon-user"></i></span>
-                                    <span class="message">New user registration</span>
-                                    <span class="time">1 min</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="icon green"><i class="icon-comment-alt"></i></span>
-                                    <span class="message">New comment</span>
-                                    <span class="time">7 min</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="icon green"><i class="icon-comment-alt"></i></span>
-                                    <span class="message">New comment</span>
-                                    <span class="time">8 min</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="icon green"><i class="icon-comment-alt"></i></span>
-                                    <span class="message">New comment</span>
-                                    <span class="time">16 min</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="icon blue"><i class="icon-user"></i></span>
-                                    <span class="message">New user registration</span>
-                                    <span class="time">36 min</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="icon yellow"><i class="icon-shopping-cart"></i></span>
-                                    <span class="message">2 items sold</span>
-                                    <span class="time">1 hour</span>
-                                </a>
-                            </li>
-                            <li class="warning">
-                                <a href="#">
-                                    <span class="icon red"><i class="icon-user"></i></span>
-                                    <span class="message">User deleted account</span>
-                                    <span class="time">2 hour</span>
-                                </a>
-                            </li>
-                            <li class="warning">
-                                <a href="#">
-                                    <span class="icon red"><i class="icon-shopping-cart"></i></span>
-                                    <span class="message">New comment</span>
-                                    <span class="time">6 hour</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="icon green"><i class="icon-comment-alt"></i></span>
-                                    <span class="message">New comment</span>
-                                    <span class="time">yesterday</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="icon blue"><i class="icon-user"></i></span>
-                                    <span class="message">New user registration</span>
-                                    <span class="time">yesterday</span>
-                                </a>
-                            </li>
-                            <li class="dropdown-menu-sub-footer">
-                                <a>View all notifications</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- start: Notifications Dropdown -->
-                    <li class="dropdown hidden-phone">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="icon-calendar"></i>
-                            <span class="badge red">
-								5 </span>
-                        </a>
-                        <ul class="dropdown-menu tasks">
-                            <li class="dropdown-menu-title">
-                                <span>You have 17 tasks in progress</span>
-                                <a href="#refresh"><i class="icon-repeat"></i></a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="header">
-											<span class="title">iOS Development</span>
-											<span class="percent"></span>
-										</span>
-                                    <div class="taskProgress progressSlim red">80</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="header">
-											<span class="title">Android Development</span>
-											<span class="percent"></span>
-										</span>
-                                    <div class="taskProgress progressSlim green">47</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="header">
-											<span class="title">ARM Development</span>
-											<span class="percent"></span>
-										</span>
-                                    <div class="taskProgress progressSlim yellow">32</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="header">
-											<span class="title">ARM Development</span>
-											<span class="percent"></span>
-										</span>
-                                    <div class="taskProgress progressSlim greenLight">63</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="header">
-											<span class="title">ARM Development</span>
-											<span class="percent"></span>
-										</span>
-                                    <div class="taskProgress progressSlim orange">80</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-menu-sub-footer">View all tasks</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- end: Notifications Dropdown -->
-                    <!-- start: Message Dropdown -->
-                    <li class="dropdown hidden-phone">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="icon-envelope"></i>
-                            <span class="badge red">
-								4 </span>
-                        </a>
-                        <ul class="dropdown-menu messages">
-                            <li class="dropdown-menu-title">
-                                <span>You have 9 messages</span>
-                                <a href="#refresh"><i class="icon-repeat"></i></a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
-                                    <span class="header">
-											<span class="from">
-										    	Dennis Ji
-										     </span>
-											<span class="time">
-										    	6 min
-										    </span>
-										</span>
-                                    <span class="message">
-                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                                        </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
-                                    <span class="header">
-											<span class="from">
-										    	Dennis Ji
-										     </span>
-											<span class="time">
-										    	56 min
-										    </span>
-										</span>
-                                    <span class="message">
-                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                                        </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
-                                    <span class="header">
-											<span class="from">
-										    	Dennis Ji
-										     </span>
-											<span class="time">
-										    	3 hours
-										    </span>
-										</span>
-                                    <span class="message">
-                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                                        </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
-                                    <span class="header">
-											<span class="from">
-										    	Dennis Ji
-										     </span>
-											<span class="time">
-										    	yesterday
-										    </span>
-										</span>
-                                    <span class="message">
-                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                                        </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
-                                    <span class="header">
-											<span class="from">
-										    	Dennis Ji
-										     </span>
-											<span class="time">
-										    	Jul 25, 2012
-										    </span>
-										</span>
-                                    <span class="message">
-                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                                        </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-menu-sub-footer">View all messages</a>
-                            </li>
-                        </ul>
-                    </li>
+                    {{--<li class="dropdown hidden-phone">--}}
+                        {{--<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">--}}
+                            {{--<i class="icon-bell"></i>--}}
+                            {{--<span class="badge red">--}}
+								{{--7 </span>--}}
+                        {{--</a>--}}
+                        {{--<ul class="dropdown-menu notifications">--}}
+                            {{--<li class="dropdown-menu-title">--}}
+                                {{--<span>You have 11 notifications</span>--}}
+                                {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="icon blue"><i class="icon-user"></i></span>--}}
+                                    {{--<span class="message">New user registration</span>--}}
+                                    {{--<span class="time">1 min</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
+                                    {{--<span class="message">New comment</span>--}}
+                                    {{--<span class="time">7 min</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
+                                    {{--<span class="message">New comment</span>--}}
+                                    {{--<span class="time">8 min</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
+                                    {{--<span class="message">New comment</span>--}}
+                                    {{--<span class="time">16 min</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="icon blue"><i class="icon-user"></i></span>--}}
+                                    {{--<span class="message">New user registration</span>--}}
+                                    {{--<span class="time">36 min</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="icon yellow"><i class="icon-shopping-cart"></i></span>--}}
+                                    {{--<span class="message">2 items sold</span>--}}
+                                    {{--<span class="time">1 hour</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li class="warning">--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="icon red"><i class="icon-user"></i></span>--}}
+                                    {{--<span class="message">User deleted account</span>--}}
+                                    {{--<span class="time">2 hour</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li class="warning">--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="icon red"><i class="icon-shopping-cart"></i></span>--}}
+                                    {{--<span class="message">New comment</span>--}}
+                                    {{--<span class="time">6 hour</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
+                                    {{--<span class="message">New comment</span>--}}
+                                    {{--<span class="time">yesterday</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="icon blue"><i class="icon-user"></i></span>--}}
+                                    {{--<span class="message">New user registration</span>--}}
+                                    {{--<span class="time">yesterday</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li class="dropdown-menu-sub-footer">--}}
+                                {{--<a>View all notifications</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                    {{--<!-- start: Notifications Dropdown -->--}}
+                    {{--<li class="dropdown hidden-phone">--}}
+                        {{--<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">--}}
+                            {{--<i class="icon-calendar"></i>--}}
+                            {{--<span class="badge red">--}}
+								{{--5 </span>--}}
+                        {{--</a>--}}
+                        {{--<ul class="dropdown-menu tasks">--}}
+                            {{--<li class="dropdown-menu-title">--}}
+                                {{--<span>You have 17 tasks in progress</span>--}}
+                                {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+										{{--<span class="header">--}}
+											{{--<span class="title">iOS Development</span>--}}
+											{{--<span class="percent"></span>--}}
+										{{--</span>--}}
+                                    {{--<div class="taskProgress progressSlim red">80</div>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+										{{--<span class="header">--}}
+											{{--<span class="title">Android Development</span>--}}
+											{{--<span class="percent"></span>--}}
+										{{--</span>--}}
+                                    {{--<div class="taskProgress progressSlim green">47</div>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+										{{--<span class="header">--}}
+											{{--<span class="title">ARM Development</span>--}}
+											{{--<span class="percent"></span>--}}
+										{{--</span>--}}
+                                    {{--<div class="taskProgress progressSlim yellow">32</div>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+										{{--<span class="header">--}}
+											{{--<span class="title">ARM Development</span>--}}
+											{{--<span class="percent"></span>--}}
+										{{--</span>--}}
+                                    {{--<div class="taskProgress progressSlim greenLight">63</div>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+										{{--<span class="header">--}}
+											{{--<span class="title">ARM Development</span>--}}
+											{{--<span class="percent"></span>--}}
+										{{--</span>--}}
+                                    {{--<div class="taskProgress progressSlim orange">80</div>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a class="dropdown-menu-sub-footer">View all tasks</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                    {{--<!-- end: Notifications Dropdown -->--}}
+                    {{--<!-- start: Message Dropdown -->--}}
+                    {{--<li class="dropdown hidden-phone">--}}
+                        {{--<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">--}}
+                            {{--<i class="icon-envelope"></i>--}}
+                            {{--<span class="badge red">--}}
+								{{--4 </span>--}}
+                        {{--</a>--}}
+                        {{--<ul class="dropdown-menu messages">--}}
+                            {{--<li class="dropdown-menu-title">--}}
+                                {{--<span>You have 9 messages</span>--}}
+                                {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>--}}
+                                    {{--<span class="header">--}}
+											{{--<span class="from">--}}
+										    	{{--Dennis Ji--}}
+										     {{--</span>--}}
+											{{--<span class="time">--}}
+										    	{{--6 min--}}
+										    {{--</span>--}}
+										{{--</span>--}}
+                                    {{--<span class="message">--}}
+                                            {{--Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore--}}
+                                        {{--</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>--}}
+                                    {{--<span class="header">--}}
+											{{--<span class="from">--}}
+										    	{{--Dennis Ji--}}
+										     {{--</span>--}}
+											{{--<span class="time">--}}
+										    	{{--56 min--}}
+										    {{--</span>--}}
+										{{--</span>--}}
+                                    {{--<span class="message">--}}
+                                            {{--Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore--}}
+                                        {{--</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>--}}
+                                    {{--<span class="header">--}}
+											{{--<span class="from">--}}
+										    	{{--Dennis Ji--}}
+										     {{--</span>--}}
+											{{--<span class="time">--}}
+										    	{{--3 hours--}}
+										    {{--</span>--}}
+										{{--</span>--}}
+                                    {{--<span class="message">--}}
+                                            {{--Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore--}}
+                                        {{--</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>--}}
+                                    {{--<span class="header">--}}
+											{{--<span class="from">--}}
+										    	{{--Dennis Ji--}}
+										     {{--</span>--}}
+											{{--<span class="time">--}}
+										    	{{--yesterday--}}
+										    {{--</span>--}}
+										{{--</span>--}}
+                                    {{--<span class="message">--}}
+                                            {{--Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore--}}
+                                        {{--</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a href="#">--}}
+                                    {{--<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>--}}
+                                    {{--<span class="header">--}}
+											{{--<span class="from">--}}
+										    	{{--Dennis Ji--}}
+										     {{--</span>--}}
+											{{--<span class="time">--}}
+										    	{{--Jul 25, 2012--}}
+										    {{--</span>--}}
+										{{--</span>--}}
+                                    {{--<span class="message">--}}
+                                            {{--Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore--}}
+                                        {{--</span>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li>--}}
+                                {{--<a class="dropdown-menu-sub-footer">View all messages</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
 
                     <!-- start: User Dropdown -->
                     <li class="dropdown">
@@ -351,10 +351,13 @@
                 <ul class="nav nav-tabs nav-stacked main-menu">
                     <li><a href="{{url('admin_home')}}"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
 
-                    <li><a href="subscription.html"><i class="icon-star"></i><span class="hidden-tablet"> Subscription</span></a></li>
+
+                    <li><a href="{{url('admin/subscription')}}"><i class="icon-star"></i><span class="hidden-tablet"> Subscription</span></a></li>
                     <li><a href="{{url('admin/users_account')}}"><i class="icon-user"></i><span class="hidden-tablet"> Account</span></a></li>
-                    <li><a href="{{url('admin/all_adspace')}}"><i class="icon-envelope"></i><span class="hidden-tablet"> Adspace</span></a></li>
-                    <li><a href="payment.html"><i class="icon-money"></i><span class="hidden-tablet"> Payments</span></a></li>
+                    <li><a href="{{url('admin/all_adspace')}}"><i class="icon-road"></i><span class="hidden-tablet"> Adspace</span></a></li>
+                    <li><a href="{{url('admin/rental')}}"><i class="icon-hdd"></i><span class="hidden-tablet"> Rental</span></a></li>
+                    <li><a href="{{url('admin/sale')}}"><i class="icon-th"></i><span class="hidden-tablet"> Sales</span></a></li>
+                    <li><a href="{{url('admin/reserve')}}"><i class="icon-bookmark"></i><span class="hidden-tablet"> Reservation</span></a></li>
 
                     <!--<li><a href="messages.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>-->
                     <!--<li><a href="tasks.html"><i class="icon-tasks"></i><span class="hidden-tablet"> Tasks</span></a></li>-->
@@ -399,7 +402,7 @@
                     <a href="{{url('admin_home')}}">Home</a>
                     <i class="icon-angle-right"></i>
                 </li>
-                <li><a href="#">Adspace</a></li>
+                <li><a href="#">Reserve</a></li>
             </ul>
 
             <div class="row-fluid">
@@ -407,7 +410,7 @@
                 <div class="row-fluid sortable">
                     <div class="box span12">
                         <div class="box-header" data-original-title>
-                            <h2><i class="halflings-icon white user"></i><span class="break"></span>All Adspace</h2>
+                            <h2><i class="halflings-icon white user"></i><span class="break"></span>All Reserve</h2>
                             <div class="box-icon">
                                 <a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
                                 <a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
@@ -427,7 +430,7 @@
                                     <th>Size</th>
                                     <th>Location</th>
                                     <th>Price</th>
-                                    <th>Actions</th>
+                                    {{--<th>Actions</th>--}}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -468,17 +471,17 @@
                                             {{--@endif--}}
                                             {{--</td>--}}
 
-                                            <td class="center">
-                                                <a class="btn btn-success" href="#">
-                                                    <i class="halflings-icon white zoom-in"></i>
-                                                </a>
-                                                <a class="btn btn-info" href="#">
-                                                    <i class="halflings-icon white edit"></i>
-                                                </a>
-                                                <a class="btn btn-danger" href="#">
-                                                    <i class="halflings-icon white trash"></i>
-                                                </a>
-                                            </td>
+                                            {{--<td class="center">--}}
+                                                {{--<a class="btn btn-success" href="#">--}}
+                                                    {{--<i class="halflings-icon white zoom-in"></i>--}}
+                                                {{--</a>--}}
+                                                {{--<a class="btn btn-info" href="#">--}}
+                                                    {{--<i class="halflings-icon white edit"></i>--}}
+                                                {{--</a>--}}
+                                                {{--<a class="btn btn-danger" href="#">--}}
+                                                    {{--<i class="halflings-icon white trash"></i>--}}
+                                                {{--</a>--}}
+                                            {{--</td>--}}
                                         </tr>
                                     @endforeach
                                 @endforeach
