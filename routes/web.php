@@ -5,6 +5,7 @@ use App\Adspace;
 use App\Rent;
 use App\Reservation;
 use App\Sale;
+use App\Subscription;
 use App\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -114,18 +115,30 @@ Route::get('/ad_spaces', function (){
         return view('test_ads', compact('ad_spaces'));
     }
 
-    //rent notification
+
+    //owner notification
     $rents = Rent::where('owner_id', Auth::user()->id)->get();
     //sale notification
     $sales = Sale::where('owner_id', Auth::user()->id)->get();
     //reserve notification
     $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
 
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
+
 //    $articles = Article::latest()->published()->get();
 //    $ad_spaces = Adspace::paginate(3);
     $ad_spaces = Adspace::latest()->available()->paginate(9);
 //    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
-    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves'));
+    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
 });
 
 
@@ -297,17 +310,44 @@ Route::post('/admin_register', 'AdminAuth\RegisterController@register');
 Route::get('admin/rental', 'AdminController@rental')->name('rental');
 Route::get('admin/sale', 'AdminController@sale')->name('sale');
 Route::get('admin/reserve', 'AdminController@reserve')->name('reserve');
-
-
-
-
-
+Route::get('admin/subscription', 'AdminController@subscription')->name('subscription');
 
 
 
 //testing area here
 
+
 /*
+
+
+Route::get('asss', function (){
+    return Auth::guard('admin')->user()->name;
+});
+
+Route::get('test_ra', function (){
+
+    //subscription plan
+    //subscribers
+    //subscription end_date
+
+    $subscriptions = Subscription::all();
+    foreach ($subscriptions as $subscription ){
+        foreach ($subscription->users as $user){
+            echo "subscription plan: ".$subscription->plan.'<br>';
+            echo "subscribers: ".$user->first_name.'<br>';
+            echo "subscription end_date: ".$subscription->subscribe_end_date.'<br>';
+
+            echo '<hr>';
+
+        }
+    }
+
+
+});
+
+
+
+
 
 Route::get('test_sb', function (){
 

@@ -25,15 +25,25 @@ class OwnersPostsController extends Controller
             return redirect('/login');
         }
 
-        //rent notification
+
+        //owner notification
         $rents = Rent::where('owner_id', Auth::user()->id)->get();
         //sale notification
         $sales = Sale::where('owner_id', Auth::user()->id)->get();
         //reserve notification
         $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
 
+
+        //clients notification
+
+        $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+        //sale notification
+        $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
         $ad_spaces = Adspace::all();
-        return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves'));
+        return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
     }
 
     public function create()
@@ -42,18 +52,39 @@ class OwnersPostsController extends Controller
             return redirect('/login');
         }
 
-        //rent notification
+
+
+        //owner notification
         $rents = Rent::where('owner_id', Auth::user()->id)->get();
         //sale notification
         $sales = Sale::where('owner_id', Auth::user()->id)->get();
         //reserve notification
         $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
 
-        return view('owner.posts.create', compact('rents', 'sales', 'reserves'));
+
+        //clients notification
+
+        $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+        //sale notification
+        $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+        return view('owner.posts.create', compact('rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
     }
 
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+
+            'photo_name' =>'required',
+            'advertising_type' =>'required',
+            'adspace_type' =>'required',
+            'size' =>'required',
+            'location' =>'required',
+            'price' =>'required'
+        ]);
 
 
         $input = $request->all();
@@ -83,7 +114,8 @@ class OwnersPostsController extends Controller
             return redirect('/login');
         }
 
-        //rent notification
+
+        //owner notification
         $rents = Rent::where('owner_id', Auth::user()->id)->get();
         //sale notification
         $sales = Sale::where('owner_id', Auth::user()->id)->get();
@@ -91,8 +123,17 @@ class OwnersPostsController extends Controller
         $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
 
 
+        //clients notification
+
+        $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+        //sale notification
+        $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
         $user = User::findOrFail($id)->ad_spaces()->latest()->available()->paginate(9);
-        return view('owner.posts.my_post', compact('user', 'rents', 'sales', 'reserves'));
+        return view('owner.posts.my_post', compact('user', 'rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
     }
 
     public function my_all_post($id){
@@ -101,15 +142,24 @@ class OwnersPostsController extends Controller
             return redirect('/login');
         }
 
-        //rent notification
+        //owner notification
         $rents = Rent::where('owner_id', Auth::user()->id)->get();
         //sale notification
         $sales = Sale::where('owner_id', Auth::user()->id)->get();
         //reserve notification
         $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
 
+
+        //clients notification
+
+        $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+        //sale notification
+        $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
         $user = User::findOrFail($id)->ad_spaces()->latest()->paginate(9);
-        return view('owner.posts.my_all_post', compact('user', 'rents', 'reserves', 'sales'));
+        return view('owner.posts.my_all_post', compact('user', 'rents', 'reserves', 'sales', 'rents_client', 'sales_client', 'reserves_client'));
     }
 
 
@@ -134,12 +184,22 @@ class OwnersPostsController extends Controller
             return redirect('/login');
         }
 
-        //rent notification
+
+        //owner notification
         $rents = Rent::where('owner_id', Auth::user()->id)->get();
         //sale notification
         $sales = Sale::where('owner_id', Auth::user()->id)->get();
         //reserve notification
         $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+        //clients notification
+
+        $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+        //sale notification
+        $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
 
 
         $ad_space = Adspace::findOrFail($id);
@@ -149,10 +209,21 @@ class OwnersPostsController extends Controller
 
 //        return view('admin.posts.edit', compact('post', 'categories'));
 
-        return view('owner.posts.edit', compact('ad_space', 'reserves', 'sales', 'rents'));
+        return view('owner.posts.edit', compact('ad_space', 'reserves', 'sales', 'rents', 'rents_client', 'sales_client', 'reserves_client'));
     }
 
     public function update_post(Request $request, $id){
+
+
+        $this->validate($request, [
+
+            'photo_name' =>'required',
+            'advertising_type' =>'required',
+            'adspace_type' =>'required',
+            'size' =>'required',
+            'location' =>'required',
+            'price' =>'required'
+        ]);
 
         $input = $request->all();
 

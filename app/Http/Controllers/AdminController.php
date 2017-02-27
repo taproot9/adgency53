@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Adspace;
 use App\Reservation;
+use App\Subscription;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -90,6 +91,10 @@ class AdminController extends Controller
         return view('admin.reserve', compact('ad_spaces', 'reservations'));
     }
 
+    public function subscription(){
+         $subscriptions = Subscription::all();
+        return view('admin.subscription', compact('subscriptions'));
+    }
 
 
 

@@ -337,31 +337,35 @@
     });
 
 
+//    rents
+
     @if(Auth::check())
-        @if(Auth::user()->id == 2)
-
-            @if(count($rents))
-                $('#isActive').addClass('active');
-
-                $('#isActive').click(function () {
+        @if(Auth::user()->role_id == 2)
+            @if(count($rents_client))
+                @if($is_notify_client_is_seen)
+                $('#isActive').removeClass('active');
+                @else
+                    @if(count($rents_client) && $is_notify_client)
+                    $('#isActive').addClass('active');
+                    $('#btnCLick').click(function () {
+                    $('#isActive').removeClass('active');
                     <?php $rent_client_seen = \App\Rent::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
-                    $(this).removeClass('active');
         //            $(this).addClass('dropdown');
         //            $('#message_reserve').text("Hello world!");
-                });
-
+                    });
+                    @endif
+                @endif
             @endif
-
         @endif
     @endif
 
 
-//    owner notification
+    //    owner notification
     @if(Auth::check())
 
-        @if(Auth::user()->role_id == 3)
+            @if(Auth::user()->role_id == 3)
 
-            @if(count($rents) && $is_notify_owner)
+                @if(count($rents) && $is_notify_owner)
 
                 $('#isActive').addClass('active');
 
@@ -371,41 +375,128 @@
         //            $('#message_reserve').text("Hello world!");
                 });
 
+                @endif
             @endif
+    @endif
 
+
+//    sales
+
+    @if(Auth::check())
+        @if(Auth::user()->role_id == 2)
+            @if(count($sales_client))
+                @if($is_notify_sales_client_is_seen)
+                 $('#isActive').removeClass('active');
+                @else
+                    @if(count($sales_client) && $is_notify_sales_client)
+                        $('#isActive').addClass('active');
+                        $('#btnCLick').click(function () {
+                            $('#isActive').removeClass('active');
+                            <?php \App\Rent::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
+            //            $(this).addClass('dropdown');
+            //            $('#message_reserve').text("Hello world!");
+                        });
+                    @endif
+                @endif
+            @endif
         @endif
     @endif
 
 
-    {{--@if(Auth::user()->role_id == 3) // check if owner--}}
+        //    owner notification
+        @if(Auth::check())
 
-    {{--@if($ok == "ok")--}}
+            @if(Auth::user()->role_id == 3)
 
-    {{--$('#isActive').addClass('active');--}}
+                @if(count($sales) && $is_notify_owner_sales)
 
-    {{--$('#isActive').click(function () {--}}
-    {{--$(this).removeClass('active');--}}
-    {{--//            $(this).addClass('dropdown');--}}
-    {{--//            $('#message_reserve').text("Hello world!");--}}
-    {{--});--}}
+                    $('#isActive').addClass('active');
 
-    {{--@endif--}}
-    {{--@endif--}}
+                    $('#btnCLick').click(function () {
+                        $('#isActive').removeClass('active');
+            //            $(this).addClass('dropdown');
+            //            $('#message_reserve').text("Hello world!");
+                    });
 
-</script>
+                @endif
+            @endif
+        @endif
 
-<script type="text/javascript">
-    $(document).ready(function(){ //Make script DOM ready
-        $('#role').change(function() { //jQuery Change Function
-            var opval = $(this).val(); //Get value from select element
-            if(opval=="3"){ //Compare it and if true
-                $('#gridSystemModal').modal("show"); //Open Modal
-            }
+
+
+    //    reservation
+
+        @if(Auth::check())
+            @if(Auth::user()->role_id == 2)
+                @if(count($reserves_client))
+                    @if($is_notify_reserve_client_is_seen)
+                    $('#isActive').removeClass('active');
+                    @else
+                        @if(count($reserves_client) && $is_notify_reserve_client)
+                        $('#isActive').addClass('active');
+                        $('#btnCLick').click(function () {
+                        $('#isActive').removeClass('active');
+                        <?php \App\Rent::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
+            //            $(this).addClass('dropdown');
+            //            $('#message_reserve').text("Hello world!");
+                        });
+
+                        @endif
+                    @endif
+                @endif
+            @endif
+        @endif
+
+        //    owner notification
+        @if(Auth::check())
+
+            @if(Auth::user()->role_id == 3)
+
+                @if(count($reserves) && $is_notify_owner_reserves)
+
+                    $('#isActive').addClass('active');
+
+                    $('#btnCLick').click(function () {
+                        $('#isActive').removeClass('active');
+            //            $(this).addClass('dropdown');
+            //            $('#message_reserve').text("Hello world!");
+                    });
+
+                @endif
+            @endif
+        @endif
+
+
+
+        {{--@if(Auth::user()->role_id == 3) // check if owner--}}
+
+        {{--@if($ok == "ok")--}}
+
+        {{--$('#isActive').addClass('active');--}}
+
+        {{--$('#isActive').click(function () {--}}
+        {{--$(this).removeClass('active');--}}
+        {{--//            $(this).addClass('dropdown');--}}
+        {{--//            $('#message_reserve').text("Hello world!");--}}
+        {{--});--}}
+
+        {{--@endif--}}
+        {{--@endif--}}
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){ //Make script DOM ready
+            $('#role').change(function() { //jQuery Change Function
+                var opval = $(this).val(); //Get value from select element
+                if(opval=="3"){ //Compare it and if true
+                    $('#gridSystemModal').modal("show"); //Open Modal
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 
 
-</body>
-</html>
+    </body>
+    </html>

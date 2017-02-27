@@ -6,7 +6,7 @@
 
 @section('nav')
     <li><a href="{{url('/')}}">Home</a></li>
-    <li class="active"><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
+    <li><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
     <li><a href="about-us.html">About Us</a></li>
     <li><a href="contact-us.html">Contact</a></li>
 
@@ -14,7 +14,7 @@
     @if(Auth::check())
         <li id="isActive" class="dropdown hidden-phone">
 
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <a id="btnCLick" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-bell " aria-hidden="true"></i>
             </a>
 
@@ -25,10 +25,93 @@
                     {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
                 </li>
 
+                {{--rents--}}
+                <?php $is_notify_owner = false;?>
+
+                @if(count($rents))
+
+                    @foreach($rents as $rent)
+                        @if($rent->is_seen == 0)
+                            <?php $is_notify_owner = true;?>
+                        @endif
+                    @endforeach
+
+                @endif
+
+                <?php $is_notify_client = false;?>
+                <?php $is_notify_client_is_seen = false;?>
+                @if(count($rents_client))
+                    @foreach($rents_client as $rent)
+                        @if($rent->is_seen == 1)
+                            <?php $is_notify_client = true;?>
+                        @endif
+                        @if($rent->is_seen_client == 1)
+                            <?php $is_notify_client_is_seen = true;?>
+                        @endif
+
+                    @endforeach
+                @endif
+
+
+                {{--sales--}}
+                <?php $is_notify_owner_sales = false;?>
+
+                @if(count($sales))
+
+                    @foreach($sales as $sale)
+                        @if($sale->is_seen == 0)
+                            <?php $is_notify_owner_sales = true;?>
+                        @endif
+                    @endforeach
+
+                @endif
+
+                <?php $is_notify_sales_client = false;?>
+                <?php $is_notify_sales_client_is_seen = false;?>
+                @if(count($sales_client))
+                    @foreach($sales_client as $sale)
+                        @if($sale->is_seen == 1)
+                            <?php $is_notify_sales_client = true;?>
+                        @endif
+                        @if($sale->is_seen_client == 1)
+                            <?php $is_notify_sales_client_is_seen = true;?>
+                        @endif
+
+                    @endforeach
+                @endif
+
+
+                {{--reservation--}}
+                <?php $is_notify_owner_reserves = false;?>
+
+                @if(count($reserves))
+
+                    @foreach($reserves as $reserve)
+                        @if($reserve->is_seen == 0)
+                            <?php $is_notify_owner_reserves = true;?>
+                        @endif
+                    @endforeach
+
+                @endif
+
+                <?php $is_notify_reserve_client = false;?>
+                <?php $is_notify_reserve_client_is_seen = false;?>
+                @if(count($reserves_client))
+                    @foreach($reserves_client as $reserve)
+                        @if($reserve->is_seen == 1)
+                            <?php $is_notify_reserve_client = true;?>
+                        @endif
+                        @if($reserve->is_seen_client == 1)
+                            <?php $is_notify_reserve_client_is_seen = true;?>
+                        @endif
+
+                    @endforeach
+                @endif
+
                 {{--owner notification--}}
 
                 {{--rents--}}
-                @if($rents == null)
+                @if(!count($rents) && !count($rents_client) && !count($sales) && !count($reserves) && !count($sales_client) && !count($reserves_client))
                     <li>
                         <span class="message">No notification</span>
                     </li>
@@ -253,7 +336,7 @@
                 @if(Auth::user()->role_id == 3)
 
                     <li><a href="{{url('/owner/show/profile')}}">Show Profile</a></li>
-                    <li><a href="#">Subscription</a></li>
+                    <li class="active"><a href="{{url('/owner/show_subscription')}}">Subscription</a></li>
 
                     <hr>
 

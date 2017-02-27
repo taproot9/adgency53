@@ -4,10 +4,11 @@
 
     <!-- start: Meta -->
     <meta charset="utf-8">
-    <title>Adgency Admin Home</title>
+    <title>Adgency Admin Subscription</title>
     <meta name="description" content="Bootstrap Metro Dashboard">
     <meta name="author" content="Ryan">
-    <meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <meta name="keyword"
+          content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <!-- end: Meta -->
 
     <!-- start: Mobile Specific -->
@@ -19,7 +20,8 @@
     <link href="{{asset('admin_style/css/bootstrap-responsive.min.css/')}}" rel="stylesheet">
     <link id="base-style" href="{{asset('admin_style/css/style.css')}}" rel="stylesheet">
     <link id="base-style-responsive" href="{{asset('admin_style/css/style-responsive.css')}}" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext'
+          rel='stylesheet' type='text/css'>
     <!-- end: CSS -->
 
 
@@ -37,9 +39,6 @@
     <link rel="shortcut icon" href="{{asset('admin_style/img/favicon.ico')}}">
     <!-- end: Favicon -->
 
-
-
-
 </head>
 
 <body>
@@ -47,13 +46,14 @@
 <div class="navbar">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+            <a class="btn btn-navbar" data-toggle="collapse"
+               data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
             <!--<a class="brand" href="index.html"><span>AdGency</span></a>-->
-            <a class="brand" href="{{url('/admin_home')}}"><img src="{{asset('admin_style/img/logo1.png')}}" alt="logo"></a>
+            <a class="brand" href="{{url('admin_home')}}"><img src="{{asset('admin_style/img/logo1.png')}}" alt="logo"></a>
 
             <!-- start: Header Menu -->
             <div class="nav-no-collapse header-nav">
@@ -221,7 +221,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="avatar"><img src="{{asset('admin_style/img/avatar.jpg')}}" alt="Avatar"></span>
+                                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
                                     <span class="header">
 											<span class="from">
 										    	Dennis Ji
@@ -237,7 +237,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="avatar"><img src="{{asset('admin_style/img/avatar.jpg')}}" alt="Avatar"></span>
+                                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
                                     <span class="header">
 											<span class="from">
 										    	Dennis Ji
@@ -253,7 +253,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="avatar"><img src="{{asset('admin_style/img/avatar.jpg')}}" alt="Avatar"></span>
+                                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
                                     <span class="header">
 											<span class="from">
 										    	Dennis Ji
@@ -269,7 +269,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="avatar"><img src="{{asset('admin_style/img/avatar.jpg')}}" alt="Avatar"></span>
+                                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
                                     <span class="header">
 											<span class="from">
 										    	Dennis Ji
@@ -285,7 +285,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="avatar"><img src="{{asset('admin_style/img/avatar.jpg')}}" alt="Avatar"></span>
+                                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
                                     <span class="header">
 											<span class="from">
 										    	Dennis Ji
@@ -315,8 +315,8 @@
                             <li class="dropdown-menu-title">
                                 <span>Account Settings</span>
                             </li>
-                            <li><a href="{{url('admin_show_profile')}}"><i class="halflings-icon user"></i> Profile</a></li>
-                            {{--<li><a href="login.html"><i class="halflings-icon off"></i> Logout</a></li>--}}
+                            <li><a href="{{url('admin_show_profile')}}"><i class="halflings-icon user"></i> Profile</a>
+                            </li>
 
                             <li>
                                 <a href="{{ url('/admin_logout') }}"
@@ -326,11 +326,11 @@
                                     Logout
                                 </a>
 
-                                <form id="logout-form" action="{{ url('/admin_logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ url('/admin_logout') }}" method="POST"
+                                      style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
                             </li>
-
 
                         </ul>
                     </li>
@@ -351,15 +351,17 @@
         <div id="sidebar-left" class="span2">
             <div class="nav-collapse sidebar-nav">
                 <ul class="nav nav-tabs nav-stacked main-menu">
-                    <li><a href="{{url('admin_home')}}"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+                    <li><a href="{{url('admin_home')}}"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a>
+                    </li>
 
-
-                    <li><a href="{{url('admin/subscription')}}"><i class="icon-star"></i><span class="hidden-tablet"> Subscription</span></a></li>
-                    <li><a href="{{url('admin/users_account')}}"><i class="icon-user"></i><span class="hidden-tablet"> Account</span></a></li>
-                    <li><a href="{{url('admin/all_adspace')}}"><i class="icon-road"></i><span class="hidden-tablet"> Adspace</span></a></li>
-                    <li><a href="{{url('admin/rental')}}"><i class="icon-hdd"></i><span class="hidden-tablet"> Rental</span></a></li>
-                    <li><a href="{{url('admin/sale')}}"><i class="icon-th"></i><span class="hidden-tablet"> Sales</span></a></li>
-                    <li><a href="{{url('admin/reserve')}}"><i class="icon-bookmark"></i><span class="hidden-tablet"> Reservation</span></a></li>
+                    <li><a href="subscription.html"><i class="icon-star"></i><span
+                                    class="hidden-tablet"> Subscription</span></a></li>
+                    <li><a href="{{url('admin/users_account')}}"><i class="icon-user"></i><span class="hidden-tablet"> Account</span></a>
+                    </li>
+                    <li><a href="adspace.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Adspace</span></a>
+                    </li>
+                    <li><a href="payment.html"><i class="icon-money"></i><span
+                                    class="hidden-tablet"> Payments</span></a></li>
 
                     <!--<li><a href="messages.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>-->
                     <!--<li><a href="tasks.html"><i class="icon-tasks"></i><span class="hidden-tablet"> Tasks</span></a></li>-->
@@ -390,7 +392,8 @@
         <noscript>
             <div class="alert alert-block span10">
                 <h4 class="alert-heading">Warning!</h4>
-                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+                <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a>
+                    enabled to use this site.</p>
             </div>
         </noscript>
 
@@ -404,72 +407,91 @@
                     <a href="{{url('admin_home')}}">Home</a>
                     <i class="icon-angle-right"></i>
                 </li>
-                <li><a href="{{url('admin_home')}}">Dashboard</a></li>
+                <li><a href="#">Account</a></li>
             </ul>
 
             <div class="row-fluid">
 
-                <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
-                    <div class="boxchart">5,6,7,2,0,4,2,4,8,2,3,3,2</div>
-                    <?php $subsss = \App\Subscription::count();?>
-                    <div class="number">{{$subsss}}<i class="icon-arrow-up"></i></div>
-                    <div class="title">Subscriptions</div>
-                    <div class="footer">
-                        <a href="{{url('admin/subscription')}}"> read full report</a>
-                    </div>
-                </div>
-                <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
-                    <div class="boxchart">1,2,3,4,0,8,2,4,5,3,1,7,5</div>
-                    <div class="number">{{$users}}<i class="icon-arrow-up"></i></div>
-                    <div class="title">Accounts</div>
-                    <div class="footer">
-                        <a href="{{url('admin/users_account')}}"> read full report</a>
-                    </div>
-                </div>
-                <div class="span3 statbox blue noMargin" onTablet="span6" onDesktop="span3">
-                    <div class="boxchart">5,6,7,2,0,-4,-2,4,8,2,3,3,2</div>
-                    <div class="number">{{$ad_spaces}}<i class="icon-arrow-up"></i></div>
-                    <div class="title">Adspaces</div>
-                    <div class="footer">
-                        <a href="{{url('admin/all_adspace')}}"> read full report</a>
-                    </div>
-                </div>
+                <div class="row-fluid sortable">
+                    <div class="box span12">
+                        <div class="box-header" data-original-title>
+                            <h2><i class="halflings-icon white user"></i><span class="break"></span>All User</h2>
+                            <div class="box-icon">
+                                <a href="#" class="btn-setting"><i class="halflings-icon white wrench"></i></a>
+                                <a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+                                <a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                                <thead>
+                                <tr>
+                                    <th>Subscription Plan</th>
+                                    <th>Subscriber</th>
+                                    <th>Subscription End Date</th>
+                                    {{--<th>Actions</th>--}}
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
-                    <div class="boxchart">7,2,2,2,1,-4,-2,4,8,,0,3,3,5</div>
-                    <?php $adspace = App\Adspace::where('advertising_type', 'rent')->where('status', 0)->get() ?>
-                    <div class="number">{{$adspace->count()}}<i class="icon-arrow-up"></i></div>
-                    <div class="title">Rental</div>
-                    <div class="footer">
-                        <a href="{{url('admin/rental')}}"> read full report</a>
-                    </div>
-                </div>
+                                @foreach($subscriptions as $subscription)
+                                    @foreach($subscription->users as $user)
+                                        <tr>
+                                            <td class="center">{{$subscription->plan}}</td>
+                                            <td class="center">{{$user->first_name}}</td>
+                                            <td class="center">{{$subscription->subscribe_end_date}}</td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
 
+                                {{--@foreach($users as $user)--}}
+                                    {{--<tr>--}}
+                                        {{--<td>{{$user->first_name}}</td>--}}
+                                        {{--<td class="center">{{$user->created_at->diffForHumans()}}</td>--}}
+                                        {{--@if($user->role_id == 2)--}}
+                                            {{--<td class="center">Client</td>--}}
+                                        {{--@endif--}}
+
+                                        {{--@if($user->role_id == 3)--}}
+                                            {{--<td class="center">Owner</td>--}}
+                                        {{--@endif--}}
+
+                                        {{--<td class="center">--}}
+                                            {{--@if($user->user_status_id == 1)--}}
+                                            {{--<span class="label label-success">Active</span>--}}
+                                            {{--@else--}}
+                                            {{--<span class="label">Inactive</span>--}}
+                                            {{--@endif--}}
+                                            {{--@if($user->user_status_id == 1)--}}
+                                                {{--<span class="label label-success">Active</span>--}}
+                                            {{--@else--}}
+                                                {{--<span class="label label-success">Inactive</span>--}}
+                                            {{--@endif--}}
+
+                                        {{--</td>--}}
+
+                                        {{--<td class="center">--}}
+                                            {{--<a class="btn btn-success" href="#">--}}
+                                                {{--<i class="halflings-icon white zoom-in"></i>--}}
+                                            {{--</a>--}}
+                                            {{--<a class="btn btn-info" href="#">--}}
+                                                {{--<i class="halflings-icon white edit"></i>--}}
+                                            {{--</a>--}}
+                                            {{--<a class="btn btn-danger" href="#">--}}
+                                                {{--<i class="halflings-icon white trash"></i>--}}
+                                            {{--</a>--}}
+                                        {{--</td>--}}
+                                    {{--</tr>--}}
+                                {{--@endforeach--}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--/span-->
+
+                </div><!--/row-->
 
             </div>
-
-            <div class="row-fluid">
-                <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
-                    <div class="boxchart">7,2,2,2,1,-4,-2,4,8,,0,3,3,5</div>
-                    <?php $adspace = App\Adspace::where('advertising_type', 'sale')->where('status', 0)->get() ?>
-                    <div class="number">{{$adspace->count()}}<i class="icon-arrow-up"></i></div>
-                    <div class="title">Sale</div>
-                    <div class="footer">
-                        <a href="{{url('admin/sale')}}"> read full report</a>
-                    </div>
-                </div>
-
-                <div class="span3 statbox blue" onTablet="span6" onDesktop="span3">
-                    <div class="boxchart">7,2,2,2,1,-4,-2,4,8,,0,3,3,5</div>
-                    <?php $reservation = App\Reservation::where('is_seen', 1)->get() ?>
-                    <div class="number">{{$reservation->count()}}<i class="icon-arrow-up"></i></div>
-                    <div class="title">Reservations</div>
-                    <div class="footer">
-                        <a href="{{url('admin/reserve')}}"> read full report</a>
-                    </div>
-                </div>
-            </div>
-
 
 
         </div><!--/.fluid-container-->
@@ -569,6 +591,22 @@
 
 <script src="{{asset('admin_style/js/custom.js')}}"></script>
 <!-- end: JavaScript-->
+
+
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#showimages').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#inputimages").change(function () {
+        readURL(this);
+    });
+</script>
 
 </body>
 </html>
