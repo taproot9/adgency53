@@ -1,15 +1,15 @@
 @extends('layouts.masterlayoutadgency')
 
 @section('title')
-    Edit My Sale Post
+    About Us
 @endsection
 
 @section('nav')
+
     <li><a href="{{url('/')}}">Home</a></li>
     <li><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
-    <li><a href="{{url('/about_us')}}">About Us</a></li>
+    <li class="active"><a href="{{url('/about_us')}}">About Us</a></li>
     <li><a href="contact-us.html">Contact</a></li>
-
 
 
     @if(Auth::check())
@@ -25,6 +25,9 @@
                     {{--<span>You have a notifications</span>--}}
                     {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
                 </li>
+
+
+
 
                 {{--rents--}}
                 <?php $is_notify_owner = false;?>
@@ -108,6 +111,10 @@
 
                     @endforeach
                 @endif
+
+
+
+
                 {{--owner notification--}}
 
                 {{--rents--}}
@@ -319,11 +326,13 @@
         </li>
     @endif
 
+
+
     @if(Auth::guest())
         <li><a href="{{url('/login')}}">Login</a></li>
         <li><a href="{{url('/register')}}">SignUp</a></li>
     @else
-        <li class="dropdown active">
+        <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 {{ Auth::user()->first_name }} <span class="caret"></span>
             </a>
@@ -333,7 +342,7 @@
                 @if(Auth::user()->role_id == 3)
 
                     <li><a href="{{url('/owner/show/profile')}}">Show Profile</a></li>
-                    <li><a href="#">Subscription</a></li>
+                    <li><a href="{{url('/owner/show_subscription')}}">Subscription</a></li>
 
                     <hr>
 
@@ -343,10 +352,13 @@
 
                     <hr>
 
+                    {{--<li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">Mga Renta og Sale og Reserve</a></li>--}}
                     <li><a href="{{url('/show_all_rented')}}">For Rent</a></li>
                     <li><a href="{{url('/owner/show_all_sale')}}">For Sale</a></li>
 
                     <hr>
+
+                    {{--<li><a href="{{url('/owner/show_all_reserve_billboard')}}">Mga Reserve</a></li>--}}
 
                     <li><a href="{{url('/owner/show_all_rented_billboard')}}">Rented</a></li>
                     <li><a href="{{url('/owner/show_all_sale_billboard')}}">Sold</a></li>
@@ -368,6 +380,8 @@
                     <li><a href="{{url('/client/show_my_all_rent')}}">My Rental</a></li>
                     <li><a href="{{url('/client/show_my_all_sale')}}">My Sales</a></li>
                     <li><a href="{{url('/client/show_my_all_reserve')}}">My Reservation</a></li>
+                    {{--<li><a href="#">Reserved</a></li>--}}
+                    {{--<li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">Owned</a></li>--}}
                 @endif
                 <li>
 
@@ -388,86 +402,9 @@
             </ul>
         </li>
     @endif
+
 @endsection
 
 @section('content')
-
-
-    <div class="container" style="width: 400px; padding-top: 70px; padding-bottom: 100px">
-
-        <h1 style="color: black">Edit Post</h1>
-
-        <div>
-            <img id ="showimages" class="img-responsive img-rounded" src="{{$ad_space->photo_name ? $ad_space->photo_name : 'http://placehold.it/400x400'}}" alt="">
-        </div>
-
-        {!! Form::model($ad_space,['method'=>'PATCH', 'action'=>['OwnersPostsController@update_post', $ad_space->id],'files' => true]) !!}
-
-        {{csrf_field()}}
-
-
-        {{--upload a billoard--}}
-        <div class="form-group">
-            {!! Form::label('photo_name', 'Upload Billboard:') !!}
-            {!! Form::file('photo_name', ['id'=>'inputimages']) !!}
-        </div>
-
-        {{--select advertising_type--}}
-        <div class="form-group">
-            {!! Form::label('advertising_type', 'Type for Operation:') !!}
-            {!! Form::select('advertising_type', ['sale' => 'for Sale', 'rent' => 'for Rent'],null, ['class'=>'form-control', 'placeholder' => 'Select...']) !!}
-        </div>
-
-        {{--select a type--}}
-        <div class="form-group">
-            {!! Form::label('adspace_type', 'Select Type:') !!}
-            {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus'],null, ['class'=>'form-control', 'placeholder' => 'Select...']) !!}
-        </div>
-
-        {{--size--}}
-        <div class="form-group">
-            {!! Form::label('size', 'Size: (meter)') !!}
-            {!! Form::text('size', null, ['class'=>'form-control', 'placeholder' => 'ex. 100 x 100']) !!}
-        </div>
-
-        {{--Location--}}
-        <div class="form-group">
-            {!! Form::label('location', 'Location:') !!}
-            {!! Form::text('location', null, ['class'=>'form-control']) !!}
-        </div>
-
-        {{--Price--}}
-        <div class="form-group">
-            {!! Form::label('price', 'Price:') !!}
-            {!! Form::text('price', null, ['class'=>'form-control','placeholder' => 'Peso']) !!}
-        </div>
-
-        {{--Rent Price--}}
-        {{--<div class="form-group">--}}
-        {{--{!! Form::label('rent_price', 'Rent Price:') !!}--}}
-        {{--{!! Form::text('rent_price', null, ['class'=>'form-control']) !!}--}}
-        {{--</div>--}}
-
-        {{--Status--}}
-        <div class="form-group">
-            {!! Form::label('status', 'Status:') !!}
-            {!! Form::select('status', ['1' => 'Active', '0' => 'Inactive'],$ad_space->status, ['class'=>'form-control'] ) !!}
-        </div>
-
-        {{--submit--}}
-        <div class="form-group">
-            {!! Form::submit('Update Post', ['class'=>'btn btn-primary pull-left']) !!}
-        </div>
-
-        {!! Form::close() !!}
-
-
-        {!! Form::open(['method'=>'DELETE', 'action'=>['ClientController@delete_my_sale_post', $ad_space->id]])!!}
-
-        <div class="form-group">
-            {!! Form::submit('Delete Post', ['class'=>'btn btn-primary pull-right']) !!}
-        </div>
-
-        {!! Form::close() !!}
-    </div>
+    <h1>Hey</h1>
 @endsection

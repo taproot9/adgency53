@@ -392,7 +392,7 @@
                         $('#isActive').addClass('active');
                         $('#btnCLick').click(function () {
                             $('#isActive').removeClass('active');
-                            <?php \App\Rent::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
+                            <?php \App\Sale::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
             //            $(this).addClass('dropdown');
             //            $('#message_reserve').text("Hello world!");
                         });
@@ -436,7 +436,7 @@
                         $('#isActive').addClass('active');
                         $('#btnCLick').click(function () {
                         $('#isActive').removeClass('active');
-                        <?php \App\Rent::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
+                        <?php \App\Reservation::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
             //            $(this).addClass('dropdown');
             //            $('#message_reserve').text("Hello world!");
                         });

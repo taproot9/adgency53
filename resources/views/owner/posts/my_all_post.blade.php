@@ -12,7 +12,7 @@
 
     <li><a href="{{url('/')}}">Home</a></li>
     <li><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
-    <li><a href="about-us.html">About Us</a></li>
+    <li><a href="{{url('/about_us')}}">About Us</a></li>
     <li><a href="contact-us.html">Contact</a></li>
 
 

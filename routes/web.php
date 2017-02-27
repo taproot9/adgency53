@@ -108,6 +108,30 @@ Route::get('/home', function () {
     return view('index', compact('rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
 });
 
+Route::get('/about_us', function (){
+    if (Auth::guest()){
+        return view('index');
+    }
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+    return view('about_us', compact('rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
+
+});
+
 Route::get('/ad_spaces', function (){
 
     if (Auth::guest()){
