@@ -166,6 +166,233 @@ Route::get('/ad_spaces', function (){
 });
 
 
+
+Route::get('search_lamp', function (){
+    if (Auth::guest()){
+        $ad_spaces = Adspace::latest()->available()->lamp()->paginate(9);
+        return view('test_ads', compact('ad_spaces'));
+    }
+
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
+
+//    $articles = Article::latest()->published()->get();
+//    $ad_spaces = Adspace::paginate(3);
+    $ad_spaces = Adspace::latest()->available()->lamp()->paginate(9);
+//    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
+    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
+
+});
+Route::get('search_bus', function (){
+    if (Auth::guest()){
+        $ad_spaces = Adspace::latest()->available()->bus()->paginate(9);
+        return view('test_ads', compact('ad_spaces'));
+    }
+
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
+
+//    $articles = Article::latest()->published()->get();
+//    $ad_spaces = Adspace::paginate(3);
+    $ad_spaces = Adspace::latest()->available()->bus()->paginate(9);
+//    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
+    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
+
+});
+Route::get('search_billboard', function (){
+    if (Auth::guest()){
+        $ad_spaces = Adspace::latest()->available()->billboard()->paginate(9);
+        return view('test_ads', compact('ad_spaces'));
+    }
+
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
+
+//    $articles = Article::latest()->published()->get();
+//    $ad_spaces = Adspace::paginate(3);
+    $ad_spaces = Adspace::latest()->available()->billboard()->paginate(9);
+//    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
+    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
+
+});
+Route::get('search_led', function (){
+    if (Auth::guest()){
+        $ad_spaces = Adspace::latest()->available()->led()->paginate(9);
+        return view('test_ads', compact('ad_spaces'));
+    }
+
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
+
+//    $articles = Article::latest()->published()->get();
+//    $ad_spaces = Adspace::paginate(3);
+    $ad_spaces = Adspace::latest()->available()->led()->paginate(9);
+//    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
+    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
+
+});
+Route::get('search_jeep', function (){
+    if (Auth::guest()){
+        $ad_spaces = Adspace::latest()->available()->jeep()->paginate(9);
+        return view('test_ads', compact('ad_spaces'));
+    }
+
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
+
+//    $articles = Article::latest()->published()->get();
+//    $ad_spaces = Adspace::paginate(3);
+    $ad_spaces = Adspace::latest()->available()->jeep()->paginate(9);
+//    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
+    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
+
+});
+Route::get('search_taxi', function (){
+
+    if (Auth::guest()){
+        $ad_spaces = Adspace::latest()->available()->taxi()->paginate(9);
+        return view('test_ads', compact('ad_spaces'));
+    }
+
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
+
+//    $articles = Article::latest()->published()->get();
+//    $ad_spaces = Adspace::paginate(3);
+    $ad_spaces = Adspace::latest()->available()->taxi()->paginate(9);
+//    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
+    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
+
+});
+Route::get('search_poster', function (){
+    if (Auth::guest()){
+        $ad_spaces = Adspace::latest()->available()->poster()->paginate(9);
+        return view('test_ads', compact('ad_spaces'));
+    }
+
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
+
+//    $articles = Article::latest()->published()->get();
+//    $ad_spaces = Adspace::paginate(3);
+    $ad_spaces = Adspace::latest()->available()->poster()->paginate(9);
+//    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
+    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
+
+});
+
 //auth route
 //Auth::routes();
 
@@ -311,6 +538,7 @@ Route::group(['middleware' => ['is_client']], function () {
 
     Route::get('/client/show_my_all_reserve', 'ClientController@show_my_all_reserve')->name('show_my_all_reserve');
     Route::get('/client/cancel_reservation/{id}', 'ClientController@cancel_reservation')->name('cancel_reservation');
+
 
 
 });

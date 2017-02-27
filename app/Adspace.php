@@ -37,6 +37,45 @@ class Adspace extends Model
         return $query->orderBy('updated_at', 'desc');
     }
 
+
+    public function scopeLamp($query)
+    {
+        return $query->where('adspace_type', 'lamp');
+    }
+
+    public function scopeBus($query)
+    {
+        return $query->where('adspace_type', 'bus');
+    }
+
+    public function scopeBillboard($query)
+    {
+        return $query->where('adspace_type', 'billboard');
+    }
+
+    public function scopeLed($query)
+    {
+        return $query->where('adspace_type', 'led');
+    }
+
+    public function scopeJeep($query)
+    {
+        return $query->where('adspace_type', 'jeep');
+    }
+
+    public function scopeTaxi($query)
+    {
+        return $query->where('adspace_type', 'taxi');
+    }
+
+    public function scopePoster($query)
+    {
+        return $query->where('adspace_type', 'poster');
+    }
+
+
+
+
     public function scopeAvailable($query)
     {
         return $query->where('status', 1);
