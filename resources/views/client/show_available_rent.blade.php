@@ -430,6 +430,7 @@
                         <h3><b>For {{$ad_space->advertising_type}}</b></h3>
                         <p>Size: {{$ad_space->size}}</p>
                         <p>Location: {{$ad_space->location}}</p>
+                        <p>Contact No: {{$ad_space->user->contact}}</p>
                         @if($ad_space->advertising_type == 'sale')
                             <p>Selling Price: &#8369; {{$ad_space->price}}</p>
                         @endif

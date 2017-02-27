@@ -406,5 +406,144 @@
 @endsection
 
 @section('content')
-    <h1>Hey</h1>
+    <section id="about-us">
+        <div class="container">
+            <div class="center wow fadeInDown">
+                <h2>What is Adgency?</h2>
+                <p class="lead">
+                    AdGency is a web application, a software as a service specifically for outdoor advertising.<br><br>
+                    Adgency will guide every outdoor advertisement space owners in advertising their <br>
+                    available advertisement spaces and to get their clients find them and find <br>
+                    the right outdoor advertisement to post their products to be rented,<br>
+                    reserved for a certain client, or be sold.</p>
+            </div>
+
+
+            <!-- Our Skill -->
+            <div class="skill-wrap clearfix">
+
+                <div class="center wow fadeInDown">
+                    <h2>Why choose Adgency?</h2>
+                    <p class="lead">
+                        Why waste your precious time with other services when you can use Adgency easier and more convenience.<br> <br>
+                        Through many years of research, development, and testing, we have created this fantastic website,<br>
+                        it's reliable and innovative. Our in-house development team is constantly updating our<br>
+                        tools to provide our users with the latest functions and applications.<br><br>
+                        Plus, our in-house support team is here to help!</p>
+                </div>
+
+
+                <!-- our-team -->
+                <div class="row team-bar">
+                    <div class="first-one-arrow hidden-xs">
+                        <hr>
+                    </div>
+                    <div class="first-arrow hidden-xs">
+                        <hr> <i class="fa fa-angle-up"></i>
+                    </div>
+                    <div class="second-arrow hidden-xs">
+                        <hr> <i class="fa fa-angle-down"></i>
+                    </div>
+                    <div class="third-arrow hidden-xs">
+                        <hr> <i class="fa fa-angle-up"></i>
+                    </div>
+                    <div class="fourth-arrow hidden-xs">
+                        <hr> <i class="fa fa-angle-down"></i>
+                    </div>
+                </div> <!--skill_border-->
+
+                <div class="team">
+                    <div class="center wow fadeInDown">
+                        <h2>Team of Adgency</h2>
+                        <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p> -->
+                    </div>
+
+
+
+                    <div class="row clearfix">
+                        <div class="col-md-4 col-sm-6 col-md-offset-2">
+                            <div class="single-profile-bottom wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="600ms">
+                                <div class="media">
+                                    <div class="pull-left">
+                                        <a href="#"><img class="media-object" src="{{asset('adgencystyles/images/jaja.jpg')}}" alt=""></a>
+                                    </div>
+
+                                    <div class="media-body">
+                                        <h4>Judy Ann S. Landong</h4>
+                                        <h5>Project Manager</h5>
+                                        <ul class="tag clearfix">
+                                            <li class="btn"><a href="#">Web</a></li>
+                                            <li class="btn"><a href="#">Ui</a></li>
+                                            <li class="btn"><a href="#">Ux</a></li>
+                                            <li class="btn"><a href="#">Photoshop</a></li>
+                                        </ul>
+                                        <ul class="social_icons">
+                                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div><!--/.media -->
+                                <!-- <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p> -->
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-md-4 col-sm-6 col-md-offset-1">
+                                <div class="single-profile-bottom wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="600ms">
+                                    <div class="media">
+                                        <div class="pull-left">
+                                            <a href="#"><img class="media-object" src="{{asset('adgencystyles/images/ryan.jpg')}}" alt=""></a>
+                                        </div>
+
+                                        <div class="media-body">
+                                            <h4>Ryan C. Boter</h4>
+                                            <h5>Programmer</h5>
+                                            <ul class="tag clearfix">
+                                                <li class="btn"><a href="#">Web</a></li>
+                                                <li class="btn"><a href="#">Ui</a></li>
+                                                <li class="btn"><a href="#">Ux</a></li>
+                                                <li class="btn"><a href="#">Photoshop</a></li>
+                                            </ul>
+                                            <ul class="social_icons">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div><!--/.media -->
+                                    <!-- <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p> -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 col-md-offset-4" style= "margin-top:20px">
+                                <div class="single-profile-bottom wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="600ms">
+                                    <div class="media">
+                                        <div class="pull-left">
+                                            <a href="#"><img class="media-object" src="{{asset('adgencystyles/images/mgt.jpg')}}" alt=""></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4>Jadeia A. Baguion</h4>
+                                            <h5>Hipster</h5>
+                                            <ul class="tag clearfix">
+                                                <li class="btn"><a href="#">Web</a></li>
+                                                <li class="btn"><a href="#">Ui</a></li>
+                                                <li class="btn"><a href="#">Ux</a></li>
+                                                <li class="btn"><a href="#">Photoshop</a></li>
+                                            </ul>
+                                            <ul class="social_icons">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div><!--/.media -->
+                                    <!-- <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p> -->
+                                </div>
+                            </div>
+                        </div>	<!--/.row-->
+                    </div><!--section-->
+                </div>>
+            </div>
+        </div>
+    </section><!--/about-us-->
 @endsection

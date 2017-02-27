@@ -427,7 +427,7 @@
         {{--size--}}
         <div class="form-group">
             {!! Form::label('size', 'Size: (meter)') !!}
-            {!! Form::text('size', null, ['class'=>'form-control', 'placeholder' => 'ex. 100 x 100']) !!}
+            {!! Form::text('size', null, ['class'=>'form-control', 'placeholder' => 'ex. 100 x 100 / height x width']) !!}
         </div>
 
         {{--Location--}}
