@@ -401,7 +401,7 @@
             <img id ="showimages" class="img-responsive img-rounded" src="{{$ad_space->photo_name ? $ad_space->photo_name : 'http://placehold.it/400x400'}}" alt="">
         </div>
 
-        {!! Form::model($ad_space,['method'=>'PATCH', 'action'=>['OwnersPostsController@update_post', $ad_space->id],'files' => true]) !!}
+        {!! Form::model($ad_space,['method'=>'PATCH', 'action'=>['OwnersPostsController@update_post', $ad_space->id],'files' => true,'id'=>'form_id']) !!}
 
         {{csrf_field()}}
 
@@ -421,7 +421,12 @@
         {{--select a type--}}
         <div class="form-group">
             {!! Form::label('adspace_type', 'Select Type:') !!}
-            {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus', 'billboard' => 'Billboard','led' => 'LED','jeep' => 'Jeep','taxi' => 'Taxi','poster' => 'Poster'],null, ['class'=>'form-control', 'placeholder' => 'Select...']) !!}
+            {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus', 'billboard' => 'Billboard','led' => 'LED','jeep' => 'Jeep','taxi' => 'Taxi','poster' => 'Poster', 'Other'=>'Other'],null, ['class'=>'form-control','id'=>'i_n_r_reason' ,'placeholder' => 'Select...']) !!}
+        </div>
+
+        <div class="form-group">
+            {{--{!! Form::label('other', 'Type', ['id'=>'lbl_other', 'style' => 'display:none']) !!}--}}
+            {!! Form::text('adspace_type', null, ['class'=>'form-control', 'style' => 'display:none', 'id'=>'other_reason', 'placeholder' => 'Please Specify...']) !!}
         </div>
 
         {{--size--}}

@@ -406,11 +406,16 @@
                                         class="fa fa-angle-down"></i></a></h2>
 
                         <ul class="dropdown-menu">
-                            <li><a href="blog-item.html">Blog Single</a></li>
-                            <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="404.html">404</a></li>
-                            <li><a href="shortcodes.html">Shortcodes</a></li>
+                            <li><a href="{{url('search_lamp')}}">Lamp</a></li>
+                            <li><a href="{{url('search_bus')}}">Bus</a></li>
+                            <li><a href="{{url('search_billboard')}}">Billboard</a></li>
+                            <li><a href="{{url('search_led')}}">Led</a></li>
+                            <li><a href="{{url('search_jeep')}}">Jeep</a></li>
+                            <li><a href="{{url('search_taxi')}}">Taxi</a></li>
+                            <li><a href="{{url('search_poster')}}">Poster</a></li>
+
                         </ul>
+
                     </li>
 
                 </ul>
@@ -437,6 +442,8 @@
                             <h3><b>For {{$ad_space->advertising_type}}</b></h3>
                             <p>Size: {{$ad_space->size}}</p>
                             <p>Location: {{$ad_space->location}}</p>
+                                <?php $user_rented = \App\User::findOrFail($ad->client_id)->first()?>
+                                <p>Rented By: {{$user_rented->first_name}}</p>
                             @if($ad_space->advertising_type == 'sale')
                                 <p>Selling Price: &#8369; {{$ad_space->price}}</p>
                             @endif

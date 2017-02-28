@@ -399,7 +399,7 @@
 
         <h1 style="color: black">Create Post</h1>
 
-        {!! Form::open(['method'=>'POST', 'action'=>'OwnersPostsController@store','files' => true]) !!}
+        {!! Form::open(['method'=>'POST','action'=>'OwnersPostsController@store','files' => true, 'id'=>'form_id']) !!}
 
         {{csrf_field()}}
 
@@ -420,7 +420,14 @@
         {{--select a type--}}
         <div class="form-group">
             {!! Form::label('adspace_type', 'Select Type:') !!}
-            {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus', 'billboard' => 'Billboard','led' => 'LED','jeep' => 'Jeep','taxi' => 'Taxi','poster' => 'Poster'],null, ['class'=>'form-control', 'placeholder' => 'Select...']) !!}
+            {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus', 'billboard' => 'Billboard','led' => 'LED','jeep' => 'Jeep','taxi' => 'Taxi','poster' => 'Poster', 'Other'=>'Other'],null, ['class'=>'form-control', 'id'=>'i_n_r_reason','placeholder' => 'Select...']) !!}
+        </div>
+
+
+        {{--other--}}
+        <div class="form-group">
+            {{--{!! Form::label('other', 'Type', ['id'=>'lbl_other', 'style' => 'display:none']) !!}--}}
+            {!! Form::text('adspace_type', null, ['class'=>'form-control', 'style' => 'display:none', 'id'=>'other_reason', 'placeholder' => 'Please Specify...']) !!}
         </div>
 
         {{--size--}}
