@@ -400,7 +400,7 @@
             <div class="center">
                 {{--<h2>Pricing Table</h2>--}}
                 {{--<p class="lead">Choose your subscription plan</p>--}}
-                <?php  $current_subscription = DB::table('subscribe_user')->whereUserId(Auth::user()->id)->first();?>
+                <?php  $current_subscription = \Illuminate\Support\Facades\DB::table('subscribe_user')->whereUserId(Auth::user()->id)->first();?>
                 <?php $sub_type = \App\Subscription::where('id', $current_subscription->subscribe_id)->first()?>
                 <?php $end = \Carbon\Carbon::parse($sub_type->subscribe_end_date);?>
                 <?php $now = \Carbon\Carbon::now();?>
@@ -427,7 +427,7 @@
                             <li>24/7 Support</li>
                             <li class="plan-action">
                                 @if($length<=0)
-                                    <a href="{{url('/owner/subscribe', [100, 'Start Up', 3])}}" class="btn btn-primary">Subscribe</a>
+                                    <a href="{{url('/owner/subscribe', [100, 'Start Up', 3, Auth::id()])}}" class="btn btn-primary">Subscribe</a>
                                 @endif
 
                             </li>
@@ -445,7 +445,7 @@
                             <li>24/7 Support</li>
                             <li class="plan-action">
                                 @if($length<=0)
-                                    <a href="{{url('/owner/subscribe', [190, 'Standard', 6])}}" class="btn btn-primary">Subscribe</a>
+                                    <a href="{{url('/owner/subscribe', [190, 'Standard', 6, Auth::id()])}}" class="btn btn-primary">Subscribe</a>
                                 @endif
                             </li>
                         </ul>
@@ -463,7 +463,7 @@
                             <li>24/7 Support</li>
                             <li class="plan-action">
                                 @if($length<=0)
-                                    <a href="{{url('/owner/subscribe', [270, 'Premium', 12])}}" class="btn btn-primary">Subscribe</a>
+                                    <a href="{{url('/owner/subscribe', [270, 'Premium', 12, Auth::id()])}}" class="btn btn-primary">Subscribe</a>
                                 @endif
                             </li>
                         </ul>
@@ -482,7 +482,7 @@
                                 <li>24/7 Support</li>
                                 <li class="plan-action">
                                     @if($length<=0)
-                                        <a href="{{url('/owner/subscribe', [0, 'Free Trial', 1])}}" class="btn btn-primary">Subscribe</a>
+                                        <a href="{{url('/owner/subscribe', [0, 'Free Trial', 1, Auth::id()])}}" class="btn btn-primary">Subscribe</a>
                                     @endif
                                 </li>
                             </ul>

@@ -17,6 +17,7 @@ class CreateSubscriptionsTable extends Migration
             $table->increments('id');
             $table->string('plan');
             $table->double('price', 15, 8);
+            $table->integer('user_id')->nullable()->index();
             $table->date('subscribe_start_date');
             $table->date('subscribe_end_date');
             $table->timestamps();

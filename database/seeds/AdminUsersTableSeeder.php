@@ -12,10 +12,10 @@ class AdminUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = new Admin();
-        $user->name = str_random(10);
-        $user->email = str_random(10).'@gmail.com';
-        $user->password = bcrypt('secret');
-        $user->save();
+//        $user = new Admin();
+//        $user->name = str_random(10);
+//        $user->email = str_random(10).'@gmail.com';
+//        $user->password = bcrypt('secret');
+//        $user->save();
     }
 }

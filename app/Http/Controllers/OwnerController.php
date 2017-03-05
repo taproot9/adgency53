@@ -101,7 +101,6 @@ class OwnerController extends Controller
 
     public function owner_update_profile(Request $request, $id){
 
-
         $this->validate($request, [
             'first_name' => 'required|max:30',
             'last_name' => 'required|max:25',
@@ -152,7 +151,6 @@ class OwnerController extends Controller
 
 
         //clients notification
-
         $rents_client = Rent::where('client_id', Auth::user()->id)->get();
         //sale notification
         $sales_client = Sale::where('client_id', Auth::user()->id)->get();
@@ -468,120 +466,41 @@ class OwnerController extends Controller
         return redirect('/ad_spaces');
     }
 
-    public function subscribe($price, $plan , $mo){
+    public function subscribe($price, $plan , $mo, $user_id){
 
-        if ($price == null){
-            return view('subscriptionplan');
-        }else{
-            $users = User::findOrFail(Auth::user()->id);
+        // 1. check the user already subscribe
+        $isSubsribed = Subscription::where('user_id', '=', $user_id)->first();
+
+        if ($isSubsribed){
+
+            $users = User::findOrFail($user_id);
             $total = 0;
             $e_date = null;
             $sub_id = null;
+
             foreach ($users->subscriptions as $user) {
                 $sub_id = $user->pivot->subscribe_id;
                 $e_date = $user->subscribe_end_date;
                 $total  = $user->price + $price;
             }
+
             $subs = Subscription::findOrFail($sub_id);
             $subs->update(['plan'=>$plan, 'price'=>$total, 'subscribe_end_date'=>Carbon::parse($e_date)->addMonth($mo)]);
-            return redirect('/');
+
+            return redirect('owner/show/profile');
+
+        }else{
+            $d = \Carbon\Carbon::now();
+            $end_date = \Carbon\Carbon::now()->addMonth($mo);
+            $subscription = Subscription::create(['plan' => $plan,'price' => $price,'subscribe_start_date' => $d,'user_id'=>$user_id,'subscribe_end_date' => $end_date]);
+            $lastInsertId = $subscription->id;
+
+            //add to the junction table
+            $subs = Subscription::FindOrFail($lastInsertId);
+            $subs->users()->attach(Auth::user()->id);
+            $subs->save();
+
+            return redirect('owner/show/profile');
         }
-
-//        if ($price == null){
-////            return "hey";
-//            return view('subscriptionplan');
-//        }else{
-//
-//
-//            //add to the subscription table
-//
-//
-//            if (!$exists){
-//                $d = \Carbon\Carbon::now();
-//                $end_date = \Carbon\Carbon::now()->addMonth($mo);
-//                $subscription = Subscription::create(['plan' => $plan,'price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
-//                $lastInsertId = $subscription->id;
-//
-//                //add to the junction table
-//                $subs = Subscription::FindOrFail($lastInsertId);
-//                $subs->users()->attach(Auth::user()->id);
-//                $subs->save();
-//
-//                return redirect('/');
-//            }else{
-//
-//                //get the last row of the specific subscriber in the pivot table
-//
-//                $users = User::findOrFail(Auth::user()->id);
-////                $e_date = null;
-//                $total = 0;
-//                $e_date = null;
-//                $sub_id = null;
-//
-//                foreach ($users->subscriptions as $user) {
-//                    $sub_id = $user->pivot->subscribe_id;
-//                    $e_date = $user->subscribe_end_date;
-//                    $total  = $user->price + $price;
-//                }
-//
-//                $subs = Subscription::findOrFail($sub_id);
-//                $subs->update(['plan'=>$plan, 'price'=>$total, 'subscribe_end_date'=>Carbon::parse($e_date)->addMonth($mo)]);
-//
-//
-////                plan
-////                    price
-////                    subscribe_start_date
-////                    subscribe_end_date
-//
-////                $idss = DB::table('subscribe_user')->whereUserId(Auth::user()->id);
-////                return dd($idss);
-//////                return $total;
-//////                Carbon::parse($e_date)->addMonth($mo);
-//                return redirect('/');
-//            }
-//
-//
-//        }
-
-    }
-
-
-
-
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

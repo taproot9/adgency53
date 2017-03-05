@@ -361,23 +361,20 @@
 
 
     //    owner notification
-    @if(Auth::check())
-
+    {{--@if(count($rents))--}}
+        @if(Auth::check())
             @if(Auth::user()->role_id == 3)
-
                 @if(count($rents) && $is_notify_owner)
-
-                $('#isActive').addClass('active');
-
-                $('#btnCLick').click(function () {
-                    $('#isActive').removeClass('active');
+                    $('#isActive').addClass('active');
+                        $('#btnCLick').click(function () {
+                         $('#isActive').removeClass('active');
         //            $(this).addClass('dropdown');
         //            $('#message_reserve').text("Hello world!");
-                });
-
+    });
                 @endif
             @endif
-    @endif
+        @endif
+    {{--@endif--}}
 
 
 //    sales

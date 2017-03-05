@@ -449,6 +449,18 @@
 
                             </tr>
 
+                            <?php  $current_subscription = \Illuminate\Support\Facades\DB::table('subscribe_user')->whereUserId(Auth::id())->first();?>
+                            <?php $sub_type = \App\Subscription::where('id', $current_subscription->subscribe_id)->first()?>
+                            <?php $end = \Carbon\Carbon::parse($sub_type->subscribe_end_date);?>
+                            <?php $now = \Carbon\Carbon::now();?>
+                            <?php $length = $end->diffInDays($now);?>
+
+                            <tr>
+                                <td>Subscription:</td>
+                                <td>{{$sub_type->plan}}, And {{$length>0 ? $length : 0}} days remaining</td>
+
+                            </tr>
+
 
                             </tbody>
                         </table>

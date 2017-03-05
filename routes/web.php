@@ -19,8 +19,6 @@ use Illuminate\Support\Str;
 //public route
 Route::get('/', function () {
 
-    //rent notification
-
     if (Auth::guest()){
         return view('index');
     }
@@ -43,45 +41,6 @@ Route::get('/', function () {
 
     return view('index', compact('rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
 
-
-
-    //for rent notification
-//    $ok = "";
-//    $rent = Rent::where('owner_id', Auth::user()->id)->first();
-//    $rents = Rent::where('owner_id', Auth::user()->id)->get();
-//
-//    if($rent){
-//        $ok = "rent_ok";
-//        return view('index', compact('ok', 'rents', 'rent'));
-//    }else{
-//        $ok = "rent_not";
-//        return view('index', compact('ok', 'rents', 'rent'));
-//    }
-
-
-
-//    $ok = "";
-//    $reservation = Reservation::where('owner_id', Auth::user()->id)->first();
-//    $reservations = Reservation::where('owner_id', Auth::user()->id)->get();
-//
-//    if($reservation){
-//        $ok = "ok";
-//        return view('index', compact('ok', 'reservations', 'reservation'));
-//    }else{
-//        $ok = "not";
-//        return view('index', compact('ok', 'reservations', 'reservation'));
-//    }
-
-
-
-
-
-//    mao ni drop down sa owner
-//    foreach ($reservations as $res){
-//        foreach ($res->ad_spaces as $ad_space){
-//            echo $ad_space->pivot->adspace_id;
-//        }
-//    }
 });
 
 Route::get('/home', function () {
@@ -212,6 +171,7 @@ Route::get('search_lamp', function (){
     return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
 
 });
+
 Route::get('search_bus', function (){
     if (Auth::guest()){
         $ad_spaces = Adspace::latest()->available()->bus()->paginate(9);
@@ -281,7 +241,6 @@ Route::get('search_led', function (){
         $ad_spaces = Adspace::latest()->available()->led()->paginate(9);
         return view('test_ads', compact('ad_spaces'));
     }
-
 
     //owner notification
     $rents = Rent::where('owner_id', Auth::user()->id)->get();
@@ -506,7 +465,7 @@ Route::get('/owner/show_subscription', function (){
     return view('subscriptionplan', compact('rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
 });
 
-Route::get('/owner/subscribe/{price}/{plan}/{mo}', 'OwnerController@subscribe')->name('subscribe');
+Route::get('/owner/subscribe/{price}/{plan}/{mo}/{user_id}', 'OwnerController@subscribe')->name('subscribe');
 
 
 
@@ -581,9 +540,7 @@ Route::get('admin/subscription', 'AdminController@subscription')->name('subscrip
 
 //testing area here
 
-
 /*
-
 
 Route::get('asss', function (){
     return Auth::guard('admin')->user()->name;

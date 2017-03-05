@@ -13,11 +13,28 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
-
     return [
-        'name' => $faker->name,
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'address' => $faker->address,
+        'contact' => $faker->phoneNumber,
+        'role_id'=> (int) rand (2 , 3),
+        'user_status_id'=> 1,
+        'password' => bcrypt('theirwaski'),
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Admin::class, function (Faker\Generator $faker) {
+    static $password;
+    return [
+        'name' => 'Ryan Boter',
+        'email' => 'jayson.boter90@gmail.com',
+        'password' => $password ?: $password = bcrypt('theirwaski'),
+        'remember_token' => str_random(10),
+    ];
+});
+
+
+
