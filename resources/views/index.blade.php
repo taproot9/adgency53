@@ -128,7 +128,7 @@
                         @if($rent->is_seen == 0)
                             <li>
                                 <a href="{{url('/owner/show_pending_rent_specific_billboard', [$rent->billboard_id, $rent->id, $rent->client_id])}}">
-                                    <span class="message">{{App\User::findOrFail($rent->client_id)->first_name}} Ask For Rent</span>
+                                    <span class="message">{{App\User::findOrFail($rent->client_id)->first_name}} Rented Your Billboard</span>
                                 </a>
                             </li>
                         @endif
@@ -192,7 +192,7 @@
                         @if($rent->is_seen == 1)
                             <li>
                                 {{--<a href="{{url('/owner/show_pending_rent_specific_billboard', [$rent->billboard_id, $rent->id, $rent->client_id])}}">--}}
-                                <span class="message">{{App\User::findOrFail($rent->owner_id)->first_name}} Accept Rent Request</span>
+                                <span class="message">{{App\User::findOrFail($rent->owner_id)->first_name}} View Rent Request</span>
                                 {{--</a>--}}
                             </li>
                         @endif
@@ -213,7 +213,7 @@
                         @if($sale->is_seen == 1)
                             <li>
                                 {{--<a href="{{url('/owner/show_pending_sale_specific_billboard', [$sale->billboard_id, $sale->id, $sale->client_id])}}">--}}
-                                <span class="message">{{App\User::findOrFail($sale->owner_id)->first_name}} Accept Sales Request</span>
+                                <span class="message">{{App\User::findOrFail($sale->owner_id)->first_name}} View Sales Request</span>
                                 {{--</a>--}}
                             </li>
                         @endif

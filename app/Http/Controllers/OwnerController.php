@@ -378,7 +378,7 @@ class OwnerController extends Controller
     }
 
     public function delete_pending_rent($ad_space, $rent_id, $client_id){
-         Rent::findOrFail($rent_id)->delete();
+        Rent::findOrFail($rent_id)->delete();
         return redirect('/ad_spaces');
 
     }
@@ -470,74 +470,80 @@ class OwnerController extends Controller
 
     public function subscribe($price, $plan , $mo){
 
-        $exists = DB::table('subscribe_user')->whereUserId(Auth::user()->id)->count() > 0;
-
         if ($price == null){
-//            return "hey";
             return view('subscriptionplan');
         }else{
-
-
-            //add to the subscription table
-
-
-            if (!$exists){
-                $d = \Carbon\Carbon::now();
-                $end_date = \Carbon\Carbon::now()->addMonth($mo);
-                $subscription = Subscription::create(['plan' => $plan,'price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
-                $lastInsertId = $subscription->id;
-
-                //add to the junction table
-                $subs = Subscription::FindOrFail($lastInsertId);
-                $subs->users()->attach(Auth::user()->id);
-                $subs->save();
-
-                return redirect('/');
-            }else{
-
-                //get the last row of the specific subscriber in the pivot table
-
-                $users = User::findOrFail(Auth::user()->id);
-//                $e_date = null;
-                $total = 0;
-                $e_date = null;
-                $sub_id = null;
-
-                foreach ($users->subscriptions as $user) {
-                    $sub_id = $user->pivot->subscribe_id;
-                    $e_date = $user->subscribe_end_date;
-                    $total  = $user->price + $price;
-                }
-
-                $subs = Subscription::findOrFail($sub_id);
-                $subs->update(['plan'=>$plan, 'price'=>$total, 'subscribe_end_date'=>Carbon::parse($e_date)->addMonth($mo)]);
-
-
-//                plan
-//                    price
-//                    subscribe_start_date
-//                    subscribe_end_date
-
-//                $idss = DB::table('subscribe_user')->whereUserId(Auth::user()->id);
-//                return dd($idss);
-////                return $total;
-////                Carbon::parse($e_date)->addMonth($mo);
-                return redirect('/');
+            $users = User::findOrFail(Auth::user()->id);
+            $total = 0;
+            $e_date = null;
+            $sub_id = null;
+            foreach ($users->subscriptions as $user) {
+                $sub_id = $user->pivot->subscribe_id;
+                $e_date = $user->subscribe_end_date;
+                $total  = $user->price + $price;
             }
-
-
+            $subs = Subscription::findOrFail($sub_id);
+            $subs->update(['plan'=>$plan, 'price'=>$total, 'subscribe_end_date'=>Carbon::parse($e_date)->addMonth($mo)]);
+            return redirect('/');
         }
 
+//        if ($price == null){
+////            return "hey";
+//            return view('subscriptionplan');
+//        }else{
+//
+//
+//            //add to the subscription table
+//
+//
+//            if (!$exists){
+//                $d = \Carbon\Carbon::now();
+//                $end_date = \Carbon\Carbon::now()->addMonth($mo);
+//                $subscription = Subscription::create(['plan' => $plan,'price' => $price,'subscribe_start_date' => $d,'subscribe_end_date' => $end_date]);
+//                $lastInsertId = $subscription->id;
+//
+//                //add to the junction table
+//                $subs = Subscription::FindOrFail($lastInsertId);
+//                $subs->users()->attach(Auth::user()->id);
+//                $subs->save();
+//
+//                return redirect('/');
+//            }else{
+//
+//                //get the last row of the specific subscriber in the pivot table
+//
+//                $users = User::findOrFail(Auth::user()->id);
+////                $e_date = null;
+//                $total = 0;
+//                $e_date = null;
+//                $sub_id = null;
+//
+//                foreach ($users->subscriptions as $user) {
+//                    $sub_id = $user->pivot->subscribe_id;
+//                    $e_date = $user->subscribe_end_date;
+//                    $total  = $user->price + $price;
+//                }
+//
+//                $subs = Subscription::findOrFail($sub_id);
+//                $subs->update(['plan'=>$plan, 'price'=>$total, 'subscribe_end_date'=>Carbon::parse($e_date)->addMonth($mo)]);
+//
+//
+////                plan
+////                    price
+////                    subscribe_start_date
+////                    subscribe_end_date
+//
+////                $idss = DB::table('subscribe_user')->whereUserId(Auth::user()->id);
+////                return dd($idss);
+//////                return $total;
+//////                Carbon::parse($e_date)->addMonth($mo);
+//                return redirect('/');
+//            }
+//
+//
+//        }
+
     }
-
-
-
-
-
-
-
-
-
 
 
 

@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 
 //public route
 Route::get('/', function () {
@@ -134,6 +136,9 @@ Route::get('/about_us', function (){
 
 Route::get('/ad_spaces', function (){
 
+
+//    $keywords = Input::get('keywords');
+
     if (Auth::guest()){
         $ad_spaces = Adspace::latest()->available()->paginate(9);
         return view('test_ads', compact('ad_spaces'));
@@ -161,7 +166,15 @@ Route::get('/ad_spaces', function (){
 //    $articles = Article::latest()->published()->get();
 //    $ad_spaces = Adspace::paginate(3);
     $ad_spaces = Adspace::latest()->available()->paginate(9);
+//    $adsp =Adspace::latest()->available()->paginate(9);
 //    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
+
+//    $searchAdsp = new \Illuminate\Database\Eloquent\Collection();
+//    foreach ($adsp as $a){
+//        if (Str::contains(Str::lower($a->price), Str::lower($keywords))){
+//            $searchAdsp->add($a);
+//        }
+//    }
     return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
 });
 

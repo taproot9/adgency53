@@ -17,6 +17,15 @@ class CreateAdspaceSaleTable extends Migration
             $table->increments('id');
             $table->integer('sale_id')->unsigned()->index()->nullable();
             $table->integer('adspace_id')->unsigned()->index()->nullable();
+
+            $table->foreign('sale_id')
+                ->references('id')->on('sales')
+                ->onDelete('cascade');
+
+            $table->foreign('adspace_id')
+                ->references('id')->on('adspaces')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

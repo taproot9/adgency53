@@ -433,7 +433,7 @@
             </div>
         </div>
 
-
+{{----}}
 
         <div class="row">
             @foreach($user as $ad_space)

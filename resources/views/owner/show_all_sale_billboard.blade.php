@@ -441,6 +441,8 @@
                             <h3><b>For {{$ad_space->advertising_type}}</b></h3>
                             <p>Size: {{$ad_space->size}}</p>
                             <p>Location: {{$ad_space->location}}</p>
+                                <?php $client_buy_id = \App\User::findOrFail($ad->client_id)->first()?>
+                                <p>Bought By: {{$client_buy_id->first_name}}</p>
                             @if($ad_space->advertising_type == 'sale')
                                 <p>Selling Price: &#8369; {{$ad_space->price}}</p>
                             @endif

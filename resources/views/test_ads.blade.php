@@ -334,7 +334,7 @@
                 @if(Auth::user()->role_id == 3)
 
                     <li><a href="{{url('/owner/show/profile')}}">Show Profile</a></li>
-                    <li><a href="#">Subscription</a></li>
+                    <li><a href="{{url('/owner/show_subscription')}}">Subscription</a></li>
 
                     <hr>
 
@@ -419,7 +419,7 @@
             </div>
             <div class="col-sm-3">
                 <div class="search_box pull-right">
-                    <input type="text" placeholder="Search"/>
+                    <input id="search-input" onkeydown="down()" onkeyup="up()" type="text" placeholder="Search"/>
                 </div>
             </div>
         </div>

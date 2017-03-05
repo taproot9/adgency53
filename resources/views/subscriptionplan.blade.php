@@ -396,10 +396,23 @@
 @section('content')
     <section class="pricing-page">
         <div class="container">
+
             <div class="center">
-                <h2>Pricing Table</h2>
-                <p class="lead">Choose your subscription plan</p>
+                {{--<h2>Pricing Table</h2>--}}
+                {{--<p class="lead">Choose your subscription plan</p>--}}
+                <?php  $current_subscription = DB::table('subscribe_user')->whereUserId(Auth::user()->id)->first();?>
+                <?php $sub_type = \App\Subscription::where('id', $current_subscription->subscribe_id)->first()?>
+                <?php $end = \Carbon\Carbon::parse($sub_type->subscribe_end_date);?>
+                <?php $now = \Carbon\Carbon::now();?>
+                <?php $length = $end->diffInDays($now);?>
+                <p class="lead">Current Subscribed: <b>{{$sub_type->plan}}</b></p>
+                @if($length>0)
+                    <p class="lead">Remaining: <b>{{$length}} Days</b></p>
+                @else
+                    <p class="lead">Remaining: <b>0 Day</b></p>
+                @endif
             </div>
+
             <div class="pricing-area text-center">
                 <div class="row">
 
@@ -413,7 +426,10 @@
                             <li>No Discount</li>
                             <li>24/7 Support</li>
                             <li class="plan-action">
-                                <a href="{{url('/owner/subscribe', [100, 'Start Up', 3])}}" class="btn btn-primary">Subscribe</a>
+                                @if($length<=0)
+                                    <a href="{{url('/owner/subscribe', [100, 'Start Up', 3])}}" class="btn btn-primary">Subscribe</a>
+                                @endif
+
                             </li>
                         </ul>
                     </div>
@@ -428,7 +444,9 @@
                             <li>10% Discount</li>
                             <li>24/7 Support</li>
                             <li class="plan-action">
-                                <a href="{{url('/owner/subscribe', [190, 'Standard', 6])}}" class="btn btn-primary">Subscribe</a>
+                                @if($length<=0)
+                                    <a href="{{url('/owner/subscribe', [190, 'Standard', 6])}}" class="btn btn-primary">Subscribe</a>
+                                @endif
                             </li>
                         </ul>
                     </div>
@@ -444,7 +462,9 @@
                             <li>30% Discount</li>
                             <li>24/7 Support</li>
                             <li class="plan-action">
-                                <a href="{{url('/owner/subscribe', [270, 'Premium', 12])}}" class="btn btn-primary">Subscribe</a>
+                                @if($length<=0)
+                                    <a href="{{url('/owner/subscribe', [270, 'Premium', 12])}}" class="btn btn-primary">Subscribe</a>
+                                @endif
                             </li>
                         </ul>
                     </div>
@@ -461,7 +481,9 @@
                                 <li>1 Month Free Access</li>
                                 <li>24/7 Support</li>
                                 <li class="plan-action">
-                                    <a href="{{url('/owner/subscribe', [0, 'Free Trial', 1])}}" class="btn btn-primary">Subscribe</a>
+                                    @if($length<=0)
+                                        <a href="{{url('/owner/subscribe', [0, 'Free Trial', 1])}}" class="btn btn-primary">Subscribe</a>
+                                    @endif
                                 </li>
                             </ul>
                         </div>

@@ -9,6 +9,7 @@ class Rent extends Model
     protected $fillable = [
         'rent_date', 'owner_id', 'client_id', 'is_seen','is_seen_owner', 'is_seen_client','billboard_id'
     ];
+
     public function user(){
          return $this->belongsTo('App\User');
     }

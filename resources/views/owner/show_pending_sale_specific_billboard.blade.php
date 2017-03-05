@@ -440,12 +440,16 @@
                         <p>Rent Price: &#8369; {{$ad_space->price}}{{'/Month'}} </p>
                     @endif
                     <ul class="post-meta">
-                        <li><i class="fa fa-pencil-square-o"></i><strong> Posted By:</strong> {{$ad_space->posted_by}}</li>
-                        <li><i class="fa fa-clock-o"></i><strong> Posted On:</strong> {{ $ad_space->created_at->format('M d, Y') }}</li>
+                        <?php $user_client_id = \App\User::findOrFail($client_id);?>
+                        <?php $sale_date = \App\Sale::findOrFail($rent_id);?>
+                        <?php $sale_date->is_seen = 1;?>
+                        <?php $sale_date->save();?>
+                        <li><i class="fa fa-pencil-square-o"></i><strong> Bought By:</strong> {{$user_client_id->first_name}}</li>
+                        <li><i class="fa fa-clock-o"></i><strong> Bought On:</strong> {{ $sale_date->created_at->format('M d, Y') }}</li>
                     </ul>
                     {{--<a href="{{route('edit_rented_post',[$ad_space->id])}}" class="btn btn-primary">Update</a>--}}
-                    <a href="{{url('/owner/adspace_sale/add_to_adspace_sale', [$ad_space, $rent_id,$client_id])}}" class="btn btn-primary">Accept</a>
-                    <a href="{{url('/owner/sale_pending/delete_pending_sale', [$ad_space, $rent_id,$client_id])}}" class="btn btn-primary">Decline</a>
+                    {{--<a href="{{url('/owner/adspace_sale/add_to_adspace_sale', [$ad_space, $rent_id,$client_id])}}" class="btn btn-primary">Accept</a>--}}
+                    {{--<a href="{{url('/owner/sale_pending/delete_pending_sale', [$ad_space, $rent_id,$client_id])}}" class="btn btn-primary">Decline</a>--}}
 
                 </div>
             </div>

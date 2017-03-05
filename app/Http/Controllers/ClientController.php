@@ -169,23 +169,42 @@ class ClientController extends Controller
     }
 
     public function create_rent($owner_id,$client_id,$billboard_id){
-        $res = Rent::all();
-        $ok = true;
 
-        foreach ($res as $re){
-            if( ($re->billboard_id == $billboard_id) && ($re->client_id == $client_id)){
-//                echo $re->billboard_id." == ". $billboard_id. " && ".$re->client_d." == ". $client_id;
-                $ok = false;
-                break;
-            }
-        }
-        if ($ok){
-            $d = \Carbon\Carbon::now();
-            $reserve = Rent::create(['rent_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id, 'billboard_id'=>$billboard_id]);
-            return redirect(route('show_available_rent'));
-        }else{
-            return redirect(route('show_available_rent'));
-        }
+
+        $d = \Carbon\Carbon::now();
+        $rent = Rent::create(['rent_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id, 'billboard_id'=>$billboard_id]);
+        $LastInsertId = $rent->id;
+        Adspace::where('id',$billboard_id)->update(['status'=>0]);
+        $rent_adspace = Rent::findOrFail($LastInsertId);
+        $rent_adspace->ad_spaces()->attach($billboard_id);
+
+        return redirect(route('show_available_rent'));
+
+
+
+//        $res = Rent::all();
+//        $ok = true;
+//
+//        foreach ($res as $re){
+//            if( ($re->billboard_id == $billboard_id) && ($re->client_id == $client_id)){
+////                echo $re->billboard_id." == ". $billboard_id. " && ".$re->client_d." == ". $client_id;
+//                $ok = false;
+//                break;
+//            }
+//        }
+//        if ($ok){
+//
+//            $d = \Carbon\Carbon::now();
+//            $rent = Rent::create(['rent_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id, 'billboard_id'=>$billboard_id]);
+//            $LastInsertId = $rent->id;
+//            Adspace::where('id',$billboard_id)->update(['reserve'=>1, 'status'=>0]);
+//            $rent_adspace = Rent::findOrFail($LastInsertId);
+//            $rent_adspace->ad_spaces()->attach($billboard_id);
+//            return redirect(route('show_available_rent'));
+//
+//        }else{
+//            return redirect(route('show_available_rent'));
+//        }
 
 
         //mo notify ang owner
@@ -296,27 +315,15 @@ class ClientController extends Controller
     }
 
     public function create_sale($owner_id,$client_id,$billboard_id){
-
-        $res = Sale::all();
-        $ok = true;
-
-        foreach ($res as $re){
-            if( ($re->billboard_id == $billboard_id) && ($re->client_id == $client_id)){
-//                echo $re->billboard_id." == ". $billboard_id. " && ".$re->client_d." == ". $client_id;
-                $ok = false;
-                break;
-            }
-        }
-        if ($ok){
-            $d = \Carbon\Carbon::now();
-            $reserve = Sale::create(['sale_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id, 'billboard_id'=>$billboard_id]);
-            return redirect(route('show_available_sales'));
-        }else{
-            return redirect(route('show_available_sales'));
-        }
-
-
+        $d = \Carbon\Carbon::now();
+        $sale = Sale::create(['sale_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id, 'billboard_id'=>$billboard_id]);
+        $LastInsertId = $sale->id;
+        Adspace::where('id',$billboard_id)->update(['status'=>0]);
+        $sale_adspace = Sale::findOrFail($LastInsertId);
+        $sale_adspace->ad_spaces()->attach($billboard_id);
+        return redirect(route('show_available_sales'));
     }
+
     public function show_my_all_sale(){
         if (Auth::guest()){
             return redirect('/login');
