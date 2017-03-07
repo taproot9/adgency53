@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 
@@ -41,6 +41,83 @@ Route::get('/', function () {
     $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
 
     return view('index', compact('rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
+
+});
+
+Route::get('ad_spaces/search',function (Request $request){
+
+//    return $request->all();
+
+    $search = $request->search;
+//    $posts = Posts::where('title', 'like', '%' . $search . '%')->where('active', 1)->orderBy('created_at')->paginate(3);
+
+
+    if (Auth::guest()){
+
+//        $ad_spaces = Adspace::where('status', 1)
+//            ->orWhere('advertising_type', 'like', '%' . $search . '%')
+//            ->orWhere('adspace_type', 'like', '%' . $search . '%')
+//            ->orWhere('size', 'like', '%' . $search . '%')
+//            ->orWhere('location', 'like', '%' . $search . '%')
+//            ->orWhere('price', 'like', '%' . $search . '%')
+//            ->orWhere('reserve_until', 'like', '%' . $search . '%')
+//            ->orWhere('posted_by', 'like', '%' . $search . '%')
+//            ->latest()
+//            ->paginate(9);
+        if ($request->type!='all'){
+            $ad_spaces = Adspace::where('status', 1)
+                ->where($request->type, 'like', '%' . $search . '%')
+                ->latest()
+                ->paginate(9);
+        }else{
+            $ad_spaces = Adspace::where('status', 1)
+                ->latest()
+                ->paginate(9);
+        }
+
+
+        return view('test_ads', compact('ad_spaces'));
+    }
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+//    $ad_spaces = Adspace::where('status', 1)
+//        ->orWhere('advertising_type', 'like', '%' . $search . '%')
+//        ->orWhere('adspace_type', 'like', '%' . $search . '%')
+//        ->orWhere('size', 'like', '%' . $search . '%')
+//        ->orWhere('location', 'like', '%' . $search . '%')
+//        ->orWhere('price', 'like', '%' . $search . '%')
+//        ->orWhere('reserve_until', 'like', '%' . $search . '%')
+//        ->orWhere('posted_by', 'like', '%' . $search . '%')
+//        ->latest()
+//        ->paginate(9);
+
+    if ($request->type!='all'){
+        $ad_spaces = Adspace::where('status', 1)
+            ->where($request->type, 'like', '%' . $search . '%')
+            ->latest()
+            ->paginate(9);
+    }else{
+        $ad_spaces = Adspace::where('status', 1)
+            ->latest()
+            ->paginate(9);
+    }
+
+    return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
 
 });
 
@@ -72,7 +149,7 @@ Route::get('/home', function () {
 
 Route::get('/about_us', function (){
     if (Auth::guest()){
-        return view('index');
+        return view('about_us');
     }
 
     //owner notification
@@ -94,7 +171,7 @@ Route::get('/about_us', function (){
 
 });
 
-Route::get('/ad_spaces', function (){
+Route::get('/ad_spaces/', function (){
 
     if (Auth::guest()){
         $ad_spaces = Adspace::latest()->available()->paginate(9);
@@ -121,6 +198,9 @@ Route::get('/ad_spaces', function (){
 
     return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
 });
+
+
+
 
 
 
@@ -422,6 +502,124 @@ Route::get('/owner/sale_pending/delete_pending_sale/{ad_space}/{rent_id}/{client
 Route::get('/owner/show_pending_reserved_specific_billboard/{billboard_id}/{reserve_id}/{client_id}', 'OwnerController@show_pending_reserved_specific_billboard')->name('show_pending_reserved_specific_billboard')->middleware('subscribe_user');
 Route::get('/owner/adspace_reserve/add_to_adspace_reserve/{ad_space}/{reserve_id}/{client_id}', 'OwnerController@add_to_adspace_reserve')->name('add_to_adspace_reserve')->middleware('subscribe_user');
 Route::get('/owner/reserve_pending/delete_reserve_pending/{ad_space}/{reserve_id}/{client_id}', 'OwnerController@delete_reserve_pending')->name('delete_reserve_pending')->middleware('subscribe_user');
+Route::get('/owner/make_contract', 'OwnerController@make_contract')->name('make_contract');
+
+Route::get('/owner/ad_spaces/owner_billboard_search', function (Request $request){
+
+    $search = $request->search;
+
+    if (Auth::guest()){
+        return redirect('/login');
+    }
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+    if ($request->type!='all'){
+        $ad_spaces = Adspace::where('owner_id', Auth::user()->id)
+            ->where('status', 1)
+            ->where($request->type, 'like', '%' . $search . '%')
+            ->paginate(9);
+    }else{
+        $ad_spaces = Adspace::where('owner_id', Auth::user()->id)
+            ->where('status', 1)
+            ->paginate(9);
+    }
+
+//    $user = User::findOrFail(Auth::id())->ad_spaces()->latest()->available()->paginate(9);
+
+    return view('owner.posts.my_post', compact('ad_spaces', 'rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
+
+
+})->name('owner_billboard_search');
+
+Route::get('/owner/all_ad_spaces/owner_all_billboard_search', function (Request $request){
+
+    $search = $request->search;
+
+    if (Auth::guest()){
+        return redirect('/login');
+    }
+
+//owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+//sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+//reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+//clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+//sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+//reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
+    if ($request->type!='all'){
+        $ad_spaces = Adspace::where('owner_id', Auth::user()->id)
+            ->where($request->type, 'like', '%' . $search . '%')
+            ->paginate(9);
+    }else{
+        $ad_spaces = Adspace::where('owner_id', Auth::user()->id)
+            ->paginate(9);
+    }
+
+//        $user = User::findOrFail($id)->ad_spaces()->latest()->paginate(9);
+    return view('owner.posts.my_all_post', compact('ad_spaces', 'rents', 'reserves', 'sales', 'rents_client', 'sales_client', 'reserves_client'));
+});
+
+
+
+Route::get('/owner/all_ad_spaces/owner_status_billboard_search', function (Request $request){
+
+    $search =  $request->status;
+
+    if (Auth::guest()){
+        return redirect('/login');
+    }
+
+//owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+//sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+//reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+//clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+//sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+//reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+
+
+        $ad_spaces = Adspace::where('owner_id', Auth::user()->id)
+            ->whereStatus($search)
+            ->paginate(9);
+
+
+//        $user = User::findOrFail($id)->ad_spaces()->latest()->paginate(9);
+    return view('owner.posts.my_all_post', compact('ad_spaces', 'rents', 'reserves', 'sales', 'rents_client', 'sales_client', 'reserves_client'));
+});
+
 
 
 //subscription
@@ -451,6 +649,7 @@ Route::get('/owner/show_subscription', function (){
 });
 
 Route::get('/owner/subscribe/{price}/{plan}/{mo}/{user_id}', 'OwnerController@subscribe')->name('subscribe');
+
 
 
 
@@ -495,6 +694,7 @@ Route::group(['middleware' => ['is_client']], function () {
     Route::get('/client/show_my_all_reserve', 'ClientController@show_my_all_reserve')->name('show_my_all_reserve');
     Route::get('/client/cancel_reservation/{id}', 'ClientController@cancel_reservation')->name('cancel_reservation');
 
+    Route::get('client/show/adspace_purchased','ClientController@adspace_purchased')->name('adspace_purchased');
 
 
 });
@@ -524,21 +724,22 @@ Route::get('admin/subscription', 'AdminController@subscription')->name('subscrip
 
 //testing area here
 
-Route::get('test', function (){
-    $res = Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->get();
-
-    foreach ($res as $re){
-        Adspace::findOrFail($re->billboard_id)->update(['status' => 1,'reserve_until' => Carbon::now()]);
-    }
-
-    Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->delete();
-
-
-
-});
+//Route::get('test', function (){
+//    $res = Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->get();
+//
+//    foreach ($res as $re){
+//        Adspace::findOrFail($re->billboard_id)->update(['status' => 1,'reserve_until' => Carbon::now()]);
+//    }
+//
+//    Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->delete();
+//
+//
+//
+//});
 
 
 //show my all reservation
+/*
 Route::get('test', function (){
 
 
@@ -558,7 +759,7 @@ Route::get('test', function (){
     }
 });
 
-/*
+
 
 Route::get('asss', function (){
     return Auth::guard('admin')->user()->name;

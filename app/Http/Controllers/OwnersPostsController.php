@@ -8,6 +8,7 @@ use App\Reservation;
 use App\Sale;
 use App\User;
 use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -117,6 +118,7 @@ class OwnersPostsController extends Controller
 
 
     public function my_post($id){
+
 //        $ad_spaces = Adspace::latest()->paginate(2);
 
 //        $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(9);
@@ -134,7 +136,6 @@ class OwnersPostsController extends Controller
 
 
         //clients notification
-
         $rents_client = Rent::where('client_id', Auth::user()->id)->get();
         //sale notification
         $sales_client = Sale::where('client_id', Auth::user()->id)->get();
@@ -142,8 +143,12 @@ class OwnersPostsController extends Controller
         $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
 
 
-        $user = User::findOrFail($id)->ad_spaces()->latest()->available()->paginate(9);
-        return view('owner.posts.my_post', compact('user', 'rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
+//        $user = User::findOrFail($id)->ad_spaces()->latest()->available()->paginate(9);
+        $ad_spaces = Adspace::where('status', 1)
+            ->where('owner_id', Auth::id())
+            ->latest()
+            ->paginate(9);
+        return view('owner.posts.my_post', compact('ad_spaces', 'rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
     }
 
     public function my_all_post($id){
@@ -168,8 +173,12 @@ class OwnersPostsController extends Controller
         //reserve notification
         $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
 
-        $user = User::findOrFail($id)->ad_spaces()->latest()->paginate(9);
-        return view('owner.posts.my_all_post', compact('user', 'rents', 'reserves', 'sales', 'rents_client', 'sales_client', 'reserves_client'));
+        $ad_spaces = Adspace::where('owner_id', Auth::id())
+            ->latest()
+            ->paginate(9);
+
+//        $user = User::findOrFail($id)->ad_spaces()->latest()->paginate(9);
+        return view('owner.posts.my_all_post', compact('ad_spaces', 'rents', 'reserves', 'sales', 'rents_client', 'sales_client', 'reserves_client'));
     }
 
 

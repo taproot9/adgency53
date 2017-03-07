@@ -346,26 +346,23 @@
 
                     <hr>
 
-                    <li><a href="{{url('/owner/create_posts')}}">Add Advertising Media</a></li>
-                    <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My Advertising Media</a></li>
-                    <li><a style="font-size: smaller" href="{{url('/owner/my_post', Auth::user()->id )}}">Available Advertising Media</a></li>
+                    <li><a href="{{url('/owner/create_posts')}}">Add Post</a></li>
+                    <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My Post</a></li>
+                    <li><a href="{{url('/owner/my_post', Auth::user()->id )}}">Available Post</a></li>
 
-                    {{----}}
-                    {{--<hr>--}}
+                    <hr>
 
                     {{--<li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">Mga Renta og Sale og Reserve</a></li>--}}
-                    {{--<li><a href="{{url('/show_all_rented')}}">For Rent</a></li>--}}
-                    {{--<li><a href="{{url('/owner/show_all_sale')}}">For Sale</a></li>--}}
+                    <li><a href="{{url('/show_all_rented')}}">For Rent</a></li>
+                    <li><a href="{{url('/owner/show_all_sale')}}">For Sale</a></li>
 
-                    {{--<hr>--}}
+                    <hr>
 
                     {{--<li><a href="{{url('/owner/show_all_reserve_billboard')}}">Mga Reserve</a></li>--}}
 
-                    {{--<li><a href="{{url('/owner/show_all_rented_billboard')}}">Rented</a></li>--}}
-                    {{--<li><a href="{{url('/owner/show_all_sale_billboard')}}">Sold</a></li>--}}
-                    {{--<li><a href="{{url('/owner/show_all_reserve_billboard')}}">Reserved</a></li>--}}
-                    {{----}}
-                    {{----}}
+                    <li><a href="{{url('/owner/show_all_rented_billboard')}}">Rented</a></li>
+                    <li><a href="{{url('/owner/show_all_sale_billboard')}}">Sold</a></li>
+                    <li><a href="{{url('/owner/show_all_reserve_billboard')}}">Reserved</a></li>
 
                 @endif
 
@@ -411,91 +408,6 @@
 
 @section('content')
 
-
-
-
-    <section id="main-slider" class="no-margin">
-        <div class="carousel slide">
-            <ol class="carousel-indicators">
-                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
-                <li data-target="#main-slider" data-slide-to="1"></li>
-                <li data-target="#main-slider" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner text-center">
-
-                <div class="item active"
-                     style="background-image: url({{asset('adgencystyles/images/slider/img5.png')}})">
-                    <div class="container">
-                        <div class="row slide-margin">
-
-                            {{--<div class="carousel-content t">--}}
-                                {{--<h1 class="animation animated-item-1" style="color: #000"><strong>Bus Advertising</strong></h1>--}}
-                                {{--<h2 class="animation animated-item-2" style="color: #000">A medium to reach the public with their message.--}}
-                                    {{--Usually, this takes the form of promoting commercial brands, but can also be used for public campaign messages.</h2>--}}
-                                {{--<a class="btn-slide animation animated-item-3" href="#">Read More</a>--}}
-                            {{--</div>--}}
-
-
-                            <!--<div class="col-sm-6 hidden-xs animation animated-item-4">-->
-                            <!--<div class="slider-img">-->
-                            <!--<img src="images/slider/img1.png" class="img-responsive">-->
-                            <!--</div>-->
-                            <!--</div>-->
-
-                        </div>
-                    </div>
-                </div><!--/.item-->
-
-                <div class="item" style="background-image: url({{asset('adgencystyles/images/slider/img8.png')}})">
-                    <div class="container">
-                        <div class="row slide-margin">
-
-                            {{--<div class="carousel-content">--}}
-                                {{--<h1 class="animation animated-item-1" style="color: #000"><strong>Billboard Advertising</strong></h1>--}}
-                                {{--<h2 class="animation animated-item-2" style="color: #000">A large outdoor board for displaying advertisements.</h2>--}}
-                                {{--<a class="btn-slide animation animated-item-3" href="#">Read More</a>--}}
-                            {{--</div>--}}
-
-
-                            <!--<div class="col-sm-6 hidden-xs animation animated-item-4">-->
-                            <!--<div class="slider-img">-->
-                            <!--<img src="images/slider/img2.png" class="img-responsive">-->
-                            <!--</div>-->
-                            <!--</div>-->
-
-                        </div>
-                    </div>
-                </div><!--/.item-->
-
-                <div class="item" style="background-image: url({{asset('adgencystyles/images/slider/bus.png')}})">
-                    <div class="container">
-                        <div class="row slide-margin">
-                            <div class="col-sm-6">
-                                {{--<div class="carousel-content">--}}
-                                    {{--<h1 class="animation animated-item-1">Lorem ipsum dolor sit amet consectetur--}}
-                                        {{--adipisicing elit</h1>--}}
-                                    {{--<h2 class="animation animated-item-2">Accusantium doloremque laudantium totam rem--}}
-                                        {{--aperiam, eaque ipsa...</h2>--}}
-                                    {{--<a class="btn-slide animation animated-item-3" href="#">Read More</a>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            <!--<div class="col-sm-6 hidden-xs animation animated-item-4">-->
-                            <!--<div class="slider-img">-->
-                            <!--<img src="images/slider/img3.png" class="img-responsive">-->
-                            <!--</div>-->
-                            <!--</div>-->
-                        </div>
-                    </div>
-                </div><!--/.item-->
-            </div><!--/.carousel-inner-->
-        </div><!--/.carousel-->
-        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-        <a class="next hidden-xs" href="#main-slider" data-slide="next">
-            <i class="fa fa-chevron-right"></i>
-        </a>
-    </section><!--/#main-slider-->
 
 
 @endsection

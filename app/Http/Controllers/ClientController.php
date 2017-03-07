@@ -519,4 +519,30 @@ class ClientController extends Controller
         Adspace::whereId($id)->update(['status' => 1]);
         return redirect(url('/client/available_post'));
     }
+
+
+    public function adspace_purchased(){
+
+        if (Auth::guest()){
+            return view('index');
+        }
+
+        //owner notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+        //clients notification
+
+        $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+        //sale notification
+        $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+        return view('owner.adspace_purchased', compact('rents', 'rents_client', 'sales', 'sales_client', 'reserves', 'reserves_client'));
+    }
 }

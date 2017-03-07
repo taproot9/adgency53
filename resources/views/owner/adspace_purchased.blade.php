@@ -1,7 +1,7 @@
 @extends('layouts.masterlayoutadgency')
 
 @section('title')
-    Home
+    Purchased
 @endsection
 
 @section('nav')
@@ -25,8 +25,6 @@
                     {{--<span>You have a notifications</span>--}}
                     {{--<a href="#refresh"><i class="icon-repeat"></i></a>--}}
                 </li>
-
-
 
 
                 {{--rents--}}
@@ -149,7 +147,7 @@
                         @if($sale->is_seen == 0)
                             <li>
                                 <a href="{{url('/owner/show_pending_sale_specific_billboard', [$sale->billboard_id, $sale->id, $sale->client_id])}}">
-                                    <span class="message">{{App\User::findOrFail($sale->client_id)->first_name}} Bought Adspace</span>
+                                    <span class="message">{{App\User::findOrFail($sale->client_id)->first_name}} Ask For Sale</span>
                                 </a>
                             </li>
                         @endif
@@ -241,52 +239,6 @@
                     @endforeach
                 @endif
 
-
-
-
-                {{--@if($rent == null)--}}
-                {{--<li>--}}
-                {{--<span class="message">No notification</span>--}}
-                {{--</li>--}}
-
-                {{--@else--}}
-                {{--@foreach($rents as $res)--}}
-                {{--<li>--}}
-                {{--@foreach($res->ad_spaces as $ad_space)--}}
-
-                {{--$table->integer('rent_id');--}}
-                {{--$table->integer('adspace_id');--}}
-
-                {{--<a href="{{url('/owner/show_rent_specific_billboard', [$ad_space->pivot->adspace_id, $res->client_id])}}">--}}
-                {{--<span class="message">{{App\User::findOrFail($res->client_id)->first_name}} Ask For Rent</span>--}}
-                {{--@endforeach--}}
-                {{--</a>--}}
-
-                {{--<a href="{{url('/owner/show_reserved_specific_billboard', [$ad_space->pivot->adspace_id, $res->client_id])}}">--}}
-                {{--@endforeach--}}
-                {{--<span class="message">{{App\User::findOrFail($res->client_id)->first_name}} Ask For Rent</span>--}}
-                {{--</a>--}}
-
-                {{--</li>--}}
-                {{--@endforeach--}}
-                {{--@endif--}}
-
-                {{--<li>--}}
-                {{--<a href="#">--}}
-                {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
-                {{--<span class="message">New comment</span>--}}
-                {{--<span class="time">7 min</span>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<a href="#">--}}
-                {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
-                {{--<span class="message">New comment</span>--}}
-                {{--<span class="time">8 min</span>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-
-
             </ul>
 
         </li>
@@ -311,17 +263,6 @@
                         <span class="header"><span class="from">Ryan Boter</span></span>
                     </a>
                 </li>
-                {{--<li>--}}
-                {{--<a href="#">--}}
-                {{--<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>--}}
-                {{--<span class="header"><span class="from">Dennis Ji</span><span class="time">56 min</span></span>--}}
-                {{--<span class="message">Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore</span>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-
-                {{--<li>--}}
-                {{--<a class="dropdown-menu-sub-footer">View all messages</a>--}}
-                {{--</li>--}}
             </ul>
         </li>
     @endif
@@ -336,42 +277,39 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 {{ Auth::user()->first_name }} <span class="caret"></span>
             </a>
+
             <ul class="dropdown-menu" role="menu">
 
                 @if(Auth::user()->role_id == 3)
 
                     <li><a href="{{url('/owner/show/profile')}}">Show Profile</a></li>
                     <li><a href="{{url('/owner/show_subscription')}}">Subscription</a></li>
-
+                    <li><a href="{{url('/owner/show/adspace_purchased')}}">Purchased</a></li>
 
                     <hr>
 
-                    <li><a href="{{url('/owner/create_posts')}}">Add Advertising Media</a></li>
-                    <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My Advertising Media</a></li>
-                    <li><a style="font-size: smaller" href="{{url('/owner/my_post', Auth::user()->id )}}">Available Advertising Media</a></li>
+                    <li><a href="{{url('/owner/create_posts')}}">Add Post</a></li>
+                    <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My Post</a></li>
+                    <li><a href="{{url('/owner/my_post', Auth::user()->id )}}">Available Post</a></li>
 
-                    {{----}}
-                    {{--<hr>--}}
+                    <hr>
 
                     {{--<li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">Mga Renta og Sale og Reserve</a></li>--}}
-                    {{--<li><a href="{{url('/show_all_rented')}}">For Rent</a></li>--}}
-                    {{--<li><a href="{{url('/owner/show_all_sale')}}">For Sale</a></li>--}}
+                    <li><a href="{{url('/show_all_rented')}}">For Rent</a></li>
+                    <li><a href="{{url('/owner/show_all_sale')}}">For Sale</a></li>
 
-                    {{--<hr>--}}
+                    <hr>
 
                     {{--<li><a href="{{url('/owner/show_all_reserve_billboard')}}">Mga Reserve</a></li>--}}
 
-                    {{--<li><a href="{{url('/owner/show_all_rented_billboard')}}">Rented</a></li>--}}
-                    {{--<li><a href="{{url('/owner/show_all_sale_billboard')}}">Sold</a></li>--}}
-                    {{--<li><a href="{{url('/owner/show_all_reserve_billboard')}}">Reserved</a></li>--}}
-                    {{----}}
-                    {{----}}
+                    <li><a href="{{url('/owner/show_all_rented_billboard')}}">Rented</a></li>
+                    <li><a href="{{url('/owner/show_all_sale_billboard')}}">Sold</a></li>
+                    <li><a href="{{url('/owner/show_all_reserve_billboard')}}">Reserved</a></li>
 
                 @endif
 
                 @if(Auth::user()->role_id == 2)
                     <li><a href="{{url('/client/show/profile')}}">Show Profile</a></li>
-                    <li><a href="{{url('/client/show/adspace_purchased')}}">Purchased</a></li>
 
                     <hr>
 
@@ -410,92 +348,214 @@
 @endsection
 
 @section('content')
+    <div class="container" style="padding-top: 70px; padding-bottom: 70px">
+
+        @if(Auth::user()->role_id == 2)
+
+            <?php $table_sales = \App\Sale::where('client_id', Auth::id())->get()?>
+            <?php $table_rents = \App\Rent::where('client_id', Auth::id())->get()?>
+
+            <h1 style="color: black">Adspace Purchased</h1>
+            <br>
+
+            <h2>All Bought</h2>
+            <br>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><h4>Owner</h4></th>
+                    <th><h4>AdSpace Type</h4></th>
+                    <th><h4>Advertising Type</h4></th>
+                    <th><h4>Size</h4></th>
+                    <th><h4>Location</h4></th>
+                    <th><h4>Price</h4></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <?php $total_sale_table = 0?>
+                @foreach($table_sales as $table_sale)
+                    <?php $user_table = \App\User::whereId($table_sale->owner_id)->first()?>
+                    <?php $adspace_table = \App\Adspace::whereId($table_sale->billboard_id)->first()?>
+                    <tr>
+                        <td>{{$user_table->first_name}}</td>
+                        <td>{{$adspace_table->adspace_type}}</td>
+                        <td class="text-right">{{$adspace_table->advertising_type}}</td>
+                        <td class="text-right">{{$adspace_table->size}}</td>
+                        <td class="text-right">{{$adspace_table->location}}</td>
+                        <td class="text-right">&#8369;{{$adspace_table->price}}</td>
+
+                    </tr>
+                    <?php $total_sale_table+=$adspace_table->price?>
+                @endforeach
+
+                </tbody>
+
+
+
+            </table>
+
+
+
+            <div class="row text-right">
+                <div class="col-xs-2 col-xs-offset-8">
+                    <p>
+                        <strong>
+                            {{--Sub Total : <br>--}}
+                            {{--TAX : <br>--}}
+                            Total : <br>
+                        </strong>
+                    </p>
+                </div>
+                <div class="col-xs-2">
+                    <strong>
+                        {{--$1200.00 <br>--}}
+                        {{--N/A <br>--}}
+                        &#8369;{{$total_sale_table}} <br>
+                    </strong>
+                </div>
+            </div>
 
 
 
 
-    <section id="main-slider" class="no-margin">
-        <div class="carousel slide">
-            <ol class="carousel-indicators">
-                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
-                <li data-target="#main-slider" data-slide-to="1"></li>
-                <li data-target="#main-slider" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner text-center">
+            <h2>All Rented</h2>
+            <br>
 
-                <div class="item active"
-                     style="background-image: url({{asset('adgencystyles/images/slider/img5.png')}})">
-                    <div class="container">
-                        <div class="row slide-margin">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><h4>Owner</h4></th>
+                    <th><h4>AdSpace Type</h4></th>
+                    <th><h4>Advertising Type</h4></th>
+                    <th><h4>Size</h4></th>
+                    <th><h4>Location</h4></th>
+                    <th><h4>Price</h4></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php $total_rent_table = 0?>
+                @foreach($table_rents as $table_rent)
+                    <?php $user_table_rent = \App\User::whereId($table_rent->owner_id)->first()?>
+                    <?php $adspace_table_rent = \App\Adspace::whereId($table_rent->billboard_id)->first()?>
+                    <tr>
+                        <td>{{$user_table_rent->first_name}}</td>
+                        <td>{{$adspace_table_rent->adspace_type}}</td>
+                        <td class="text-right">{{$adspace_table_rent->advertising_type}}</td>
+                        <td class="text-right">{{$adspace_table_rent->size}}</td>
+                        <td class="text-right">{{$adspace_table_rent->location}}</td>
+                        <td class="text-right">&#8369;{{$adspace_table_rent->price}}</td>
 
-                            {{--<div class="carousel-content t">--}}
-                                {{--<h1 class="animation animated-item-1" style="color: #000"><strong>Bus Advertising</strong></h1>--}}
-                                {{--<h2 class="animation animated-item-2" style="color: #000">A medium to reach the public with their message.--}}
-                                    {{--Usually, this takes the form of promoting commercial brands, but can also be used for public campaign messages.</h2>--}}
-                                {{--<a class="btn-slide animation animated-item-3" href="#">Read More</a>--}}
-                            {{--</div>--}}
+                    </tr>
+                    <?php $total_rent_table+=$adspace_table_rent->price?>
+                @endforeach
 
+                </tbody>
+            </table>
 
-                            <!--<div class="col-sm-6 hidden-xs animation animated-item-4">-->
-                            <!--<div class="slider-img">-->
-                            <!--<img src="images/slider/img1.png" class="img-responsive">-->
-                            <!--</div>-->
-                            <!--</div>-->
+            <div class="row text-right">
+                <div class="col-xs-2 col-xs-offset-8">
+                    <p>
+                        <strong>
+                            {{--Sub Total : <br>--}}
+                            {{--TAX : <br>--}}
+                            Total : <br>
+                        </strong>
+                    </p>
+                </div>
+                <div class="col-xs-2">
+                    <strong>
+                        {{--$1200.00 <br>--}}
+                        {{--N/A <br>--}}
+                        &#8369;{{$total_rent_table}} <br>
+                    </strong>
+                </div>
+            </div>
 
-                        </div>
-                    </div>
-                </div><!--/.item-->
+            <br>
 
-                <div class="item" style="background-image: url({{asset('adgencystyles/images/slider/img8.png')}})">
-                    <div class="container">
-                        <div class="row slide-margin">
+            <div class="row text-right">
+                <div class="col-xs-2 col-xs-offset-8">
+                    <p>
+                        <strong>
+                            {{--Sub Total : <br>--}}
+                            {{--TAX : <br>--}}
+                            Total All: <br>
+                        </strong>
+                    </p>
+                </div>
+                <div class="col-xs-2">
+                    <strong>
+                        {{--$1200.00 <br>--}}
+                        {{--N/A <br>--}}
+                        &#8369;{{$total_rent_table+$total_sale_table}} <br>
+                    </strong>
+                </div>
+            </div>
 
-                            {{--<div class="carousel-content">--}}
-                                {{--<h1 class="animation animated-item-1" style="color: #000"><strong>Billboard Advertising</strong></h1>--}}
-                                {{--<h2 class="animation animated-item-2" style="color: #000">A large outdoor board for displaying advertisements.</h2>--}}
-                                {{--<a class="btn-slide animation animated-item-3" href="#">Read More</a>--}}
-                            {{--</div>--}}
-
-
-                            <!--<div class="col-sm-6 hidden-xs animation animated-item-4">-->
-                            <!--<div class="slider-img">-->
-                            <!--<img src="images/slider/img2.png" class="img-responsive">-->
-                            <!--</div>-->
-                            <!--</div>-->
-
-                        </div>
-                    </div>
-                </div><!--/.item-->
-
-                <div class="item" style="background-image: url({{asset('adgencystyles/images/slider/bus.png')}})">
-                    <div class="container">
-                        <div class="row slide-margin">
-                            <div class="col-sm-6">
-                                {{--<div class="carousel-content">--}}
-                                    {{--<h1 class="animation animated-item-1">Lorem ipsum dolor sit amet consectetur--}}
-                                        {{--adipisicing elit</h1>--}}
-                                    {{--<h2 class="animation animated-item-2">Accusantium doloremque laudantium totam rem--}}
-                                        {{--aperiam, eaque ipsa...</h2>--}}
-                                    {{--<a class="btn-slide animation animated-item-3" href="#">Read More</a>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            <!--<div class="col-sm-6 hidden-xs animation animated-item-4">-->
-                            <!--<div class="slider-img">-->
-                            <!--<img src="images/slider/img3.png" class="img-responsive">-->
-                            <!--</div>-->
-                            <!--</div>-->
-                        </div>
-                    </div>
-                </div><!--/.item-->
-            </div><!--/.carousel-inner-->
-        </div><!--/.carousel-->
-        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-        <a class="next hidden-xs" href="#main-slider" data-slide="next">
-            <i class="fa fa-chevron-right"></i>
-        </a>
-    </section><!--/#main-slider-->
+        @endif
 
 
+
+
+
+
+
+
+
+
+
+        {{--<table class="table">--}}
+        {{--<thead>--}}
+        {{--<tr>--}}
+        {{--<th>Owner</th>--}}
+        {{--<th>AdSpace Type</th>--}}
+        {{--<th>Advertising Type</th>--}}
+        {{--<th>Size</th>--}}
+        {{--<th>Location</th>--}}
+        {{--<th>Price</th>--}}
+        {{--</tr>--}}
+        {{--</thead>--}}
+        {{--<tbody>--}}
+        {{--<tr>--}}
+        {{--<td>John</td>--}}
+        {{--<td>Doe</td>--}}
+        {{--<td>john@example.com</td>--}}
+        {{--<td>John</td>--}}
+        {{--<td>Doe</td>--}}
+        {{--<td>1000</td>--}}
+        {{--</tr>--}}
+        {{--<tr>--}}
+        {{--<td>Mary</td>--}}
+        {{--<td>Moe</td>--}}
+        {{--<td>mary@example.com</td>--}}
+        {{--<td>John</td>--}}
+        {{--<td>Doe</td>--}}
+        {{--<td>1000</td>--}}
+        {{--</tr>--}}
+        {{--<tr>--}}
+        {{--<td>July</td>--}}
+        {{--<td>Dooley</td>--}}
+        {{--<td>july@example.com</td>--}}
+        {{--<td>John</td>--}}
+        {{--<td>Doe</td>--}}
+        {{--<td>1000</td>--}}
+        {{--</tr>--}}
+
+        {{--<tr>--}}
+        {{--<td>July</td>--}}
+        {{--<td>Dooley</td>--}}
+        {{--<td>july@example.com</td>--}}
+        {{--<td>John</td>--}}
+        {{--<td>Doe</td>--}}
+        {{--<td>1000</td>--}}
+        {{--</tr>--}}
+
+
+        {{--</tbody>--}}
+
+
+        {{--</table>--}}
+    </div>
 @endsection

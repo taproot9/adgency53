@@ -43,15 +43,15 @@ class DeleteReservation extends Command
     public function handle()
     {
 
-        $res = Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->get();
+            $res = Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->get();
 
-        foreach ($res as $re){
-            Adspace::findOrFail($re->billboard_id)->update(['status' => 1,'reserve_until' => Carbon::now()]);
-        }
+            foreach ($res as $re){
+                Adspace::findOrFail($re->billboard_id)->update(['status' => 1,'reserve_until' => Carbon::now()]);
+            }
 
-        Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->delete();
+            Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->delete();
 
-        Log::info("Reservation deleted");
+            Log::info("Reservation deleted");
 
     }
 }

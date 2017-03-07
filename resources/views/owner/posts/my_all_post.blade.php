@@ -404,44 +404,58 @@
             <p class="bg-danger">{{session('deleted_post')}}</p>
         @endif
 
-        <div class="row">
-            <div class="col-sm-9">
-                <ul class="mainmenu nav navbar-nav pull-left">
-                    <li class="dropdown">
+            <div class="row">
+                <div class="col-sm-7">
+                    {!! Form::open(['method'=>'get', 'url'=>'/owner/all_ad_spaces/owner_status_billboard_search', 'class'=>'navbar-form navbar-left', 'role'=>'search']) !!}
+                    <div class="input-group custom-search-form">
+                        <span class="input-group-btn">
+                         <span>
+                            {!! Form::select('status', array( 1=>'Available',0 => 'Not Available'), null, ['class'=>'form-control', 'placeholder' => 'Choose Available or Not Available']) !!}
+                        </span>
+                        <button type="submit" class="btn btn-default btn-md">
+                             <i class="fa fa-search"></i>
+                        </button>
+                    </span>
 
-                        <h2><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #a9a9b7;">Billboard Type <i
-                                        class="fa fa-angle-down"></i></a></h2>
+                    </div>
 
-                        <ul class="dropdown-menu">
-                            <li><a href="{{url('search_lamp')}}">Lamp</a></li>
-                            <li><a href="{{url('search_bus')}}">Bus</a></li>
-                            <li><a href="{{url('search_billboard')}}">Billboard</a></li>
-                            <li><a href="{{url('search_led')}}">Led</a></li>
-                            <li><a href="{{url('search_jeep')}}">Jeep</a></li>
-                            <li><a href="{{url('search_taxi')}}">Taxi</a></li>
-                            <li><a href="{{url('search_poster')}}">Poster</a></li>
+                    {!! Form::close() !!}
+                </div>
+                <div class="col-sm-5">
 
-                        </ul>
-                    </li>
+                    {!! Form::open(['method'=>'get', 'url'=>'/owner/all_ad_spaces/owner_all_billboard_search', 'class'=>'navbar-form navbar-left', 'role'=>'search']) !!}
+                    <div class="input-group custom-search-form">
+                        <input type="text" name="search" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                         <span>
+                            {!! Form::select('type', array('all'=>'All','adspace_type' => 'Adspace Type', 'advertising_type' => 'Advertising Type', 'size' => 'Size', 'location' => 'Location', 'price' => 'Price', 'posted_by' => 'Posted By'),'all', ['class'=>'form-control']) !!}
+                        </span>
+                        <button type="submit" class="btn btn-default btn-md">
+                             <i class="fa fa-search"></i>
+                        </button>
+                    </span>
 
-                </ul>
-            </div>
-            <div class="col-sm-3">
-                <div class="search_box pull-right">
-                    <input type="text" placeholder="Search"/>
+                    </div>
+
+                    {!! Form::close() !!}
+
                 </div>
             </div>
-        </div>
+
+            <br>
+            <br>
+            <br>
 
 {{----}}
 
         <div class="row">
-            @foreach($user as $ad_space)
+            @foreach($ad_spaces as $ad_space)
                 <div class="col-sm-4">
                     <div class="single-blog">
 
                         <img class="picPost" src="{{$ad_space->photo_name ? $ad_space->photo_name : asset('adgencystyles/images/blog/bus.jpg')}}" alt=""/>
                         <h2>Type: {{$ad_space->adspace_type}}</h2>
+                        <h4><b>Status: {{$ad_space->status == 1 ? 'Available' : 'Not Availabe'}}</b></h4>
                         <h3><b>For {{$ad_space->advertising_type}}</b></h3>
                         <p>Size: {{$ad_space->size}}</p>
                         <p>Location: {{$ad_space->location}}</p>
@@ -469,7 +483,7 @@
 
         {{--{{$user->ad_spaces->links()}}--}}
 
-        {!! $user->links('layouts/pagination') !!}
+        {!! $ad_spaces->links('layouts/pagination') !!}
 
     </div>
 

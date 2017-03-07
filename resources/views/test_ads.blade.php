@@ -5,11 +5,11 @@
 @endsection
 
 @section('nav')
+
     <li><a href="{{url('/')}}">Home</a></li>
     <li class="active"><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
     <li><a href="{{url('/about_us')}}">About Us</a></li>
     <li><a href="contact-us.html">Contact</a></li>
-
 
 
     @if(Auth::check())
@@ -340,34 +340,56 @@
     <div class="container" style="padding-top: 70px; padding-bottom: 70px">
 
         <div class="row">
-            <div class="col-sm-9">
-                <ul class="mainmenu nav navbar-nav pull-left">
-                    <li class="dropdown">
+            <div class="col-sm-7">
+                {{--<ul class="mainmenu nav navbar-nav pull-left">--}}
+                {{--<li class="dropdown">--}}
 
-                        <h2><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #a9a9b7;">Billboard Type <i
-                                        class="fa fa-angle-down"></i></a></h2>
+                {{--<h2><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #a9a9b7;">Billboard Type <i--}}
+                {{--class="fa fa-angle-down"></i></a></h2>--}}
 
-                        <ul class="dropdown-menu">
-                            <li><a href="{{url('search_lamp')}}">Lamp</a></li>
-                            <li><a href="{{url('search_bus')}}">Bus</a></li>
-                            <li><a href="{{url('search_billboard')}}">Billboard</a></li>
-                            <li><a href="{{url('search_led')}}">Led</a></li>
-                            <li><a href="{{url('search_jeep')}}">Jeep</a></li>
-                            <li><a href="{{url('search_taxi')}}">Taxi</a></li>
-                            <li><a href="{{url('search_poster')}}">Poster</a></li>
+                {{--<ul class="dropdown-menu">--}}
+                {{--<li><a href="{{url('search_lamp')}}">Lamp</a></li>--}}
+                {{--<li><a href="{{url('search_bus')}}">Bus</a></li>--}}
+                {{--<li><a href="{{url('search_billboard')}}">Billboard</a></li>--}}
+                {{--<li><a href="{{url('search_led')}}">Led</a></li>--}}
+                {{--<li><a href="{{url('search_jeep')}}">Jeep</a></li>--}}
+                {{--<li><a href="{{url('search_taxi')}}">Taxi</a></li>--}}
+                {{--<li><a href="{{url('search_poster')}}">Poster</a></li>--}}
 
-                        </ul>
-                    </li>
+                {{--</ul>--}}
+                {{--</li>--}}
 
-                </ul>
+                {{--</ul>--}}
             </div>
-            <div class="col-sm-3">
-                <div class="search_box pull-right">
-                    <input id="search-input" onkeydown="down()" onkeyup="up()" type="text" placeholder="Search"/>
+            <div class="col-sm-5">
+
+                {{--<div class="search_box pull-right">--}}
+                {{--<input id="search-input" onkeydown="down()" onkeyup="up()" type="text" placeholder="Search"/>--}}
+                {{----}}
+                {{--</div>--}}
+
+                {!! Form::open(['method'=>'get', 'url'=>'/ad_spaces/search', 'class'=>'navbar-form navbar-left', 'role'=>'search']) !!}
+                <div class="input-group custom-search-form">
+                    <input type="text" name="search" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                         <span>
+                            {!! Form::select('type', array('all'=>'All','adspace_type' => 'Adspace Type', 'advertising_type' => 'Advertising Type', 'size' => 'Size', 'location' => 'Location', 'price' => 'Price', 'posted_by' => 'Posted By'),'all', ['class'=>'form-control']) !!}
+                        </span>
+                        <button type="submit" class="btn btn-default btn-md">
+                             <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+
                 </div>
+
+                {!! Form::close() !!}
+
             </div>
         </div>
 
+        <br>
+        <br>
+        <br>
 
         <div class="row">
             @foreach($ad_spaces as $ad_space)
