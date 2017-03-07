@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
@@ -20,6 +21,16 @@ class Reservation extends Model
     //check kung nag pa reserve naba xa ana nga billboard
     public function scopeReserve($query){
 
+    }
+
+//    public function scopeBillboard($query)
+//    {
+//        return $query->where('adspace_type', 'billboard');
+//    }
+
+    //e show nako ang reserv
+    public function scopeIsreserve($query){
+         return $query->where('reserve_until','=>',Carbon::now()->format('Y-m-d'));
     }
 }
 

@@ -409,7 +409,7 @@
         {{--upload a billoard--}}
         <div class="form-group">
             {!! Form::label('photo_name', 'Upload Billboard:') !!}
-            {!! Form::file('photo_name', ['id'=>'inputimages']) !!}
+            {!! Form::file('photo_name',['id'=>'inputimages']) !!}
         </div>
 
         {{--select advertising_type--}}
@@ -421,13 +421,15 @@
         {{--select a type--}}
         <div class="form-group">
             {!! Form::label('adspace_type', 'Select Type:') !!}
-            {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus', 'billboard' => 'Billboard','led' => 'LED','jeep' => 'Jeep','taxi' => 'Taxi','poster' => 'Poster', 'Other'=>'Other'],null, ['class'=>'form-control','id'=>'i_n_r_reason' ,'placeholder' => 'Select...']) !!}
+            {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus', 'billboard' => 'Billboard','led' => 'LED','jeep' => 'Jeep','taxi' => 'Taxi','poster' => 'Poster'],null, ['class'=>'form-control','id'=>'i_n_r_reason' ,'placeholder' => 'Select...']) !!}
         </div>
 
+        {{--reserve--}}
         <div class="form-group">
-            {{--{!! Form::label('other', 'Type', ['id'=>'lbl_other', 'style' => 'display:none']) !!}--}}
-            {!! Form::text('adspace_type', null, ['class'=>'form-control', 'style' => 'display:none', 'id'=>'other_reason', 'placeholder' => 'Please Specify...']) !!}
+            {!! Form::label('reserve_until', 'Reserve for:') !!}
+            {!! Form::select('reserve_until', [0 => 'Nope',1 => '1 Week', 2 => '2 Weeks',3 => '3 Weeks', 4 => '1 Month'],null, ['class'=>'form-control']) !!}
         </div>
+
 
         {{--size--}}
         <div class="form-group">

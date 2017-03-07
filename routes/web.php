@@ -7,6 +7,7 @@ use App\Reservation;
 use App\Sale;
 use App\Subscription;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
@@ -95,14 +96,10 @@ Route::get('/about_us', function (){
 
 Route::get('/ad_spaces', function (){
 
-
-//    $keywords = Input::get('keywords');
-
     if (Auth::guest()){
         $ad_spaces = Adspace::latest()->available()->paginate(9);
         return view('test_ads', compact('ad_spaces'));
     }
-
 
     //owner notification
     $rents = Rent::where('owner_id', Auth::user()->id)->get();
@@ -120,20 +117,8 @@ Route::get('/ad_spaces', function (){
     //reserve notification
     $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
 
-
-
-//    $articles = Article::latest()->published()->get();
-//    $ad_spaces = Adspace::paginate(3);
     $ad_spaces = Adspace::latest()->available()->paginate(9);
-//    $adsp =Adspace::latest()->available()->paginate(9);
-//    $user = User::findOrFail($id)->ad_spaces()->latest()->available()->notreserved()->paginate(2);
 
-//    $searchAdsp = new \Illuminate\Database\Eloquent\Collection();
-//    foreach ($adsp as $a){
-//        if (Str::contains(Str::lower($a->price), Str::lower($keywords))){
-//            $searchAdsp->add($a);
-//        }
-//    }
     return view('test_ads', compact('ad_spaces', 'rents', 'sales', 'reserves','reserves_client', 'rents_client', 'sales_client'));
 });
 
@@ -507,7 +492,6 @@ Route::group(['middleware' => ['is_client']], function () {
     Route::get('/client/reserve/{owner_id}/{client_id}/{billboard_id}', 'ClientController@reserve')->name('reserve');
     Route::get('/client/reserve_add/{owner_id}/{client_id}/{billboard_id}', 'ClientController@reserve_add')->name('reserve_add');
 
-
     Route::get('/client/show_my_all_reserve', 'ClientController@show_my_all_reserve')->name('show_my_all_reserve');
     Route::get('/client/cancel_reservation/{id}', 'ClientController@cancel_reservation')->name('cancel_reservation');
 
@@ -539,6 +523,40 @@ Route::get('admin/subscription', 'AdminController@subscription')->name('subscrip
 
 
 //testing area here
+
+Route::get('test', function (){
+    $res = Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->get();
+
+    foreach ($res as $re){
+        Adspace::findOrFail($re->billboard_id)->update(['status' => 1,'reserve_until' => Carbon::now()]);
+    }
+
+    Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->delete();
+
+
+
+});
+
+
+//show my all reservation
+Route::get('test', function (){
+
+
+    $res = Reservation::where('client_id', Auth::id())
+        ->where('reserve_until','>',Carbon::now()->format('Y-m-d'))
+        ->get();
+
+    foreach ($res as $re){
+        $rent = Rent::where('billboard_id', $re->billboard_id)->first();
+        $sale = Sale::where('billboard_id', $re->billboard_id)->first();
+        if($rent == null && $sale == null){
+            echo "owner_id: " . $re->owner_id . '<br>';
+            echo  "client_id: " . $re->client_id . '<br>';
+            echo  "billboad_id: " . $re->billboard_id . '<br>';
+        }
+        echo '<hr>';
+    }
+});
 
 /*
 

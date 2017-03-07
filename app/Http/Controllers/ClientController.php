@@ -23,8 +23,6 @@ class ClientController extends Controller
      */
 
     public function available_post(){
-//        $ad_spaces = Adspace::latest()->available()->notreserved()->paginate(2);
-
 
         if (Auth::guest()){
             return view('index');
@@ -54,7 +52,6 @@ class ClientController extends Controller
         if (Auth::guest()){
             return redirect('/login');
         }
-
 
         //owner notification
         $rents = Rent::where('owner_id', Auth::user()->id)->get();
@@ -99,9 +96,6 @@ class ClientController extends Controller
         //reserve notification
         $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
 
-
-
-
         return view('client.edit_account', compact('rents', 'sales', 'reserves', 'user', 'rents_client', 'sales_client', 'reserves_client'));
     }
 
@@ -140,11 +134,10 @@ class ClientController extends Controller
         }
     }
     public function show_available_rent(){
-//        $adspaces = Adspace::where('status', 1)->where('advertising_type', 'rent')->whereReserve(0)->paginate(2);
+
         if (Auth::guest()){
             return redirect('/login');
         }
-
 
         //owner notification
         $rents = Rent::where('owner_id', Auth::user()->id)->get();
@@ -170,6 +163,7 @@ class ClientController extends Controller
 
     public function create_rent($owner_id,$client_id,$billboard_id){
 
+        Reservation::where('billboard_id', $billboard_id)->delete();
 
         $d = \Carbon\Carbon::now();
         $rent = Rent::create(['rent_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id, 'billboard_id'=>$billboard_id]);
@@ -315,6 +309,9 @@ class ClientController extends Controller
     }
 
     public function create_sale($owner_id,$client_id,$billboard_id){
+
+        Reservation::where('billboard_id', $billboard_id)->delete();
+
         $d = \Carbon\Carbon::now();
         $sale = Sale::create(['sale_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id, 'billboard_id'=>$billboard_id]);
         $LastInsertId = $sale->id;
@@ -411,52 +408,79 @@ class ClientController extends Controller
 
         return view('client.reserve', compact('owner_id', 'client_id', 'billboard_id', 'rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
 
-//        $reserve_adspace = Sale::findOrFail($rent_id);
-//        $reserve_adspace->is_seen = 1;
-//        $reserve_adspace->ad_spaces()->attach($ad_space);
-//        $reserve_adspace->save();
-//        Adspace::where('id',$ad_space)->update(['status'=>0]);
-//        return redirect('/');
-//
-//        return redirect(route('show_available_sales'));
     }
 
 
 
-    public function reserve_add($owner_id,$client_id,$billboard_id, Request $request){
+    public function reserve_add($owner_id,$client_id,$billboard_id){
 
-        $res = Reservation::all();
-        $ok = true;
+        //owner notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
 
-        foreach ($res as $re){
-            if( ($re->billboard_id == $billboard_id) && ($re->client_id == $client_id)){
-//                echo $re->billboard_id." == ". $billboard_id. " && ".$re->client_d." == ". $client_id;
-                $ok = false;
-                break;
-            }
-        }
+        $ad_spaces = Adspace::latest()->available()->paginate(9);
 
-        $reserve_until = "";
-        if ($request->reserve_until == 1){
-            $reserve_until =  Carbon::now()->addWeeks(1);
-        }else if ($request->reserve_until == 2){
-            $reserve_until =  Carbon::now()->addWeeks(2);
-        }else if ($request->reserve_until == 3){
-            $reserve_until =  Carbon::now()->addWeeks(3);
-        }else if ($request->reserve_until == 4){
-            $reserve_until = Carbon::now()->addMonth(1);
-        }
 
-//        return response()->json($ok);
+        //clients notification
+        $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+        //sale notification
+        $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
 
-        if ($ok == true){
-            $d = \Carbon\Carbon::now();
-            $reserve = Reservation::create(['reserve_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id, 'billboard_id'=>$billboard_id, 'reserve_until'=>$reserve_until]);
-            return redirect('/');
-        }else{
-            return redirect('/');
-        }
 
+        $billboard = Adspace::where('id', $billboard_id)->first();
+
+        $d = \Carbon\Carbon::now();
+        $reserve = Reservation::create(['reserve_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id, 'billboard_id'=>$billboard_id, 'reserve_until'=>$billboard->reserve_until]);
+        $LastInsertId = $reserve->id;
+
+        Adspace::where('id',$billboard_id)->update(['status'=>0]);
+        $reservation = Reservation::findOrFail($LastInsertId);
+        $reservation->ad_spaces()->attach($billboard_id);
+
+        return redirect()->back();
+
+
+//        $res = Reservation::all();
+//        $ok = true;
+//
+//        foreach ($res as $re){
+//            if( ($re->billboard_id == $billboard_id) && ($re->client_id == $client_id)){
+//                $ok = false;
+//                break;
+//            }
+//        }
+//
+//        $reserve_until = null;
+//        if ($billboard->reserve_until == 1){
+//            $reserve_until =  Carbon::now()->addWeeks(1);
+//        }else if ($billboard->reserve_until == 2){
+//            $reserve_until =  Carbon::now()->addWeeks(2);
+//        }else if ($billboard->reserve_until == 3){
+//            $reserve_until =  Carbon::now()->addWeeks(3);
+//        }else if ($billboard->reserve_until == 4){
+//            $reserve_until = Carbon::now()->addMonth(1);
+//        }else{
+//            $reserve_until = null;
+//        }
+//
+//        if ($ok == true){
+//            $d = \Carbon\Carbon::now();
+//            $reserve = Reservation::create(['reserve_date'=>$d,'owner_id'=>$owner_id,'client_id'=>$client_id, 'billboard_id'=>$billboard_id, 'reserve_until'=>$reserve_until]);
+//            $LastInsertId = $reserve->id;
+//
+//            Adspace::where('id',$billboard_id)->update(['status'=>0]);
+//            $reservation = Reservation::findOrFail($LastInsertId);
+//            $reservation->ad_spaces()->attach($billboard_id);
+//
+//            return view('test_ads', compact('rents', 'rents_client', 'sales', 'sales_client', 'reserves', 'reserves_client', 'ad_spaces'));
+//        }else{
+//            return view('test_ads', compact('rents', 'rents_client', 'sales', 'sales_client', 'reserves', 'reserves_client', 'ad_spaces'));
+//        }
 
     }
 
@@ -483,7 +507,10 @@ class ClientController extends Controller
 
 
 
-        $adspaces = Reservation::where('client_id', Auth::user()->id)->paginate(12);
+        $adspaces = Reservation::where('client_id', Auth::id())
+                        ->where('reserve_until','>',Carbon::now()->format('Y-m-d'))
+                        ->paginate(12);
+
         return view('client.show_my_all_reserve', compact('adspaces', 'rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
     }
 
@@ -491,100 +518,5 @@ class ClientController extends Controller
         Reservation::where('billboard_id', $id)->where('is_seen', 1)->delete();
         Adspace::whereId($id)->update(['status' => 1]);
         return redirect(url('/client/available_post'));
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

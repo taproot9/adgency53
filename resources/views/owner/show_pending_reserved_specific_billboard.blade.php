@@ -237,51 +237,6 @@
                 @endif
 
 
-
-
-                {{--@if($rent == null)--}}
-                {{--<li>--}}
-                {{--<span class="message">No notification</span>--}}
-                {{--</li>--}}
-
-                {{--@else--}}
-                {{--@foreach($rents as $res)--}}
-                {{--<li>--}}
-                {{--@foreach($res->ad_spaces as $ad_space)--}}
-
-                {{--$table->integer('rent_id');--}}
-                {{--$table->integer('adspace_id');--}}
-
-                {{--<a href="{{url('/owner/show_rent_specific_billboard', [$ad_space->pivot->adspace_id, $res->client_id])}}">--}}
-                {{--<span class="message">{{App\User::findOrFail($res->client_id)->first_name}} Ask For Rent</span>--}}
-                {{--@endforeach--}}
-                {{--</a>--}}
-
-                {{--<a href="{{url('/owner/show_reserved_specific_billboard', [$ad_space->pivot->adspace_id, $res->client_id])}}">--}}
-                {{--@endforeach--}}
-                {{--<span class="message">{{App\User::findOrFail($res->client_id)->first_name}} Ask For Rent</span>--}}
-                {{--</a>--}}
-
-                {{--</li>--}}
-                {{--@endforeach--}}
-                {{--@endif--}}
-
-                {{--<li>--}}
-                {{--<a href="#">--}}
-                {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
-                {{--<span class="message">New comment</span>--}}
-                {{--<span class="time">7 min</span>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<a href="#">--}}
-                {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
-                {{--<span class="message">New comment</span>--}}
-                {{--<span class="time">8 min</span>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-
-
             </ul>
 
         </li>
@@ -306,17 +261,7 @@
                         <span class="header"><span class="from">Ryan Boter</span></span>
                     </a>
                 </li>
-                {{--<li>--}}
-                {{--<a href="#">--}}
-                {{--<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>--}}
-                {{--<span class="header"><span class="from">Dennis Ji</span><span class="time">56 min</span></span>--}}
-                {{--<span class="message">Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore</span>--}}
-                {{--</a>--}}
-                {{--</li>--}}
 
-                {{--<li>--}}
-                {{--<a class="dropdown-menu-sub-footer">View all messages</a>--}}
-                {{--</li>--}}
             </ul>
         </li>
     @endif
@@ -397,56 +342,78 @@
 
     <div class="container" style="padding-top: 70px; padding-bottom: 70px">
 
-        <div class="row">
-            <div class="col-sm-9">
-                <ul class="mainmenu nav navbar-nav pull-left">
-                    <li class="dropdown">
+        {{--<div class="row">--}}
+        {{--<div class="col-sm-9">--}}
+        {{--<ul class="mainmenu nav navbar-nav pull-left">--}}
+        {{--<li class="dropdown">--}}
 
-                        <h2><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #a9a9b7;">Billboard Type <i
-                                        class="fa fa-angle-down"></i></a></h2>
+        {{--<h2><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #a9a9b7;">Billboard Type <i--}}
+        {{--class="fa fa-angle-down"></i></a></h2>--}}
 
-                        <ul class="dropdown-menu">
-                            <li><a href="{{url('search_lamp')}}">Lamp</a></li>
-                            <li><a href="{{url('search_bus')}}">Bus</a></li>
-                            <li><a href="{{url('search_billboard')}}">Billboard</a></li>
-                            <li><a href="{{url('search_led')}}">Led</a></li>
-                            <li><a href="{{url('search_jeep')}}">Jeep</a></li>
-                            <li><a href="{{url('search_taxi')}}">Taxi</a></li>
-                            <li><a href="{{url('search_poster')}}">Poster</a></li>
+        {{--<ul class="dropdown-menu">--}}
+        {{--<li><a href="{{url('search_lamp')}}">Lamp</a></li>--}}
+        {{--<li><a href="{{url('search_bus')}}">Bus</a></li>--}}
+        {{--<li><a href="{{url('search_billboard')}}">Billboard</a></li>--}}
+        {{--<li><a href="{{url('search_led')}}">Led</a></li>--}}
+        {{--<li><a href="{{url('search_jeep')}}">Jeep</a></li>--}}
+        {{--<li><a href="{{url('search_taxi')}}">Taxi</a></li>--}}
+        {{--<li><a href="{{url('search_poster')}}">Poster</a></li>--}}
 
-                        </ul>
-                    </li>
+        {{--</ul>--}}
+        {{--</li>--}}
 
-                </ul>
-            </div>
-            <div class="col-sm-3">
-                <div class="search_box pull-right">
-                    <input type="text" placeholder="Search"/>
-                </div>
-            </div>
-        </div>
+        {{--</ul>--}}
+        {{--</div>--}}
+        {{--<div class="col-sm-3">--}}
+        {{--<div class="search_box pull-right">--}}
+        {{--<input type="text" placeholder="Search"/>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
 
         <div class="row">
             <div class="col-sm-4">
                 <div class="single-blog">
+                    <?php $user_client_id = \App\User::findOrFail($client_id);?>
+                    <?php $reserve_adspace = \App\Reservation::findOrFail($reserve_id); ?>
+                    <?php $reserve_adspace->is_seen = 1; ?>
+                    <?php $reserve_adspace->save(); ?>
+
+                    <?php  $current_subscription = \Illuminate\Support\Facades\DB::table('subscribe_user')->whereUserId(Auth::user()->id)->first();?>
+                    <?php $sub_type = \App\Subscription::where('id', $current_subscription->subscribe_id)->first()?>
+
+                    <?php $reserve_object = \App\Reservation::where('id', $reserve_id)->first(); ?>
+                    <?php $end = \Carbon\Carbon::parse($reserve_object->reserve_until); ?>
+                    <?php $now = \Carbon\Carbon::now();?>
+                    <?php $length = $end->diffInDays($now);?>
+
                     <img class="picPost" src="{{$ad_space->photo_name ? $ad_space->photo_name : asset('adgencystyles/images/blog/bus.jpg')}}" alt=""/>
                     <h2>Type: {{$ad_space->adspace_type}}</h2>
                     <h3><b>For {{$ad_space->advertising_type}}</b></h3>
                     <p>Size: {{$ad_space->size}}</p>
                     <p>Location: {{$ad_space->location}}</p>
+                    <p>Remaining Days: {{$length>0 ? $length : 0}}</p>
                     @if($ad_space->advertising_type == 'sale')
                         <p>Selling Price: &#8369; {{$ad_space->price}}</p>
                     @endif
                     @if($ad_space->advertising_type == 'rent')
                         <p>Rent Price: &#8369; {{$ad_space->price}}{{'/Month'}} </p>
                     @endif
+
                     <ul class="post-meta">
-                        <li><i class="fa fa-pencil-square-o"></i><strong> Posted By:</strong> {{$ad_space->posted_by}}</li>
-                        <li><i class="fa fa-clock-o"></i><strong> Posted On:</strong> {{ $ad_space->created_at->format('M d, Y') }}</li>
+                        {{--<li><i class="fa fa-pencil-square-o"></i><strong> Posted By:</strong> {{$ad_space->posted_by}}</li>--}}
+                        {{--<li><i class="fa fa-clock-o"></i><strong> Posted On:</strong> {{ $ad_space->created_at->format('M d, Y') }}</li>--}}
+
+
+
+                        <li><i class="fa fa-pencil-square-o"></i><strong> Reserved By:</strong> {{$user_client_id->first_name}}</li>
+                        {{--<li><i class="fa fa-clock-o"></i><strong> Rented On:</strong> {{ $reserve_adspace->created_at->format('M d, Y') }}</li>--}}
+                        <li><i class="fa fa-clock-o"></i><strong> Expired On:</strong> {{ \Carbon\Carbon::parse($ad_space->reserve_until)->format('M d, Y')}}</li>
+
                     </ul>
                     {{--<a href="{{route('edit_rented_post',[$ad_space->id])}}" class="btn btn-primary">Update</a>--}}
-                    <a href="{{url('/owner/adspace_reserve/add_to_adspace_reserve', [$ad_space, $reserve_id,$client_id])}}" class="btn btn-primary">Accept</a>
-                    <a href="{{url('/owner/reserve_pending/delete_reserve_pending', [$ad_space, $reserve_id,$client_id])}}" class="btn btn-primary">Decline</a>
+                    <a href="{{url('/')}}" class="btn btn-primary">Back to Home</a>
+                    {{--<a href="{{url('/owner/reserve_pending/delete_reserve_pending', [$ad_space, $reserve_id,$client_id])}}" class="btn btn-primary">Decline</a>--}}
 
                 </div>
             </div>

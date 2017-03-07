@@ -14,6 +14,7 @@ class CreateReservationsTable extends Migration
     public function up()
     {
         Schema::create('reservations', function (Blueprint $table) {
+
             $table->increments('id');
             $table->date('reserve_date');
             $table->integer('owner_id')->unsigned()->index()->nullable();
@@ -24,6 +25,7 @@ class CreateReservationsTable extends Migration
             $table->date('reserve_until')->nullable();
             $table->integer('billboard_id')->nullable();
             $table->timestamps();
+
         });
     }
 

@@ -235,52 +235,6 @@
                     @endforeach
                 @endif
 
-
-
-
-                {{--@if($rent == null)--}}
-                {{--<li>--}}
-                {{--<span class="message">No notification</span>--}}
-                {{--</li>--}}
-
-                {{--@else--}}
-                {{--@foreach($rents as $res)--}}
-                {{--<li>--}}
-                {{--@foreach($res->ad_spaces as $ad_space)--}}
-
-                {{--$table->integer('rent_id');--}}
-                {{--$table->integer('adspace_id');--}}
-
-                {{--<a href="{{url('/owner/show_rent_specific_billboard', [$ad_space->pivot->adspace_id, $res->client_id])}}">--}}
-                {{--<span class="message">{{App\User::findOrFail($res->client_id)->first_name}} Ask For Rent</span>--}}
-                {{--@endforeach--}}
-                {{--</a>--}}
-
-                {{--<a href="{{url('/owner/show_reserved_specific_billboard', [$ad_space->pivot->adspace_id, $res->client_id])}}">--}}
-                {{--@endforeach--}}
-                {{--<span class="message">{{App\User::findOrFail($res->client_id)->first_name}} Ask For Rent</span>--}}
-                {{--</a>--}}
-
-                {{--</li>--}}
-                {{--@endforeach--}}
-                {{--@endif--}}
-
-                {{--<li>--}}
-                {{--<a href="#">--}}
-                {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
-                {{--<span class="message">New comment</span>--}}
-                {{--<span class="time">7 min</span>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<a href="#">--}}
-                {{--<span class="icon green"><i class="icon-comment-alt"></i></span>--}}
-                {{--<span class="message">New comment</span>--}}
-                {{--<span class="time">8 min</span>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-
-
             </ul>
 
         </li>
@@ -305,17 +259,7 @@
                         <span class="header"><span class="from">Ryan Boter</span></span>
                     </a>
                 </li>
-                {{--<li>--}}
-                {{--<a href="#">--}}
-                {{--<span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>--}}
-                {{--<span class="header"><span class="from">Dennis Ji</span><span class="time">56 min</span></span>--}}
-                {{--<span class="message">Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore</span>--}}
-                {{--</a>--}}
-                {{--</li>--}}
 
-                {{--<li>--}}
-                {{--<a class="dropdown-menu-sub-footer">View all messages</a>--}}
-                {{--</li>--}}
             </ul>
         </li>
     @endif
@@ -455,90 +399,13 @@
                                 @if($ad_space->advertising_type == 'rent')
                                     <a href="{{url('/client/create_rent', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Rent</a>
                                 @endif
-                                <a href="{{url('/client/reserve', [$ad_space->user->id, Auth::user()->id,$ad_space->id])}}" class="btn btn-primary">Reserve</a>
+                                @if($ad_space->reserve_until > \Carbon\Carbon::now())
+                                    <a href="{{url('/client/reserve_add', [$ad_space->owner_id, Auth::id(),$ad_space->id])}}" class="btn btn-primary">Reserve</a>
+                                @endif
+
+
                             @endif
                         @endif
-
-
-
-                        {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gridSystemModal">--}}
-                        {{--Reserve--}}
-                        {{--</button>--}}
-
-
-                        {{--<div id="gridSystemModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">--}}
-                        {{--<div class="container" style="width: 400px; padding-top: 50px">--}}
-                        {{--<div class="panel-group"--}}
-                        {{--style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">--}}
-                        {{--<div class="panel panel-primary">--}}
-                        {{--<div class="panel-heading">--}}
-                        {{--<h2 style=" color: white; text-shadow: 2px 2px 4px #000000;">Reserve</h2>--}}
-                        {{--</div>--}}
-                        {{--<div class="panel-body">--}}
-
-                        {{--{!! Form::open(['method' => 'get','action' => ['ClientController@reserve', $ad_space->user->id, Auth::user()->id,$ad_space->id]]) !!}--}}
-
-                        {{--{{csrf_field()}}--}}
-
-                        {{--<div class="form-group">--}}
-                        {{--{!! Form::label('reserve_until', 'Reserve for:') !!}--}}
-                        {{--{!! Form::text('reserve_until', null, ['class'=>'form-control']) !!}--}}
-                        {{--{!! Form::select('reserve_until', [1 => '1 Week', 2 => '2 Weeks',3 => '3 Weeks', 4 => '1 Month'],1, ['class'=>'form-control']) !!}--}}
-                        {{--</div>--}}
-
-
-                        {{--<div class="form-group">--}}
-                        {{--{!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}--}}
-                        {{--</div>--}}
-
-                        {{--{!! Form::close() !!}--}}
-                        {{--<form>--}}
-                        {{--<div class="form-group">--}}
-                        {{--<label for="email"></label>--}}
-                        {{--<div class="input-group">--}}
-                        {{--<div class="input-group-addon"><i style="width: 30px" class="fa fa-envelope"--}}
-                        {{--aria-hidden="true"></i></div>--}}
-                        {{--<input type="email" class="form-control" id="email" placeholder="Email">--}}
-                        {{--</div>--}}
-                        {{--<label for="password"></label>--}}
-                        {{--<div class="input-group">--}}
-                        {{--<div class="input-group-addon"><i style="width: 30px" class="fa fa-lock"--}}
-                        {{--aria-hidden="true"></i></div>--}}
-                        {{--<input type="password" class="form-control" id="password" placeholder="Password">--}}
-                        {{--</div>--}}
-
-
-
-                        {{--</div>--}}
-
-                        {{--<div class="row">--}}
-                        {{--<div class="col-md-6">--}}
-                        {{--<div class="input-group pull-left">--}}
-                        {{--<div class="checkbox">--}}
-                        {{--<label>--}}
-                        {{--<input type="checkbox" name="remember"> Remember Me--}}
-                        {{--</label>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-md-6">--}}
-                        {{--<button type="submit" class="btn btn-primary btn-md pull-right"--}}
-                        {{--style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">--}}
-                        {{--Submit--}}
-                        {{--</button>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--</form>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-
-
-                        {{--<a href="#" class="btn btn-primary">Buy</a>--}}
-                        {{--<a href="#" class="btn btn-primary">Reserve</a>--}}
 
                     </div>
 

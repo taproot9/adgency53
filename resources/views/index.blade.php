@@ -169,7 +169,7 @@
                         @if($reserve->is_seen == 0)
                             <li>
                                 <a href="{{url('/owner/show_pending_reserved_specific_billboard', [$reserve->billboard_id, $reserve->id, $reserve->client_id])}}">
-                                    <span class="message">{{App\User::findOrFail($reserve->client_id)->first_name}} Ask For Reserve</span>
+                                    <span class="message">{{App\User::findOrFail($reserve->client_id)->first_name}} Reserve your Billboard</span>
                                 </a>
                             </li>
                         @endif
@@ -371,7 +371,7 @@
 
                     <hr>
 
-                    <li><a href="{{url('/client/available_post')}}">Available Ad Spaces</a></li>
+                    {{--<li><a href="{{url('/client/available_post')}}">Available Ad Spaces</a></li>--}}
                     <li><a href="{{url('/client/show_available_rent')}}">For Rent</a></li>
                     <li><a href="{{url('/client/show_available_sales')}}">For Sale</a></li>
 

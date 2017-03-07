@@ -423,11 +423,12 @@
             {!! Form::select('adspace_type', ['lamp' => 'Lamp', 'bus' => 'Bus', 'billboard' => 'Billboard','led' => 'LED','jeep' => 'Jeep','taxi' => 'Taxi','poster' => 'Poster'],null, ['class'=>'form-control', 'id'=>'i_n_r_reason','placeholder' => 'Select...']) !!}
         </div>
 
-        {{--other--}}
-        {{--<div class="form-group">--}}
-            {{--{!! Form::label('other', 'Type', ['id'=>'lbl_other', 'style' => 'display:none']) !!}--}}
-            {{--{!! Form::text('adspace_type', null, ['class'=>'form-control', 'style' => 'display:none', 'id'=>'other_reason', 'placeholder' => 'Please Specify...']) !!}--}}
-        {{--</div>--}}
+        {{--reserve--}}
+        <div class="form-group">
+            {!! Form::label('reserve_until', 'Reserve for:') !!}
+            {!! Form::select('reserve_until', [0 => 'Nope',1 => '1 Week', 2 => '2 Weeks',3 => '3 Weeks', 4 => '1 Month'],0, ['class'=>'form-control']) !!}
+        </div>
+
 
         {{--size--}}
         <div class="form-group">

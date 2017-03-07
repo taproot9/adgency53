@@ -7,6 +7,7 @@ use App\Rent;
 use App\Reservation;
 use App\Sale;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -53,7 +54,6 @@ class OwnersPostsController extends Controller
         }
 
 
-
         //owner notification
         $rents = Rent::where('owner_id', Auth::user()->id)->get();
         //sale notification
@@ -77,20 +77,32 @@ class OwnersPostsController extends Controller
     {
 
         $this->validate($request, [
-
             'photo_name' =>'required',
             'advertising_type' =>'required',
             'adspace_type' =>'required',
             'size' =>'required',
             'location' =>'required',
-            'price' =>'required'
+            'price' =>'required',
+            'reserve_until' => 'required'
         ]);
-
 
         $input = $request->all();
         $input['owner_id'] = Auth::user()->id;
         $input['posted_by'] = Auth::user()->first_name;
         $input['size'] = $request->size . ' meter';
+
+        if ($request->reserve_until == 0){
+            $input['reserve_until'] = Carbon::now();
+        }else if($request->reserve_until == 1){
+            $input['reserve_until'] = Carbon::now()->addWeek(1);
+        }else if($request->reserve_until == 2){
+            $input['reserve_until'] = Carbon::now()->addWeek(2);
+        }else if($request->reserve_until == 3){
+            $input['reserve_until'] = Carbon::now()->addWeek(3);
+        }else if($request->reserve_until == 4){
+            $input['reserve_until'] = Carbon::now()->addMonth(4);
+        }
+
         $user = Auth::user();
 
         if ($file = $request->file('photo_name')){
@@ -101,7 +113,6 @@ class OwnersPostsController extends Controller
 
         $user->ad_spaces()->create($input);
         return redirect('owner/my_post/'.Auth::user()->id);
-//        return redirect('/');
     }
 
 
@@ -113,7 +124,6 @@ class OwnersPostsController extends Controller
         if (Auth::guest()){
             return redirect('/login');
         }
-
 
         //owner notification
         $rents = Rent::where('owner_id', Auth::user()->id)->get();
@@ -214,7 +224,46 @@ class OwnersPostsController extends Controller
 
     public function update_post(Request $request, $id){
 
+        $this->validate($request, [
+            'advertising_type' =>'required',
+            'adspace_type' =>'required',
+            'size' =>'required',
+            'location' =>'required',
+            'price' =>'required',
+            'reserve_until' => 'required'
+        ]);
 
+        $input = $request->all();
+        $input['owner_id'] = Auth::user()->id;
+        $input['posted_by'] = Auth::user()->first_name;
+        $input['size'] = $request->size;
+
+        if ($request->reserve_until == 0){
+            $input['reserve_until'] = Carbon::now();
+        }else if($request->reserve_until == 1){
+            $input['reserve_until'] = Carbon::now()->addWeek(1);
+        }else if($request->reserve_until == 2){
+            $input['reserve_until'] = Carbon::now()->addWeek(2);
+        }else if($request->reserve_until == 3){
+            $input['reserve_until'] = Carbon::now()->addWeek(3);
+        }else if($request->reserve_until == 4){
+            $input['reserve_until'] = Carbon::now()->addMonth(4);
+        }
+
+
+        if ($file = $request->file('photo_name')){
+            $name = time() . $file->getClientOriginalName();
+            $file->move('post_owner_images', $name);
+            $input['photo_name'] = $name;
+        }
+
+        Auth::user()->ad_spaces()->whereId($id)->first()->update($input);
+        return redirect('owner/my_post/'.Auth::user()->id);
+
+
+
+        //old update
+        /*
         $this->validate($request, [
 
             'photo_name' =>'required',
@@ -222,7 +271,8 @@ class OwnersPostsController extends Controller
             'adspace_type' =>'required',
             'size' =>'required',
             'location' =>'required',
-            'price' =>'required'
+            'price' =>'required',
+            'reserve_until' => 'required'
         ]);
 
         $input = $request->all();
@@ -238,6 +288,8 @@ class OwnersPostsController extends Controller
         return redirect('owner/my_post/'.Auth::user()->id);
 
 //        return redirect('/');
+
+        */
 
     }
 

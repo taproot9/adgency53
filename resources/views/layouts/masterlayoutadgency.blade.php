@@ -323,6 +323,7 @@
 <script src="{{asset('adgencystyles/js/main.js')}}"></script>
 <script src="{{asset('adgencystyles/js/wow.min.js')}}"></script>
 <script type="text/javascript">
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -420,7 +421,6 @@
         @endif
 
 
-
     //    reservation
 
         @if(Auth::check())
@@ -465,21 +465,6 @@
 
 
 
-        {{--@if(Auth::user()->role_id == 3) // check if owner--}}
-
-        {{--@if($ok == "ok")--}}
-
-        {{--$('#isActive').addClass('active');--}}
-
-        {{--$('#isActive').click(function () {--}}
-        {{--$(this).removeClass('active');--}}
-        {{--//            $(this).addClass('dropdown');--}}
-        {{--//            $('#message_reserve').text("Hello world!");--}}
-        {{--});--}}
-
-        {{--@endif--}}
-        {{--@endif--}}
-
     </script>
 
     <script type="text/javascript">
@@ -493,90 +478,6 @@
         });
     </script>
 
-{{--<script type="text/javascript">--}}
-    {{--$(function(){--}}
-        {{--//initially hide the textbox--}}
-        {{--$("#other_reason").hide();--}}
-        {{--$('#i_n_r_reason').change(function() {--}}
-            {{--if($(this).find('option:selected').val() == "Other"){--}}
-                {{--$("#other_reason").show();--}}
-{{--//                $('#i_n_r_reason').disable();--}}
-            {{--}else{--}}
-                {{--$("#other_reason").hide();--}}
-            {{--}--}}
-        {{--});--}}
-{{--//        $("#other_reason").keyup(function(ev){--}}
-{{--//            var othersOption = $('#i_n_r_reason').find('option:selected');--}}
-{{--//            if(othersOption.val() == "Other")--}}
-{{--//            {--}}
-{{--//                ev.preventDefault();--}}
-{{--//                //change the selected drop down text--}}
-{{--//                $(othersOption).html($("#other_reason").val());--}}
-{{--//            }--}}
-{{--//        });--}}
-{{--//        $('#form_id').submit(function() {--}}
-{{--//            var othersOption = $('#i_n_r_reason').find('option:selected');--}}
-{{--//            if(othersOption.val() == "Other")--}}
-{{--//            {--}}
-{{--//                // replace select value with text field value--}}
-{{--//                othersOption.val($("#other_reason").val());--}}
-{{--//            }--}}
-{{--//        });--}}
-    {{--});--}}
-{{--</script>--}}
-
-
-{{--<script--}}
-        {{--src="https://code.jquery.com/jquery-3.1.1.js"--}}
-        {{--integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="--}}
-        {{--crossorigin="anonymous"></script>--}}
-
-
-{{--practie refresh--}}
-    {{--<script type="text/javascript">--}}
-    {{--$(document).ready(function () {--}}
-        {{--$(this).load('#accept_rent_load');--}}
-    {{--})--}}
-    {{--</script>--}}
-
-
-
-
-{{--<script src="https://js.pusher.com/4.0/pusher.min.js"></script>--}}
-{{--<script>--}}
-
-    {{--// Enable pusher logging - don't include this in production--}}
-    {{--Pusher.logToConsole = true;--}}
-
-    {{--var pusher = new Pusher('80eb77094fc769e9ab1c', {--}}
-        {{--encrypted: true--}}
-    {{--});--}}
-
-    {{--var channel = pusher.subscribe('my-channel');--}}
-    {{--channel.bind('my-event', function(data) {--}}
-        {{--alert(data.message);--}}
-        {{--$(this).load();--}}
-    {{--});--}}
-{{--</script>--}}
-
-
-{{--testSearch--}}
-{{--<script type="text/javascript">--}}
-    {{--function up() {--}}
-        {{--timer = setTimeout(function () {--}}
-            {{--var keywords = $('#search-input').val();--}}
-            {{--if(keywords.length()>0){--}}
-                {{--$.get('http://adgency53.dev/ad_spaces', {keywords: keywords}, function (markup) {--}}
-{{--$();--}}
-                {{--});--}}
-            {{--}--}}
-        {{--}, 500);--}}
-    {{--}--}}
-
-    {{--function down(){--}}
-        {{--clearTimeout(timer);--}}
-    {{--}--}}
-{{--</script>--}}
 
     </body>
     </html>

@@ -448,8 +448,19 @@
                                 <li><i class="fa fa-pencil-square-o"></i><strong> Posted By:</strong> {{$ad_space->posted_by}}</li>
                                 <li><i class="fa fa-clock-o"></i><strong> Posted On:</strong> {{ $ad_space->created_at->format('M d, Y') }}</li>
                             </ul>
+
+                                {{--$owner_id,$client_id,$billboard_id--}}
+
+
+                                @if($ad_space->advertising_type == 'sale')
+                                    <a href="{{url('/client/create_sale', [$ad->owner_id, Auth::id(),$ad->billboard_id])}}" class="btn btn-primary">Buy</a>
+                                @endif
+                                @if($ad_space->advertising_type == 'rent')
+                                    <a href="{{url('/client/create_rent', [$ad->owner_id, Auth::id(),$ad->billboard_id])}}" class="btn btn-primary">Rent</a>
+                                @endif
                             {{--<a href="{{url('/client/edit_my_sale_post',[$ad_space->id])}}" class="btn btn-primary">Cancel Reservation</a>--}}
-                                <a href="{{url('/client/cancel_reservation',[$ad_space->id])}}" class="btn btn-primary">Cancel Reservation</a>
+                                {{--<a href="{{url('/client/cancel_reservation',[$ad_space->id])}}" class="btn btn-primary">Cancel Reservation</a>--}}
+
                         </div>
 
                     </div>

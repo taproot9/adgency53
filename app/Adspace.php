@@ -9,7 +9,7 @@ class Adspace extends Model
 {
 
     protected $fillable = [
-        'photo_name', 'owner_id', 'adspace_type', 'size', 'location', 'price', 'status', 'reserve','advertising_type','posted_by'
+        'photo_name', 'owner_id', 'adspace_type', 'size', 'location', 'price', 'status', 'reserve','advertising_type','posted_by', 'reserve_until'
     ];
 
     protected $uploads = "/post_owner_images/";

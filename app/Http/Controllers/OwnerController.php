@@ -437,13 +437,11 @@ class OwnerController extends Controller
 
 
         //clients notification
-
         $rents_client = Rent::where('client_id', Auth::user()->id)->get();
         //sale notification
         $sales_client = Sale::where('client_id', Auth::user()->id)->get();
         //reserve notification
         $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
-
 
         $ad_space = Adspace::findOrFail($billboard_id);
         return view('owner.show_pending_reserved_specific_billboard', compact('ad_space', 'reserve_id','client_id', 'rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));

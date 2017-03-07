@@ -18,7 +18,7 @@ class CreateAdspacesTable extends Migration
             $table->string('location');
             $table->string('price');
             $table->integer('status')->default(1);
-//            $table->integer('reserve')->default(0);
+            $table->date('reserve_until');
             $table->string('advertising_type');
             $table->string('posted_by');
             $table->timestamps();
