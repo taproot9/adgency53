@@ -264,8 +264,10 @@
 
 
             <div class="collapse navbar-collapse navbar-right">
+                {{--<ul class="nav navbar-nav">--}}
                 <ul class="nav navbar-nav">
                     @yield('nav')
+
                 </ul>
             </div>
 
@@ -383,31 +385,6 @@
     });
 
 
-//    rents
-
-    @if(Auth::check())
-        @if(Auth::user()->role_id == 2)
-            @if(count($rents_client))
-                @if($is_notify_client_is_seen)
-                $('#isActive').removeClass('active');
-                @else
-                    @if(count($rents_client) && $is_notify_client)
-                    $('#isActive').addClass('active');
-                    $('#btnCLick').click(function () {
-                    $('#isActive').removeClass('active');
-                    <?php $rent_client_seen = \App\Rent::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
-        //            $(this).addClass('dropdown');
-        //            $('#message_reserve').text("Hello world!");
-                    });
-                    @endif
-                @endif
-            @endif
-        @endif
-    @endif
-
-
-    //    owner notification
-    {{--@if(count($rents))--}}
         @if(Auth::check())
             @if(Auth::user()->role_id == 3)
                 @if(count($rents) && $is_notify_owner)
@@ -420,30 +397,6 @@
                 @endif
             @endif
         @endif
-    {{--@endif--}}
-
-
-//    sales
-
-    @if(Auth::check())
-        @if(Auth::user()->role_id == 2)
-            @if(count($sales_client))
-                @if($is_notify_sales_client_is_seen)
-                 $('#isActive').removeClass('active');
-                @else
-                    @if(count($sales_client) && $is_notify_sales_client)
-                        $('#isActive').addClass('active');
-                        $('#btnCLick').click(function () {
-                            $('#isActive').removeClass('active');
-                            <?php \App\Sale::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
-            //            $(this).addClass('dropdown');
-            //            $('#message_reserve').text("Hello world!");
-                        });
-                    @endif
-                @endif
-            @endif
-        @endif
-    @endif
 
 
         //    owner notification
@@ -461,30 +414,6 @@
             //            $('#message_reserve').text("Hello world!");
                     });
 
-                @endif
-            @endif
-        @endif
-
-
-    //    reservation
-
-        @if(Auth::check())
-            @if(Auth::user()->role_id == 2)
-                @if(count($reserves_client))
-                    @if($is_notify_reserve_client_is_seen)
-                    $('#isActive').removeClass('active');
-                    @else
-                        @if(count($reserves_client) && $is_notify_reserve_client)
-                        $('#isActive').addClass('active');
-                        $('#btnCLick').click(function () {
-                        $('#isActive').removeClass('active');
-                        <?php \App\Reservation::where('client_id', Auth::user()->id)->update(['is_seen_client'=> 1]);?>
-            //            $(this).addClass('dropdown');
-            //            $('#message_reserve').text("Hello world!");
-                        });
-
-                        @endif
-                    @endif
                 @endif
             @endif
         @endif

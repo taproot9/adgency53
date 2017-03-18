@@ -44,6 +44,31 @@ Route::get('/', function () {
 
 });
 
+Route::get('/contact', function (){
+
+    if (Auth::guest()){
+        return view('index');
+    }
+
+    //owner notification
+    $rents = Rent::where('owner_id', Auth::user()->id)->get();
+    //sale notification
+    $sales = Sale::where('owner_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+    //clients notification
+
+    $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+    //sale notification
+    $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+    //reserve notification
+    $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+    return view('contact', compact('rents', 'rents_client', 'sales', 'sales_client', 'reserves', 'reserves_client'));
+});
+
 Route::get('ad_spaces/search',function (Request $request){
 
 //    return $request->all();
@@ -697,6 +722,48 @@ Route::group(['middleware' => ['is_client']], function () {
     Route::get('client/show/adspace_purchased','ClientController@adspace_purchased')->name('adspace_purchased');
 
 
+    Route::get('client/show_my_all_rent/adspace_search', function (Request $request){
+
+        $search = $request->search;
+
+        if (Auth::guest()){
+            return redirect('/login');
+        }
+
+        //owner notification
+        $rents = Rent::where('owner_id', Auth::user()->id)->get();
+        //sale notification
+        $sales = Sale::where('owner_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves = Reservation::where('owner_id', Auth::user()->id)->get();
+
+
+        //clients notification
+
+        $rents_client = Rent::where('client_id', Auth::user()->id)->get();
+        //sale notification
+        $sales_client = Sale::where('client_id', Auth::user()->id)->get();
+        //reserve notification
+        $reserves_client = Reservation::where('client_id', Auth::user()->id)->get();
+
+        if ($request->type!='all'){
+            $ad_spaces = Adspace::where('owner_id', Auth::user()->id)
+                ->where($request->type, 'like', '%' . $search . '%')
+                ->paginate(9);
+        }else{
+            $ad_spaces = Adspace::where('owner_id', Auth::user()->id)
+                ->paginate(9);
+        }
+
+
+        $adspaces = Rent::where('client_id', Auth::user()->id)
+
+            ->paginate(9);
+//
+        return view('client.show_my_all_rent', compact('adspaces', 'rents', 'sales', 'reserves', 'rents_client', 'sales_client', 'reserves_client'));
+
+    })->name('adspace_search');
+
 });
 
 //admin route
@@ -724,18 +791,18 @@ Route::get('admin/subscription', 'AdminController@subscription')->name('subscrip
 
 //testing area here
 
-//Route::get('test', function (){
-//    $res = Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->get();
-//
-//    foreach ($res as $re){
-//        Adspace::findOrFail($re->billboard_id)->update(['status' => 1,'reserve_until' => Carbon::now()]);
-//    }
-//
-//    Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->delete();
-//
-//
-//
-//});
+Route::get('test', function (){
+    $res = Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->get();
+
+    foreach ($res as $re){
+        Adspace::findOrFail($re->billboard_id)->update(['status' => 1,'reserve_until' => Carbon::now()]);
+    }
+
+    Reservation::where('reserve_until','<',Carbon::now()->format('Y-m-d'))->delete();
+
+
+
+});
 
 
 //show my all reservation

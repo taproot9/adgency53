@@ -1,19 +1,15 @@
-
-
 @extends('layouts.masterlayoutadgency')
 
 @section('title')
-    My Advertising Media
+    Home
 @endsection
-
-
 
 @section('nav')
 
     <li><a href="{{url('/')}}">Home</a></li>
     <li><a href="{{url('/ad_spaces')}}">AdSpaces</a></li>
     <li><a href="{{url('/about_us')}}">About Us</a></li>
-    <li><a href="{{url('/contact')}}">Contact</a></li>
+    <li class="active"><a href="{{url('/contact')}}">Contact</a></li>
 
 
     @if(Auth::check())
@@ -351,7 +347,7 @@
                     <hr>
 
                     <li><a href="{{url('/owner/create_posts')}}">Add Advertising Media</a></li>
-                    <li class="active"><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My Advertising Media</a></li>
+                    <li><a href="{{url('/owner/my_all_post', Auth::user()->id )}}">My Advertising Media</a></li>
                     <li><a style="font-size: smaller" href="{{url('/owner/my_post', Auth::user()->id )}}">Available Advertising Media</a></li>
 
                     {{----}}
@@ -410,97 +406,68 @@
             </ul>
         </li>
     @endif
+
 @endsection
 
 @section('content')
 
-    <div class="container" style="padding-top: 70px; padding-bottom: 70px">
-
-        @if(session('deleted_post'))
-            <p class="bg-danger">{{session('deleted_post')}}</p>
-        @endif
-
-            <div class="row">
-                <div class="col-sm-7">
-                    {!! Form::open(['method'=>'get', 'url'=>'/owner/all_ad_spaces/owner_status_billboard_search', 'class'=>'navbar-form navbar-left', 'role'=>'search']) !!}
-                    <div class="input-group custom-search-form">
-                        <span class="input-group-btn">
-                         <span>
-                            {!! Form::select('status', array( 1=>'Available',0 => 'Not Available'), null, ['class'=>'form-control', 'placeholder' => 'Choose Available or Not Available']) !!}
-                        </span>
-                        <button type="submit" class="btn btn-default btn-md">
-                             <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-
+    <section id="contact-info">
+        <div class="center">
+            <h2>How to Reach Us?</h2>
+            <p class="lead">+63 9430 785 404</p>
+            <p class="lead">R Landon St., Ramos Cebu City</p>
+        </div>
+        <div class="gmap-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-5 text-center">
+                        <div class="gmap">
+                            <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=JoomShaper,+Dhaka,+Dhaka+Division,+Bangladesh&amp;aq=0&amp;oq=joomshaper&amp;sll=37.0625,-95.677068&amp;sspn=42.766543,80.332031&amp;ie=UTF8&amp;hq=JoomShaper,&amp;hnear=Dhaka,+Dhaka+Division,+Bangladesh&amp;ll=23.73854,90.385504&amp;spn=0.001515,0.002452&amp;t=m&amp;z=14&amp;iwloc=A&amp;cid=1073661719450182870&amp;output=embed"></iframe>
+                        </div>
                     </div>
 
-                    {!! Form::close() !!}
-                </div>
-                <div class="col-sm-5">
+                    <div class="col-sm-7 map-content">
+                        <ul class="row">
+                            <li class="col-sm-6">
+                                <address>
+                                    <h5>Head Office</h5>
+                                    <p>49B R Landon St., <br>
+                                        Ramos, Cebu City</p>
+                                    <p>Phone : +63 9321 786 301 <br>
+                                        Email Address:jadebaguion@gmail.com</p>
+                                </address>
 
-                    {!! Form::open(['method'=>'get', 'url'=>'/owner/all_ad_spaces/owner_all_billboard_search', 'class'=>'navbar-form navbar-left', 'role'=>'search']) !!}
-                    <div class="input-group custom-search-form">
-                        <input type="text" name="search" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                         <span>
-                            {!! Form::select('type', array('all'=>'All','adspace_type' => 'Adspace Type', 'advertising_type' => 'Advertising Type', 'size' => 'Size', 'location' => 'Location', 'price' => 'Price', 'posted_by' => 'Posted By'),'all', ['class'=>'form-control']) !!}
-                        </span>
-                        <button type="submit" class="btn btn-default btn-md">
-                             <i class="fa fa-search"></i>
-                        </button>
-                    </span>
+                                <address>
+                                    <h5>Zonal Office</h5>
+                                    <p>49B R Landon St., <br>
+                                        Ramos, Cebu City</p>
+                                    <p>Phone : 6+63 9430 785 404 <br>
+                                        Email Address:jayson.boter90@gmail.com</p>
+                                </address>
+                            </li>
 
+
+                            <li class="col-sm-6">
+                                <address>
+                                    <h5>Zone#2 Office</h5>
+                                    <p>49B R Landon St., <br>
+                                        Ramos, Cebu City</p>
+                                    <p>Phone:670-898-2847 <br>
+                                        Email Address:judyann@gmail.com</p>
+                                </address>
+
+                                <address>
+                                    <h5>Zone#3 Office</h5>
+                                    <p>49B R Landon St., <br>
+                                        Ramos, Cebu City</p>
+                                    <p>Phone:670-898-2847 <br>
+                                        Email Address:ryan.boter@gmail.com</p>
+                                </address>
+                            </li>
+                        </ul>
                     </div>
-
-                    {!! Form::close() !!}
-
                 </div>
             </div>
-
-            <br>
-            <br>
-            <br>
-
-{{----}}
-
-        <div class="row">
-            @foreach($ad_spaces as $ad_space)
-                <div class="col-sm-4">
-                    <div class="single-blog">
-
-                        <img class="picPost" src="{{$ad_space->photo_name ? $ad_space->photo_name : asset('adgencystyles/images/blog/bus.jpg')}}" alt=""/>
-                        <h2>Type: {{$ad_space->adspace_type}}</h2>
-                        <h4><b>Status: {{$ad_space->status == 1 ? 'Available' : 'Not Availabe'}}</b></h4>
-                        <h3><b>For {{$ad_space->advertising_type}}</b></h3>
-                        <p>Size: {{$ad_space->size}}</p>
-                        <p>Location: {{$ad_space->location}}</p>
-                        @if($ad_space->advertising_type == 'sale')
-                            <p>Selling Price: &#8369; {{$ad_space->price}}</p>
-                        @endif
-                        @if($ad_space->advertising_type == 'rent')
-                            <p>Rent Price: &#8369; {{$ad_space->price}}{{'/Month'}} </p>
-                        @endif
-
-                        <ul class="post-meta">
-                            <li><i class="fa fa-pencil-square-o"></i><strong> Posted By:</strong> {{$ad_space->posted_by}}</li>
-                            <li><i class="fa fa-clock-o"></i><strong> Posted On:</strong> {{ $ad_space->created_at->format('M d, Y') }}</li>
-
-                        </ul>
-                        {{--<a href="{{route('edit_post',[$ad_space->id])}}" class="btn btn-primary">Edit</a>--}}
-
-                        {{--<a href="{{action('OwnersPostsController@delete', [$ad_space->id])}}" class="btn btn-primary">Delete</a>--}}
-
-                    </div>
-
-                </div>
-            @endforeach
         </div>
-
-        {{--{{$user->ad_spaces->links()}}--}}
-
-        {!! $ad_spaces->links('layouts/pagination') !!}
-
-    </div>
-
+    </section>  <!--/gmap_area -->
 @endsection
